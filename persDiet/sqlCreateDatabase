@@ -1,0 +1,87 @@
+-- phpMyAdmin SQL Dump
+-- version 3.4.10.1deb1
+-- http://www.phpmyadmin.net
+--
+-- Servidor: localhost
+-- Tiempo de generación: 24-03-2014 a las 10:30:01
+-- Versión del servidor: 5.5.35
+-- Versión de PHP: 5.3.10-1ubuntu3.9
+
+SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+--
+-- Base de datos: `dbDiet`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dietFoods`
+--
+
+CREATE TABLE IF NOT EXISTS `dietFoods` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `foodname` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `qtt` int(11) NOT NULL,
+  `caL` float NOT NULL,
+  `carbohydrate` float NOT NULL,
+  `protein` float NOT NULL,
+  `lipid` float NOT NULL,
+  `calcium` float NOT NULL,
+  `iron` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `name` (`foodname`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dietMeals`
+--
+
+CREATE TABLE IF NOT EXISTS `dietMeals` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `keyuser` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `mealname` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `qtt` int(11) NOT NULL,
+  `caL` float NOT NULL,
+  `carbohydrate` float NOT NULL,
+  `protein` float NOT NULL,
+  `lipid` float NOT NULL,
+  `calcium` float NOT NULL,
+  `iron` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `keyuser` (`keyuser`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dietPersonalData`
+--
+
+CREATE TABLE IF NOT EXISTS `dietPersonalData` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `keyuser` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `name` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
+  `weight` double NOT NULL,
+  `height` double NOT NULL,
+  `age` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `dietUsers`
+--
+
+CREATE TABLE IF NOT EXISTS `dietUsers` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `login` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `pass` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `keyuser` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `login` (`login`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"		
+>
+	<h:head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link href="css/personalDiet.css" type="text/css" rel="stylesheet" />
+		
+		<title>Product</title>
+		
+	</h:head>
+
+	<h:body>
+	
+		<h:form >
+		
+		<p:panelGrid id="panelFood" columns="2" >
+		
+			<h:outputText value="Seleccione..."></h:outputText> 
+			<p:selectOneMenu value="#{producto.id}"  > 
+				
+				<f:selectItems value="#{producto.listaDatos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[0]}" ></f:selectItems>
+			</p:selectOneMenu>
+		
+			<h:outputText value="Nombre del producto"></h:outputText>
+			<p:inputText id="idNa" size="25" value="#{producto.name}"></p:inputText>
+			
+			<h:outputText value="medida de producto"></h:outputText>
+			<p:inputText id="idQt" size="25" value="#{producto.qtt}"></p:inputText>
+			
+			<h:outputText value="kilocalorías"></h:outputText>
+			<p:inputText id="idCa" size="25" value="#{producto.cal}"></p:inputText>		
+			
+			<h:outputText value="carbohidratos"></h:outputText>
+			<p:inputText id="idCh" size="25" value="#{producto.carbohydrate}"></p:inputText>	
+			
+			<h:outputText value="Proteínas"></h:outputText>
+			<p:inputText id="idPr" size="25" value="#{producto.protein}"></p:inputText>
+			
+			<h:outputText value="Lípidos"></h:outputText>
+			<p:inputText id="idLi" size="25" value="#{producto.lipid}"></p:inputText>
+			
+			<h:outputText value="Contenido en calcio"></h:outputText>
+			<p:inputText id="idCc" size="25" value="#{producto.calcium}"></p:inputText>		
+			
+			<h:outputText value="Contenido en hierro"></h:outputText>
+			<p:inputText id="idFe" size="25" value="#{producto.iron}"></p:inputText>
+			
+	
+		</p:panelGrid>
+		
+			<p:commandButton value="Visualizar" ajax="true" update="idNa, idQt, idCa, idCh, idPr, idLi, idCc, idFe" action="#{producto.changeValues}" ></p:commandButton>
+			<p:commandButton value="Grabar" ajax="true" update="panelFood" action="#{producto.grabar}" ></p:commandButton> 
+			<p:commandButton value="Modificar" ajax="true" update="panelFood" action="#{producto.modificar}" ></p:commandButton> 
+			<p:commandButton value="Borrar" ajax="true" update="panelFood" action="#{producto.borrar}"></p:commandButton>  
+		
+		</h:form>	
+	</h:body>
+</html>

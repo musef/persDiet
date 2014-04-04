@@ -1,0 +1,321 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"
+		
+>
+	<h:head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="musef" ></meta>
+		<link href="css/personalDiet.css" type="text/css" rel="stylesheet" />
+		
+		<title>Daily Diet</title>
+		
+	</h:head>
+	
+	<h:body >
+		<h1>Alimentación diaria</h1>
+		
+		<h:form >		
+			<p:panelGrid id="panel" >
+				<p:row>
+					<p:column>
+						<p:selectOneMenu value="#{comidas.calorias1}"  >
+							<f:selectItem itemLabel="Elija desayunos"></f:selectItem>
+							<f:selectItems value="#{comidas.listaDesayunos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}"></f:selectItems>
+						</p:selectOneMenu>					
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{comidas.calorias2}" >
+							<f:selectItem itemLabel="Elija tentempié"></f:selectItem>
+				 			<f:selectItems value="#{comidas.listaTentempies}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>	
+					</p:column>
+					<p:column>								
+						<p:selectOneMenu value="#{comidas.calorias3}"  >
+							<f:selectItem itemLabel="Elija comida"></f:selectItem>
+							<f:selectItems value="#{comidas.listaComidas}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>		
+					</p:column>
+					<p:column>							
+						<p:selectOneMenu value="#{comidas.calorias4}" >
+							<f:selectItem itemLabel="Elija merienda"></f:selectItem>
+							<f:selectItems value="#{comidas.listaMeriendas}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>						
+						<p:selectOneMenu value="#{comidas.calorias5}" >
+							<f:selectItem itemLabel="Elija cena"></f:selectItem>
+							<f:selectItems value="#{comidas.listaCenas}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column>
+							<p:outputPanel>Cantidad: </p:outputPanel>			
+							<p:spinner id="medida1" min="10" max="300" stepFactor="5" value="#{comidas.medida1}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>	
+							<p:inputText label="Calorias" id="calCom1" size="4" disabled="true" value="#{comidas.calorias1}"></p:inputText>
+					</p:column>
+					<p:column>	
+							<p:outputPanel>Cantidad: </p:outputPanel>							
+							<p:spinner id="medida2" min="10" max="300" stepFactor="5" value="#{comidas.medida2}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom2" size="4" disabled="true" value="#{comidas.calorias2}"></p:inputText>
+					</p:column>					
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida3" min="10" max="300" stepFactor="5" value="#{comidas.medida3}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom3" size="4" disabled="true" value="#{comidas.calorias3}"></p:inputText>
+					</p:column>
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida4" min="10" max="300" stepFactor="5" value="#{comidas.medida4}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom4" size="4" disabled="true" value="#{comidas.calorias4}"></p:inputText>
+					</p:column>
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida5" min="10" max="300" stepFactor="5" value="#{comidas.medida5}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom5" size="4" disabled="true" value="#{comidas.calorias5}"></p:inputText>
+					</p:column>									
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.caloriasTotal()}"></p:commandButton> 
+						<h:outputText id="calTot" value=" Calorías totales: #{comidas.caloriasTotales}"></h:outputText> 
+					</p:column>
+				</p:row>																					
+			</p:panelGrid>
+		</h:form>
+		
+		<h:form >		
+			<p:panelGrid id="panel2">
+				<p:row>
+					<p:column> </p:column>
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:outputPanel>Desayuno</p:outputPanel>
+					</p:column>
+					<p:column>
+						<p:outputPanel>Tentempié</p:outputPanel>
+					</p:column>
+					<p:column>
+						<p:outputPanel>Comida</p:outputPanel>
+					</p:column>
+					<p:column>
+						<p:outputPanel>Merienda</p:outputPanel>
+					</p:column>
+					<p:column>
+						<p:outputPanel>Cena</p:outputPanel>
+					</p:column>
+				</p:row>				
+				<p:row>
+					<p:column>
+						<p:selectOneMenu value="#{comidas.calorias11}"  >
+							<f:selectItem itemLabel="Producto 1"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>				
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{comidas.calorias12}"  >
+							<f:selectItem itemLabel="Producto 1"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>								
+						<p:selectOneMenu value="#{comidas.calorias13}"  >
+							<f:selectItem itemLabel="Producto 1"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>	
+					</p:column>
+					<p:column>							
+						<p:selectOneMenu value="#{comidas.calorias14}"  >
+							<f:selectItem itemLabel="Producto 1"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>						
+						<p:selectOneMenu value="#{comidas.calorias15}"  >
+							<f:selectItem itemLabel="Producto 1"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column>
+							<p:outputPanel>Cantidad: </p:outputPanel>			
+							<p:spinner id="medida11" min="10" max="300" stepFactor="5" value="#{comidas.medida11}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>	
+							<p:inputText label="Calorias" id="calCom11" size="4" disabled="true" value="#{comidas.calorias11}"></p:inputText>
+					</p:column>
+					<p:column>	
+							<p:outputPanel>Cantidad: </p:outputPanel>							
+							<p:spinner id="medida12" min="10" max="300" stepFactor="5" value="#{comidas.medida12}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom12" size="4" disabled="true" value="#{comidas.calorias12}"></p:inputText>
+					</p:column>					
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida13" min="10" max="300" stepFactor="5" value="#{comidas.medida13}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom13" size="4" disabled="true" value="#{comidas.calorias13}"></p:inputText>
+					</p:column>
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida14" min="10" max="300" stepFactor="5" value="#{comidas.medida14}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom14" size="4" disabled="true" value="#{comidas.calorias14}"></p:inputText>
+					</p:column>
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida15" min="10" max="300" stepFactor="5" value="#{comidas.medida15}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom15" size="4" disabled="true" value="#{comidas.calorias15}"></p:inputText>
+					</p:column>									
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:selectOneMenu value="#{comidas.calorias21}"  >
+							<f:selectItem itemLabel="Producto 2"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>				
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{comidas.calorias22}"  >
+							<f:selectItem itemLabel="Producto 2"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>								
+						<p:selectOneMenu value="#{comidas.calorias23}"  >
+							<f:selectItem itemLabel="Producto 2"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>	
+					</p:column>
+					<p:column>							
+						<p:selectOneMenu value="#{comidas.calorias24}"  >
+							<f:selectItem itemLabel="Producto 2"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>						
+						<p:selectOneMenu value="#{comidas.calorias25}"  >
+							<f:selectItem itemLabel="Producto 2"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>
+				<p:row>	
+					<p:column>
+							<p:outputPanel>Cantidad: </p:outputPanel>			
+							<p:spinner id="medida21" min="10" max="300" stepFactor="5" value="#{comidas.medida21}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>	
+							<p:inputText label="Calorias" id="calCom21" size="4" disabled="true" value="#{comidas.calorias21}"></p:inputText>
+					</p:column>
+					<p:column>	
+							<p:outputPanel>Cantidad: </p:outputPanel>							
+							<p:spinner id="medida22" min="10" max="300" stepFactor="5" value="#{comidas.medida22}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom22" size="4" disabled="true" value="#{comidas.calorias22}"></p:inputText>
+					</p:column>					
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida23" min="10" max="300" stepFactor="5" value="#{comidas.medida23}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom23" size="4" disabled="true" value="#{comidas.calorias23}"></p:inputText>
+					</p:column>
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida24" min="10" max="300" stepFactor="5" value="#{comidas.medida24}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom24" size="4" disabled="true" value="#{comidas.calorias24}"></p:inputText>
+					</p:column>
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida25" min="10" max="300" stepFactor="5" value="#{comidas.medida25}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom25" size="4" disabled="true" value="#{comidas.calorias25}"></p:inputText>
+					</p:column>									
+				</p:row>						
+				<p:row>
+					<p:column>
+						<p:selectOneMenu value="#{comidas.calorias31}"  >
+							<f:selectItem itemLabel="Producto 3"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>				
+					</p:column>
+					<p:column>
+						<p:selectOneMenu value="#{comidas.calorias32}"  >
+							<f:selectItem itemLabel="Producto 3"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>								
+						<p:selectOneMenu value="#{comidas.calorias33}"  >
+							<f:selectItem itemLabel="Producto 3"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>	
+					</p:column>
+					<p:column>							
+						<p:selectOneMenu value="#{comidas.calorias34}"  >
+							<f:selectItem itemLabel="Producto 3"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+					<p:column>						
+						<p:selectOneMenu value="#{comidas.calorias35}"  >
+							<f:selectItem itemLabel="Producto 3"></f:selectItem>
+							<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[0]}" itemValue="#{p[1]}" ></f:selectItems>
+						</p:selectOneMenu>
+					</p:column>
+				</p:row>								
+				<p:row>	
+					<p:column>
+							<p:outputPanel>Cantidad: </p:outputPanel>			
+							<p:spinner id="medida31" min="10" max="300" stepFactor="5" value="#{comidas.medida31}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>	
+							<p:inputText label="Calorias" id="calCom31" size="4" disabled="true" value="#{comidas.calorias31}"></p:inputText>
+					</p:column>
+					<p:column>	
+							<p:outputPanel>Cantidad: </p:outputPanel>							
+							<p:spinner id="medida32" min="10" max="300" stepFactor="5" value="#{comidas.medida32}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom32" size="4" disabled="true" value="#{comidas.calorias32}"></p:inputText>
+					</p:column>					
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida33" min="10" max="300" stepFactor="5" value="#{comidas.medida33}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom33" size="4" disabled="true" value="#{comidas.calorias33}"></p:inputText>
+					</p:column>
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida34" min="10" max="300" stepFactor="5" value="#{comidas.medida34}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom34" size="4" disabled="true" value="#{comidas.calorias34}"></p:inputText>
+					</p:column>
+					<p:column>								
+							<p:outputPanel>Cantidad: </p:outputPanel>
+							<p:spinner id="medida35" min="10" max="300" stepFactor="5" value="#{comidas.medida35}" size="5" ></p:spinner>
+							<p:outputPanel> - Calorías: </p:outputPanel>
+							<p:inputText label="Calorias" id="calCom35" size="4" disabled="true" value="#{comidas.calorias35}"></p:inputText>
+					</p:column>									
+				</p:row>
+				<p:row>
+					<p:column>
+						<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA()}"></p:commandButton> 
+						<h:outputText id="calTotA" value=" Calorías totales: #{comidas.caloriasTotalesA}"></h:outputText> 
+					</p:column>
+				</p:row>																														
+			</p:panelGrid>
+		</h:form>				
+				
+	</h:body>
+</html>

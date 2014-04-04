@@ -1,0 +1,41 @@
+@CHARSET "UTF-8";
+
+* {
+	font-family: sans-serif;
+	font-size: 10px;
+	font-style: normal;
+	color: #000000;
+}
+
+.general {
+	width:1000px;
+	margin-top:1%;
+	margin-left:auto;
+	margin-right:auto;
+	background-color: #DCDCDC;
+	border:solid;
+	
+}
+
+.panelId {
+	margin-left:auto;
+	margin-right:auto;
+	border:solid;
+}
+
+.panelId h1 {
+	text-align:center;
+}
+
+h1 {
+	font-size:3em;
+}
+h2 {
+	font-size:2em;
+}
+h3 {
+	font-size:1.8em;
+}
+h4 {
+	font-size:1.6em;
+}
