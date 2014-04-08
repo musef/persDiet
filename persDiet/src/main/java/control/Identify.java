@@ -5,6 +5,15 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 
 
+/**
+ * The java bean for the index.xhtml control.
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
+
 @ManagedBean (name="identify")
 public class Identify implements Serializable {
 
@@ -24,6 +33,12 @@ public class Identify implements Serializable {
 		pageToGo="producto.xhtml";
 	}
 	
+	
+	public String newUser() {
+		
+		return "creacion.xhtml";
+		
+	}
 	
 	
 	public void identification() {

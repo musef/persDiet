@@ -215,8 +215,7 @@ public class TestDietMealsBean {
 	
 	@Test
 	public void testOKModify() {
-		
-		
+			
 		long iden=0;
 		
 		meal.setMealname("PRUEBA MOD3");
@@ -311,14 +310,9 @@ public class TestDietMealsBean {
 		for (String[]n:control) {
 			if (n[2].equals("PRUEBA")) {
 				iden=(long)Long.parseLong(n[0]);
-				System.out.println("******* TAKE CARE **********"+n[0]);
 			}
 		}
 		
-		if (iden==0) {
-			System.out.println("******* ERROR **********"+control.size());
-		}
-		System.out.println("******* TRUE **********"+iden);
 		assertTrue(fb.delete(iden));
 	}
 

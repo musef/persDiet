@@ -16,6 +16,13 @@ import javax.persistence.*;
 
 @Entity
 @Table(name="dietUsers")
+
+@NamedQueries ({
+	@NamedQuery (name="identUser",query="SELECT c FROM DietUsers c WHERE c.login LIKE :log AND c.pass LIKE :pss"),
+	@NamedQuery (name="userByKey", query="SELECT c FROM DietUsers c WHERE c.keyuser LIKE :key"),
+	@NamedQuery (name="userById", query="SELECT c FROM DietUsers c WHERE c.id LIKE :ident"),
+	@NamedQuery (name="userByLogin", query="SELECT c FROM DietUsers c WHERE c.login LIKE :yourLogin")
+})
 public class DietUsers implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -34,7 +41,9 @@ public class DietUsers implements Serializable {
 	@Column (name="pass", nullable=false, length=15)
 	private String pass;
 
-	
+	@OneToOne (cascade=CascadeType.ALL)
+	@JoinColumn (name="pdata", referencedColumnName="id")
+	private DietPersonalData pdata;
 	
 	public DietUsers() {
 		// CONSTRUCTOR
@@ -74,6 +83,18 @@ public class DietUsers implements Serializable {
 
 	public void setPass(String pass) {
 		this.pass = pass;
+	}
+
+
+
+	public DietPersonalData getPdata() {
+		return pdata;
+	}
+
+
+
+	public void setPdata(DietPersonalData pdata) {
+		this.pdata = pdata;
 	}
 
 }

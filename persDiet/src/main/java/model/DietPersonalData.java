@@ -41,7 +41,6 @@ public class DietPersonalData implements Serializable {
 	
 
 	
-	
 	public DietPersonalData() {
 		// CONSTRUCTOR
 	}

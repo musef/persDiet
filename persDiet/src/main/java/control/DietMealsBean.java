@@ -8,20 +8,17 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
 
-import model.DietFoods;
 import model.DietMeals;
 
 
 /**
- * The java bean for the dietMeals class.
+ * The java bean for the DietMeals class.
  * 
  * @author musef
  * 
  * @version 1.0
  * 
  */
-
-
 public class DietMealsBean implements Serializable, DbOperations {
 
 	private static final long serialVersionUID = 1L;
@@ -285,12 +282,6 @@ public class DietMealsBean implements Serializable, DbOperations {
 			em.close();
 		}
 		 
-		for (int n=0;n<all.size();n++) {
-			String[] cad=new String[2];
-				cad[0]=all.get(n).getMealname();
-				cad[1]=String.valueOf(all.get(n).getCal());		
-			ret.add(cad);
-		}
 		
 		for (DietMeals n:all) {
 			String[] datos=new String[10];

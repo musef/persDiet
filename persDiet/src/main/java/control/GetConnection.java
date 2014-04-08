@@ -7,6 +7,14 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceException;
 
+/**
+ * The GetConnection class provides an active JPA connection.
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
 
 public class GetConnection implements Serializable{
 
@@ -27,7 +35,12 @@ public class GetConnection implements Serializable{
 	}
 	
 	
-	
+	/**
+	 * This method is used to create a EntityManager, connected in a Persistence
+	 * context JPA.
+	 * 
+	 * @returns a new active EntityManager associated a Persistence context.
+	 */
 	public EntityManager newConnection() {
 		
 		try {
@@ -41,24 +54,20 @@ public class GetConnection implements Serializable{
 	} // END OF METHOD NEWCONNECTION
 
 
+	
+	// GETTERS AND SETTERS
 
 	public static EntityManagerFactory getEmf() {
 		return emf;
 	}
 
-
-
 	public static void setEmf(EntityManagerFactory emf) {
 		GetConnection.emf = emf;
 	}
 
-
-
 	public EntityManager getEm() {
 		return em;
 	}
-
-
 
 	public void setEm(EntityManager em) {
 		this.em = em;

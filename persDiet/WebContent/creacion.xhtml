@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:ui="http://java.sun.com/jsf/facelets"
+		xmlns:f="http://java.sun.com/jsf/core"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui"	
+>
+	<h:head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link href="css/personalDiet.css" type="text/css" rel="stylesheet" />
+		
+		<title>Creación de usuario</title>
+		
+	</h:head>
+	
+	<h:body styleClass="general">
+		<p:fieldset>
+			<h:form>
+			
+				<p:panelGrid id="panel" columns="2">
+					<p:outputLabel value="Login"></p:outputLabel>
+					<p:inputText id="id1" type="text" value="#{creacion.login}" title="entre 6-15 caracteres"></p:inputText>
+					<p:outputLabel value="Password" ></p:outputLabel>
+					<p:inputText id="id2" type="text" value="#{creacion.password}" title="entre 6-15 caracteres"></p:inputText>
+					<p:outputLabel value="Nombre"></p:outputLabel>
+					<p:inputText id="id3" type="text" value="#{creacion.name}" title="entre 3-50 caracteres"></p:inputText>
+					<p:outputLabel value="Peso (kgs)"></p:outputLabel>
+					<p:inputText id="id4" type="text" value="#{creacion.weight}" title="entre 0-250 kgs"></p:inputText>
+					<p:outputLabel value="Altura (cms)"></p:outputLabel>
+					<p:inputText id="id5" type="text" value="#{creacion.height}" title="entre 50-250 cms"></p:inputText>
+					<p:outputLabel value="Edad (años)"></p:outputLabel>
+					<p:inputText id="id6" type="text" value="#{creacion.age}" title="entre 0-100 años"></p:inputText>																																					
+				</p:panelGrid>
+				<p:commandButton value="Alta" type="submit" action="#{creacion.recordUser}" disabled="#{creacion.buttonState}"></p:commandButton>
+				<p:commandButton value="Volver" type="submit" action="#{creacion.returnBack}"></p:commandButton>
+				<p:messages for="panel"></p:messages>
+			</h:form>
+		</p:fieldset>
+	</h:body>
+	
+</html>
