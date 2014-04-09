@@ -41,7 +41,7 @@ public class DietUsers implements Serializable {
 	@Column (name="pass", nullable=false, length=15)
 	private String pass;
 
-	@OneToOne (cascade=CascadeType.ALL)
+	@OneToOne (cascade=CascadeType.ALL, orphanRemoval=true)
 	@JoinColumn (name="pdata", referencedColumnName="id")
 	private DietPersonalData pdata;
 	
