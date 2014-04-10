@@ -5,6 +5,7 @@
 	<!--<provider>org.apache.openjpa.persistence.PersistenceProviderImpl</provider>
 	<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
 	
+		<class>model.DietCalendar</class>
 		<class>model.DietFoods</class>
 		<class>model.DietMeals</class>
 		<class>model.DietPersonalData</class>

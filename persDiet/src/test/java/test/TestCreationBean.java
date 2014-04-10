@@ -4,8 +4,17 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import control.CreacionBean;
+import control.CreationBean;
 import control.DietUsersBean;
+
+/**
+ * The JUnit test for CreationBean
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
 
 public class TestCreationBean {
 
@@ -17,7 +26,7 @@ public class TestCreationBean {
 	@Test
 	public void testOKRecordUser() {
 		
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin(loginTest);
 		cBean.setPassword(passTest);
 		cBean.setName("LA MARTILLO1");
@@ -38,7 +47,7 @@ public class TestCreationBean {
 	@Test
 	public void testNullRecordUser() {
 		
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin(null);
 		cBean.setPassword(null);
 		cBean.setName(null);
@@ -59,7 +68,7 @@ public class TestCreationBean {
 	@Test
 	public void testEmptyRecordUser() {
 		
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin("");
 		cBean.setPassword("");
 		cBean.setName("");
@@ -81,7 +90,7 @@ public class TestCreationBean {
 	@Test
 	public void testTooLongRecordUser() {
 		
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin("aaaaaaaaaaaaaaaaaaa");
 		cBean.setPassword("123123123456456456");
 		cBean.setName("loquesea");
@@ -103,7 +112,7 @@ public class TestCreationBean {
 	@Test
 	public void testTooShortRecordUser() {
 		
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin("aaa");
 		cBean.setPassword("123");
 		cBean.setName("loquesea");
@@ -127,7 +136,7 @@ public class TestCreationBean {
 	public void testOKChangeUser() {
 		
 		// first creating user
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin(loginTest);
 		cBean.setPassword(passTest);
 		cBean.setName("LA MARTILLO2");
@@ -158,7 +167,7 @@ public class TestCreationBean {
 	public void testNullChangeUser() {
 		
 		// first creating user
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin(loginTest);
 		cBean.setPassword(passTest);
 		cBean.setName("LA MARTILLO3");
@@ -189,7 +198,7 @@ public class TestCreationBean {
 	public void testEmptyChangeUser() {
 		
 		// first creating user
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin(loginTest);
 		cBean.setPassword(passTest);
 		cBean.setName("LA MARTILLO4");
@@ -221,7 +230,7 @@ public class TestCreationBean {
 	public void testTooLongChangeUser() {
 		
 		// first creating user
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin(loginTest);
 		cBean.setPassword(passTest);
 		cBean.setName("LA MARTILLO5");
@@ -253,7 +262,7 @@ public class TestCreationBean {
 	public void testTooShortChangeUser() {
 		
 		// first creating user
-		CreacionBean cBean=new CreacionBean();
+		CreationBean cBean=new CreationBean();
 		cBean.setLogin(loginTest);
 		cBean.setPassword(passTest);
 		cBean.setName("LA MARTILLO6");

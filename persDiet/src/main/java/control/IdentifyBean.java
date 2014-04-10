@@ -17,12 +17,12 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean (name="identify")
 @SessionScoped
-public class Identify implements Serializable {
+public class IdentifyBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	// navigation pages
-	private final String pageToGo="producto.xhtml";
+	private final String pageToGo="mainDiet.xhtml";
 	private final String pageBadLogin="badLogin.xhtml";
 	private final String pageToCreate="creacion.xhtml";
 	
@@ -34,7 +34,7 @@ public class Identify implements Serializable {
 	
 
 	
-	public Identify () {
+	public IdentifyBean () {
 		//CONSTRUCTOR
 		
 		loginUser="";
@@ -85,7 +85,7 @@ public class Identify implements Serializable {
 		
 		// check user correct. Now we get the keyUser
 		keyUser=userData[1];
-		
+		System.out.println(keyUser+"**");
 		// continues to main page
 		return pageToGo;
 				
@@ -130,7 +130,7 @@ public class Identify implements Serializable {
 
 
 	public static void setKeyUser(String keyUser) {
-		Identify.keyUser = keyUser;
+		IdentifyBean.keyUser = keyUser;
 	}
 
 
@@ -140,7 +140,7 @@ public class Identify implements Serializable {
 
 
 	public static void setUserData(String[] userData) {
-		Identify.userData = userData;
+		IdentifyBean.userData = userData;
 	}
 
 	

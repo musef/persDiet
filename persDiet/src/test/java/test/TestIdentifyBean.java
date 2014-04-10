@@ -8,9 +8,18 @@ import model.DietUsers;
 import org.junit.Test;
 
 import control.DietUsersBean;
-import control.Identify;
+import control.IdentifyBean;
 
-public class TestIdentify {
+/**
+ * The JUnit test for IdentifyBean
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
+
+public class TestIdentifyBean {
 
 	private String loginTest="ESCOMBRO";
 	private String passTest="HUMANO";
@@ -20,10 +29,10 @@ public class TestIdentify {
 		
 		long ident=preparingConditions();
 		
-		Identify id=new Identify();
+		IdentifyBean id=new IdentifyBean();
 		id.setLoginUser(loginTest);
 		id.setPassUser(passTest);
-		assertEquals("Identification OK", "producto.xhtml", id.checkIdentification());
+		assertEquals("Identification OK", "mainDiet.xhtml", id.checkIdentification());
 		
 		cleaningConditions(ident);
 	}
@@ -31,7 +40,7 @@ public class TestIdentify {
 	@Test
 	public void testBADCheckIdentification() {
 		
-		Identify id=new Identify();
+		IdentifyBean id=new IdentifyBean();
 		id.setLoginUser("BLABLABLA");
 		id.setPassUser("ASDFSADF");
 		assertEquals("Identification Wrong", "badLogin.xhtml", id.checkIdentification());
@@ -40,7 +49,7 @@ public class TestIdentify {
 	@Test
 	public void testNULLCheckIdentification() {
 		
-		Identify id=new Identify();
+		IdentifyBean id=new IdentifyBean();
 		id.setLoginUser(null);
 		id.setPassUser(null);
 		assertEquals("Identification null", "badLogin.xhtml", id.checkIdentification());
@@ -49,7 +58,7 @@ public class TestIdentify {
 	@Test
 	public void testEMPTYCheckIdentification() {
 		
-		Identify id=new Identify();
+		IdentifyBean id=new IdentifyBean();
 		id.setLoginUser("");
 		id.setPassUser("");
 		assertEquals("Identification empty", "badLogin.xhtml", id.checkIdentification());

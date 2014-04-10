@@ -6,9 +6,16 @@ import org.junit.Test;
 
 import control.GetConnection;
 
-public class TestGetConnection {
+/**
+ * The JUnit test for GetConnection
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
 
-	
+public class TestGetConnection {
 
 	@Test
 	public void testOKNewConnection() {

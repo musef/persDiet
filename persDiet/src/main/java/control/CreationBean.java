@@ -20,7 +20,7 @@ import model.DietUsers;
 
 @ManagedBean(name="creacion")
 @SessionScoped
-public class CreacionBean {
+public class CreationBean {
 
 	// navigation pages
 	private final String returnBack="index.xhtml";
@@ -38,7 +38,7 @@ public class CreacionBean {
 	private String buttonState2;
 	
 	
-	public CreacionBean () {
+	public CreationBean () {
 		// CONSTRUCTOR
 		message=null;
 		buttonState1="enabled";
@@ -101,8 +101,8 @@ public class CreacionBean {
 		//fc.addMessage("result", message);
 		
 		// getting the user Data to static variables
-		Identify.setUserData(usBean.read(keyUser));
-		Identify.setKeyUser(keyUser);
+		IdentifyBean.setUserData(usBean.read(keyUser));
+		IdentifyBean.setKeyUser(keyUser);
 		
 		return true;
 		
@@ -134,14 +134,14 @@ public class CreacionBean {
 			persData.setWeight(weight);
 			persData.setHeight(height);
 			persData.setAge(age);
-			persData.setKeyuser(Identify.getKeyUser());
+			persData.setKeyuser(IdentifyBean.getKeyUser());
 			
 			newUser.setLogin(login);
 			newUser.setPass(password);
-			newUser.setKeyuser(Identify.getKeyUser());
+			newUser.setKeyuser(IdentifyBean.getKeyUser());
 			newUser.setPdata(persData);
 			
-			if (usBean.modify(Identify.getKeyUser(),newUser)) {
+			if (usBean.modify(IdentifyBean.getKeyUser(),newUser)) {
 				// record OK
 				//message.setDetail("Grabación efectuada correctamente");
 				System.out.println("Modificación OK");
@@ -163,7 +163,7 @@ public class CreacionBean {
 		//fc.addMessage("result", message);
 		
 		// getting the user Data to static variables
-		Identify.setUserData(usBean.read(keyUser));
+		IdentifyBean.setUserData(usBean.read(keyUser));
 		
 		return true;
 		

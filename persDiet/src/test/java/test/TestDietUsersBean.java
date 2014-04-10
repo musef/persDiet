@@ -11,6 +11,16 @@ import org.junit.Test;
 
 import control.DietUsersBean;
 
+
+/**
+ * The JUnit test for DietUsersBean
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
+
 public class TestDietUsersBean {
 
 	DietUsersBean fb=new DietUsersBean();

@@ -42,7 +42,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 	/**
 	 * This method records a new food in the database.
 	 * 
-	 * @param food - a DietFoods object to recording.
+	 * @param foodObj - a DietFoods object to recording.
 	 * 
 	 * @return Return a boolean TRUE/FALSE confirming a new food recorded.
 	 */
@@ -57,8 +57,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 			// the object is wrong
 			return false;
 		}
-		
-		
+			
 		// getting a new connection
 		em=connect.newConnection();
 		EntityTransaction transac=em.getTransaction();
@@ -96,8 +95,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 	
 	@Override
 	public boolean delete(long ident) {
-		
-		
+			
 		EntityTransaction tx=null;
 		// getting a new connection
 		em=connect.newConnection();
@@ -131,6 +129,16 @@ public class DietFoodsBean implements DbOperations, Serializable {
 	} // END OF METHOD DELETE
 
 
+	
+	/**
+	 * This method modifies a product registered in the DDBB, identifies by
+	 * a Long ident.
+	 * 
+	 * @param ident - long number is the product id in ddbb.
+	 * @param obj - a DietFoods object including all the changes.
+	 * 
+	 * @return Return a boolean TRUE/FALSE confirming a food modified.
+	 */
 
 	@Override
 	public boolean modify(long ident, Object obj) {
@@ -186,10 +194,11 @@ public class DietFoodsBean implements DbOperations, Serializable {
 	 * This method reads a product registered in the DDBB, identifies by
 	 * a long ident.
 	 * 
-	 * @param ident - long number is the product id in ddbb.
+	 * @param identif - long number is the product id in ddbb.
 	 * 
 	 * @return String[] as the result of reading or null if any problem or reading doesn't exists.
 	 */
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public String[] read(long identif) {
@@ -224,7 +233,6 @@ public class DietFoodsBean implements DbOperations, Serializable {
 			} catch (IllegalStateException il) {
 				// do nothing
 			}
-
 		}
 		
 		// when the method try to read a unknow value then gets a empty list
@@ -244,12 +252,15 @@ public class DietFoodsBean implements DbOperations, Serializable {
 		result[8]=String.valueOf(queryF.get(0).getIron());		
 		
 		return result;
-	}
+		
+	} // END OF METHOD READ
 
 	
 	
 	/**
 	 * This method shows all the foods registered in the database.
+	 * 
+	 * @param - keyUser: IGNORED in this implementation
 	 * 
 	 * @return a List String including all the foods in ddbb or null if
 	 * anything is wrong.
@@ -280,7 +291,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 			listFoods=(List<DietFoods>)q.getResultList();
 			
 		} catch (Exception e) {
-			System.err.println("Error 1.1 Error en el proceso de búsqueda en DDBB");
+			System.err.println("Error 1.5 Error en el proceso de búsqueda en DDBB");
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -308,4 +319,4 @@ public class DietFoodsBean implements DbOperations, Serializable {
 
 
 
-} // ********* END OF CLASS FOODSBEAN
+} // ********* END OF CLASS

@@ -1,12 +1,21 @@
 package test;
 
 import static org.junit.Assert.*;
+
 import java.util.List;
+
 import model.DietMeals;
 import org.junit.Test;
 import control.DietMealsBean;
 
-
+/**
+ * The JUnit test for DietMealsBean
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
 
 public class TestDietMealsBean {
 
@@ -21,33 +30,16 @@ public class TestDietMealsBean {
 	@Test
 	public void testOKShowAll() {
 		
-		meal.setMealname("PRUEBA");
-		meal.setKeyuser(keyUser);
-		meal.setQtt(100);	
-		meal.setCal(100);
-		meal.setCarbohydrate(100);
-		meal.setProtein(100);
-		meal.setLipid(100);
-		meal.setCalcium(1);
-		meal.setIron(1);
-		fb.record(meal);
+		long iden=preparingConditions();
 		
 		assertNotNull("Listado OK", fb.showAll(keyUser));
+		
+		cleaningConditions(iden);
 	}
 
 	@Test
 	public void testNullkeyuserShowAll() {
 		
-		meal.setMealname("PRUEBA");
-		meal.setKeyuser(keyUser);
-		meal.setQtt(100);	
-		meal.setCal(100);
-		meal.setCarbohydrate(100);
-		meal.setProtein(100);
-		meal.setLipid(100);
-		meal.setCalcium(1);
-		meal.setIron(1);
-		fb.record(meal);
 		// not controlled by default
 		assertNotNull("Listado null user", fb.showAll(null));
 	}
@@ -55,37 +47,26 @@ public class TestDietMealsBean {
 	@Test
 	public void testWrongkeyuserShowAll() {
 		
-		meal.setMealname("PRUEBA");
-		meal.setKeyuser(keyUser);
-		meal.setQtt(100);	
-		meal.setCal(100);
-		meal.setCarbohydrate(100);
-		meal.setProtein(100);
-		meal.setLipid(100);
-		meal.setCalcium(1);
-		meal.setIron(1);
-		fb.record(meal);
+		long iden=preparingConditions();
+		
 		// not controlled by default
 		assertNotNull("Listado wrong user", fb.showAll("BLABLABLA"));
+		
+		cleaningConditions(iden);
 	}
 
 
 	@Test
 	public void testEmptykeyuserShowAll() {
 		
-		meal.setMealname("PRUEBA");
-		meal.setKeyuser(keyUser);
-		meal.setQtt(100);	
-		meal.setCal(100);
-		meal.setCarbohydrate(100);
-		meal.setProtein(100);
-		meal.setLipid(100);
-		meal.setCalcium(1);
-		meal.setIron(1);
-		fb.record(meal);
+		long iden=preparingConditions();
+		
 		// not controlled by default
 		assertNotNull("Listado empty user", fb.showAll(""));
+		
+		cleaningConditions(iden);
 	}
+	
 	
 	
 	
@@ -103,49 +84,18 @@ public class TestDietMealsBean {
 	public void testOKRead() {
 		
 		
-		long iden=0;
+		long iden=preparingConditions();
 		
-		meal.setMealname("PRUEBA");
-		meal.setKeyuser(keyUser);
-		meal.setQtt(100);	
-		meal.setCal(100);
-		meal.setCarbohydrate(100);
-		meal.setProtein(100);
-		meal.setLipid(100);
-		meal.setCalcium(1);
-		meal.setIron(1);
-		fb.record(meal);
-		
-		control=fb.showAll(keyUser);
-		for (String[]n:control) {
-			if (n[1].equals("PRUEBA")) {
-				iden=(long)Long.parseLong(n[0]);
-			}
-		}
-		if (iden!=0) {
-			assertNotNull("un identificador leido",fb.read(iden));
-			fb.delete(iden);
-		} else {
-			System.out.println("Error leyendo iden");
-		}
+		assertNotNull("un identificador leido",fb.read(iden));
+			
+		cleaningConditions(iden);
 
 	}
 	
 	@Test
 	public void testOK2Read() {
 		
-		long iden=0;
-		
-		meal.setMealname("PRUEBA");
-		meal.setKeyuser(keyUser);
-		meal.setQtt(100);	
-		meal.setCal(100);
-		meal.setCarbohydrate(100);
-		meal.setProtein(100);
-		meal.setLipid(100);
-		meal.setCalcium(1);
-		meal.setIron(1);
-		fb.record(meal);
+		long iden=preparingConditions();
 		
 		control=fb.showAll(keyUser);
 		
@@ -153,10 +103,10 @@ public class TestDietMealsBean {
 			if (n[1].equals("PRUEBA")) {
 				iden=(long)Long.parseLong(n[0]);
 				assertArrayEquals("El identificador buscado leido OK",n,fb.read(iden));
-				fb.delete(iden);
 			}
 		}
 
+		cleaningConditions(iden);
 	}	
 	
 	
@@ -165,7 +115,9 @@ public class TestDietMealsBean {
 	@Test
 	public void testUnknowIdenModify() {
 		// wrong ident, good object
-		long iden=999999;		
+		
+		long iden=preparingConditions();
+		
 		meal.setMealname("PRUEBA MOD");
 		meal.setKeyuser(keyUser);
 		meal.setQtt(100);	
@@ -176,47 +128,27 @@ public class TestDietMealsBean {
 		meal.setCalcium(1);
 		meal.setIron(1);
 		
-		assertFalse("ident a modificar inexistente",fb.modify(iden,meal));
+		assertFalse("ident a modificar inexistente",fb.modify(99999,meal));
+		
+		cleaningConditions(iden);
 	}
 	
 	@Test
 	public void testBadObjectModify() {
 		// good ident, bad object
 		
-		long iden=0;
+		long iden=preparingConditions();
 		
-		meal.setMealname("PRUEBA MOD2");
-		meal.setKeyuser(keyUser);
-		meal.setQtt(100);	
-		meal.setCal(100);
-		meal.setCarbohydrate(100);
-		meal.setProtein(100);
-		meal.setLipid(100);
-		meal.setCalcium(1);
-		meal.setIron(1);
-		fb.record(meal);
+		assertFalse("ident a modificar null object",fb.modify(iden,null));
 		
-		control=fb.showAll(keyUser);
-		for (String[]n:control) {
-			if (n[1].equals("PRUEBA MOD2")) {
-				iden=(long)Long.parseLong(n[0]);
-			}
-		}
-		if (iden!=0) {
-			meal=null;
-			assertFalse("ident a modificar bad object",fb.modify(iden,meal));
-			fb.delete(iden);
-		} else {
-			System.out.println("Error modificando bad object");
-		}
-		
+		cleaningConditions(iden);	
 	}
 	
 	
 	@Test
 	public void testOKModify() {
 			
-		long iden=0;
+		long iden=preparingConditions();
 		
 		meal.setMealname("PRUEBA MOD3");
 		meal.setKeyuser(keyUser);
@@ -227,23 +159,12 @@ public class TestDietMealsBean {
 		meal.setLipid(100);
 		meal.setCalcium(1);
 		meal.setIron(1);
-		fb.record(meal);
 		
-		control=fb.showAll(keyUser);
-		for (String[]n:control) {
-			if (n[1].equals("PRUEBA MOD3")) {
-				iden=(long)Long.parseLong(n[0]);
-			}
-		}
-		if (iden!=0) {
-			assertTrue("un identificador leido",fb.modify(iden,meal));
-			fb.delete(iden);
-		} else {
-			System.out.println("Error modificando iden3");
-		}
-
+		assertTrue("un identificador leido",fb.modify(iden,meal));
+			
+		cleaningConditions(iden);
+			
 	}
-	
 	
 		// testing record method
 	@Test
@@ -276,7 +197,13 @@ public class TestDietMealsBean {
 		meal.setLipid(100);
 		meal.setCalcium(1);
 		meal.setIron(1);
+		
 		assertTrue(fb.record(meal));
+		
+		// cleaning the record
+		control=fb.showAll(keyUser);
+		long iden=(long)Long.parseLong(control.get(0)[0]);
+		cleaningConditions(iden);
 	}
 	
 	
@@ -293,8 +220,20 @@ public class TestDietMealsBean {
 	@Test
 	public void testOKDelete() {
 		
-		long iden=0;
+		long iden=preparingConditions();
 		
+		assertTrue(fb.delete(iden));
+	}
+
+	
+	
+	
+	
+	private long preparingConditions() {
+		
+		// creating a record to test
+	
+		meal=new DietMeals();
 		meal.setMealname("PRUEBA");
 		meal.setKeyuser(keyUser);
 		meal.setQtt(100);	
@@ -306,14 +245,21 @@ public class TestDietMealsBean {
 		meal.setIron(1);
 		fb.record(meal);
 		
-		control=fb.showAll(keyUser);
-		for (String[]n:control) {
-			if (n[2].equals("PRUEBA")) {
-				iden=(long)Long.parseLong(n[0]);
-			}
+		// getting a user by keyUser
+		String[] str=fb.showAll(keyUser).get(0);
+		long ident=0;
+		if (str==null) {
+			fail("Error en test testOKDelete()");
 		}
+		// getting the id of this user
+		ident=(long)Long.parseLong(str[0]);
 		
-		assertTrue(fb.delete(iden));
+		return ident;
 	}
-
+	
+	
+	private void cleaningConditions(long id) {
+		fb.delete(id);
+	}
+	
 } // ****** END OF TEST
