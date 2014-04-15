@@ -225,16 +225,17 @@ public class DietMealsBean implements Serializable, DbOperations {
 			return null;
 		}
 		
-		result=new String[9];
+		result=new String[10];
 		result[0]=String.valueOf(listM.get(0).getId());
-		result[1]=listM.get(0).getMealname();
-		result[2]=String.valueOf(listM.get(0).getQtt());
-		result[3]=String.valueOf(listM.get(0).getCal());
-		result[4]=String.valueOf(listM.get(0).getCarbohydrate());
-		result[5]=String.valueOf(listM.get(0).getProtein());
-		result[6]=String.valueOf(listM.get(0).getLipid());
-		result[7]=String.valueOf(listM.get(0).getCalcium());
-		result[8]=String.valueOf(listM.get(0).getIron());		
+		result[1]=listM.get(0).getKeyuser();
+		result[2]=listM.get(0).getMealname();
+		result[3]=String.valueOf(listM.get(0).getQtt());
+		result[4]=String.valueOf(listM.get(0).getCal());
+		result[5]=String.valueOf(listM.get(0).getCarbohydrate());
+		result[6]=String.valueOf(listM.get(0).getProtein());
+		result[7]=String.valueOf(listM.get(0).getLipid());
+		result[8]=String.valueOf(listM.get(0).getCalcium());
+		result[9]=String.valueOf(listM.get(0).getIron());		
 		
 		return result;
 		

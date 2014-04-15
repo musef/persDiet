@@ -39,6 +39,8 @@ public class DietPersonalData implements Serializable {
 	@Column (name="age", nullable=false)
 	private int age;
 	
+	@Column (name="sex", nullable=false)
+	private int sex;
 
 	
 	public DietPersonalData() {
@@ -95,6 +97,14 @@ public class DietPersonalData implements Serializable {
 
 	public void setWeight(double weight) {
 		this.weight = weight;
+	}
+
+	public int getSex() {
+		return sex;
+	}
+
+	public void setSex(int sex) {
+		this.sex = sex;
 	}
 
 }

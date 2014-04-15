@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import model.DietCalendar;
 import model.DietFoods;
 import org.junit.Test;
 import control.DietFoodsBean;
@@ -103,7 +102,7 @@ public class TestDietFoodsBean {
 		control=fb.showAll(keyUser);
 		
 		for (String[]n:control) {
-			if (n[1].equals("PRUEBA")) {
+			if (n[1].equals("PRUEBA3")) {
 				long iden=(long)Long.parseLong(n[0]);
 				assertArrayEquals("El identificador buscado leido OK",n,fb.read(iden));
 			}
@@ -173,7 +172,7 @@ public class TestDietFoodsBean {
 	@Test
 	public void testOKRecord() {
 		
-		food.setFoodname("PRUEBA");
+		food.setFoodname("PRUEBA_zz");
 		food.setQtt(100);	
 		food.setCal(100);
 		food.setCarbohydrate(100);
@@ -185,8 +184,13 @@ public class TestDietFoodsBean {
 		
 		// cleaning the record
 		control=fb.showAll(keyUser);
-		long iden=(long)Long.parseLong(control.get(0)[0]);
-		cleaningConditions(iden);
+		for (String[] n:control) {
+			if (n[1].equals("PRUEBA_zz")) {
+				long iden=(long)Long.parseLong(n[0]);
+				cleaningConditions(iden);
+			}
+		}
+		
 	}
 	
 	
@@ -217,7 +221,7 @@ public class TestDietFoodsBean {
 		// creating a record to test
 	
 		food=new DietFoods();
-		food.setFoodname("PRUEBA");
+		food.setFoodname("PRUEBA3");
 		food.setQtt(100);	
 		food.setCal(100);
 		food.setCarbohydrate(100);
@@ -231,7 +235,7 @@ public class TestDietFoodsBean {
 		control=fb.showAll(keyUser);
 		long ident=0;
 		for (String[] str: control) {
-			if (str[1].equals("PRUEBA")) {
+			if (str[1].equals("PRUEBA3")) {
 				// getting the id of this FOOD
 				ident=(long)Long.parseLong(str[0]);
 			}

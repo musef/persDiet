@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.Query;
 
 import model.DietUsers;
@@ -277,6 +278,19 @@ public class DietUsersBean implements Serializable, DbOperations {
 			em.merge(toMod);
 			tx.commit();		
 			
+		} catch (NonUniqueResultException ex) {
+			
+			@SuppressWarnings("unchecked")
+			List<DietUsers> list=(List<DietUsers>)q.getResultList();
+			toMod=list.get(0);
+			toMod.setLogin(newUser.getLogin());
+			toMod.setPass(newUser.getPass());
+			toMod.setPdata(newUser.getPdata());
+			
+			tx.begin();
+			em.merge(toMod);
+			tx.commit();
+			
 		} catch (Exception ex) {
 		
 			if (tx.isActive()) {tx.rollback();};
@@ -344,7 +358,7 @@ public class DietUsersBean implements Serializable, DbOperations {
 			return null;
 		}
 		
-		result=new String[9];
+		result=new String[10];
 		result[0]=String.valueOf(listU.get(0).getId());
 		result[1]=listU.get(0).getKeyuser();
 		result[2]=listU.get(0).getLogin();
@@ -353,7 +367,8 @@ public class DietUsersBean implements Serializable, DbOperations {
 		result[5]=listU.get(0).getPdata().getName();
 		result[6]=String.valueOf(listU.get(0).getPdata().getWeight());
 		result[7]=String.valueOf(listU.get(0).getPdata().getHeight());
-		result[8]=String.valueOf(listU.get(0).getPdata().getAge());		
+		result[8]=String.valueOf(listU.get(0).getPdata().getAge());	
+		result[9]=String.valueOf(listU.get(0).getPdata().getSex());
 		
 		return result;
 		
@@ -410,7 +425,7 @@ public class DietUsersBean implements Serializable, DbOperations {
 			return null;
 		}
 		
-		result=new String[9];
+		result=new String[10];
 		result[0]=String.valueOf(listU.get(0).getId());
 		result[1]=listU.get(0).getKeyuser();
 		result[2]=listU.get(0).getLogin();
@@ -419,7 +434,8 @@ public class DietUsersBean implements Serializable, DbOperations {
 		result[5]=listU.get(0).getPdata().getName();
 		result[6]=String.valueOf(listU.get(0).getPdata().getWeight());
 		result[7]=String.valueOf(listU.get(0).getPdata().getHeight());
-		result[8]=String.valueOf(listU.get(0).getPdata().getAge());		
+		result[8]=String.valueOf(listU.get(0).getPdata().getAge());
+		result[9]=String.valueOf(listU.get(0).getPdata().getSex());
 		
 		return result;
 		
@@ -436,14 +452,14 @@ public class DietUsersBean implements Serializable, DbOperations {
 	 * @return - a String[] containing user data or null
 	 */
 	
-	@SuppressWarnings("unchecked")
 	public String[] read(String user, String pass) {
 		
 		// getting a new connection
 		em=gc.newConnection();
 		
 		String[] result=null;
-		List<DietUsers> listU=null;
+		//List<DietUsers> listU=null;
+		DietUsers listU=null;
 		
 		Query q=null;
 		EntityTransaction tx=null;
@@ -456,8 +472,13 @@ public class DietUsersBean implements Serializable, DbOperations {
 			q.setParameter("log", user);
 			q.setParameter("pss", pass);
 			tx.commit();
-			listU=(List<DietUsers>) q.getResultList();
+			//listU=(List<DietUsers>) q.getResultList();
+			listU=(DietUsers) q.getSingleResult();
 			
+		} catch (NonUniqueResultException re) {
+			@SuppressWarnings("unchecked")
+			List<DietUsers> list=(List<DietUsers>)q.getResultList();
+			listU=list.get(0);
 		} catch (Exception ex) {
 			
 			System.err.println("Error 4.6 Error en el proceso de lectura de DDBB");
@@ -473,21 +494,23 @@ public class DietUsersBean implements Serializable, DbOperations {
 
 		}
 		
-		// when the method try to read a unknown value then gets a empty list
-		if (listU.isEmpty()) {
+		// when the method try to read a unknown value then gets a empty read
+		if (listU==null) {
 			return null;
 		}
 		
-		result=new String[9];
-		result[0]=String.valueOf(listU.get(0).getId());
-		result[1]=listU.get(0).getKeyuser();
-		result[2]=listU.get(0).getLogin();
-		result[3]=listU.get(0).getPass();
-		result[4]=String.valueOf(listU.get(0).getPdata().getId());
-		result[5]=listU.get(0).getPdata().getName();
-		result[6]=String.valueOf(listU.get(0).getPdata().getWeight());
-		result[7]=String.valueOf(listU.get(0).getPdata().getHeight());
-		result[8]=String.valueOf(listU.get(0).getPdata().getAge());		
+		result=new String[10];
+
+		result[0]=String.valueOf(listU.getId());
+		result[1]=listU.getKeyuser();
+		result[2]=listU.getLogin();
+		result[3]=listU.getPass();
+		result[4]=String.valueOf(listU.getPdata().getId());
+		result[5]=listU.getPdata().getName();
+		result[6]=String.valueOf(listU.getPdata().getWeight());
+		result[7]=String.valueOf(listU.getPdata().getHeight());
+		result[8]=String.valueOf(listU.getPdata().getAge());	
+		result[9]=String.valueOf(listU.getPdata().getSex());
 		
 		return result;
 		

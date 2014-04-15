@@ -33,6 +33,7 @@ public class TestCreationBean {
 		cBean.setWeight(85);
 		cBean.setHeight(185);
 		cBean.setAge(85);
+		cBean.setSex(2);
 		
 		assertTrue("Creating OK new user", cBean.recordUser());
 		
@@ -143,6 +144,7 @@ public class TestCreationBean {
 		cBean.setWeight(85);
 		cBean.setHeight(185);
 		cBean.setAge(85);
+		cBean.setSex(2);
 		cBean.recordUser();
 		
 		// body test
