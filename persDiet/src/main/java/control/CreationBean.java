@@ -1,9 +1,9 @@
 package control;
 
-import javax.faces.application.FacesMessage;
+//import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+//import javax.faces.context.FacesContext;
 
 import model.DietPersonalData;
 import model.DietUsers;
@@ -31,16 +31,17 @@ public class CreationBean {
 	private int height;
 	private int weight;
 	private int age;
+	private int sex;
 	
 	private String keyUser;
-	private FacesMessage message;
+	//private FacesMessage message;
 	private String buttonState1;
 	private String buttonState2;
 	
 	
 	public CreationBean () {
 		// CONSTRUCTOR
-		message=null;
+		//message=null;
 		buttonState1="enabled";
 		buttonState2="enabled";
 	}
@@ -71,6 +72,7 @@ public class CreationBean {
 			persData.setWeight(weight);
 			persData.setHeight(height);
 			persData.setAge(age);
+			persData.setSex(sex);
 			persData.setKeyuser(keyUser);
 			
 			newUser.setLogin(login);
@@ -134,6 +136,7 @@ public class CreationBean {
 			persData.setWeight(weight);
 			persData.setHeight(height);
 			persData.setAge(age);
+			persData.setSex(sex);
 			persData.setKeyuser(IdentifyBean.getKeyUser());
 			
 			newUser.setLogin(login);
@@ -200,6 +203,10 @@ public class CreationBean {
 		}
 		
 		if (age<0 || age>100) {
+			return false;
+		}
+		
+		if (sex<1 || sex>2) {
 			return false;
 		}
 		
@@ -308,6 +315,12 @@ public class CreationBean {
 	}
 	public void setButtonState2(String buttonState2) {
 		this.buttonState2 = buttonState2;
+	}
+	public int getSex() {
+		return sex;
+	}
+	public void setSex(int sex) {
+		this.sex = sex;
 	}
 	
 	

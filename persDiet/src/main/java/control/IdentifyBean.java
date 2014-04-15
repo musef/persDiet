@@ -15,7 +15,7 @@ import javax.faces.bean.SessionScoped;
  * 
  */
 
-@ManagedBean (name="identify")
+@ManagedBean (name="identify") 
 @SessionScoped
 public class IdentifyBean implements Serializable {
 
@@ -25,10 +25,23 @@ public class IdentifyBean implements Serializable {
 	private final String pageToGo="mainDiet.xhtml";
 	private final String pageBadLogin="badLogin.xhtml";
 	private final String pageToCreate="creacion.xhtml";
+	private final String pageIndex="index.xhtml";
 	
+	// user info
 	private static String keyUser;
 	private static String[] userData;
+	private String name;
+	private float height;
+	private float weight;
+	private int age;
+	private String sex;
+	private float imc;
+	public static double consum;
+	private static double calcneed;
+	private static double ironneed;
+	private static double protneed;
 	
+	// identification
 	private String loginUser;
 	private String passUser;
 	
@@ -47,6 +60,10 @@ public class IdentifyBean implements Serializable {
 		
 		return pageToCreate;
 		
+	}
+	
+	public String goToIndex() {
+		return pageIndex;
 	}
 	
 	
@@ -85,12 +102,162 @@ public class IdentifyBean implements Serializable {
 		
 		// check user correct. Now we get the keyUser
 		keyUser=userData[1];
-		System.out.println(keyUser+"**");
+		name=userData[5];
+		weight=(float)Float.parseFloat(userData[6]);
+		height=(float)Float.parseFloat(userData[7]);
+		age=(int)Integer.parseInt(userData[8]);
+		imc=(float)(weight*10000/height/height);
+		if (userData[0].equals("1")) {
+			sex="Masculino";
+		} else {
+			sex="Femenino";
+		}
+		
+		// get targets
+		consum=getCalories(age, weight, height, 0);
+		calcneed=getCalcium(age, weight, height, 0);
+		ironneed=getIron(age, weight, height, 0);
+		protneed=getProtein(age, weight, height, 0);
+		
 		// continues to main page
 		return pageToGo;
 				
 	} // end of method identification
 	
+	
+	
+	private double getCalories(int age, float weight, float height, int sex) {
+		// RECOMENDACIONES OMS
+		double ret1=0;
+		// men
+		if (age<18) {
+			ret1=(17.5*weight)+651;
+		} else 	if (age<30) {
+			ret1=(15.3*weight)+679;
+		} else 	if (age<60) {
+			ret1=(11.6*weight)+879;
+		} else {
+			ret1=(13.5*weight)+487;
+		}
+		ret1=ret1*1.6;
+		//ret1=ret1*1.78;
+		//ret1=ret1*2.1;
+		
+		double ret=0;
+		// women
+		if (age<18) {
+			ret=(12.2*weight)+746;
+		} else 	if (age<30) {
+			ret=(14.7*weight)+496;
+		} else 	if (age<60) {
+			ret=(8.7*weight)+829;
+		} else {
+			ret=(10.5*weight)+596;
+		}
+		ret=ret*1.5;
+		//ret=ret*1.64;
+		//ret=ret*1.9;
+		System.out.println(ret+"++"+ret1);
+		
+		return ret;
+		
+	} // end of method getCalories
+	
+	
+	
+	private double getCalcium(int age, float weight, float height, int sex) {
+		
+		// RECOMENDACIONES USDA
+		double ret1=0;
+		// men
+		if (age<18) {
+			ret1=1300;
+		} else 	if (age<50) {
+			ret1=800;
+		} else 	if (age<70) {
+			ret1=1000;
+		} else {
+			ret1=1200;
+		}
+		
+		double ret=0;
+		// women
+		if (age<18) {
+			ret=1300;
+		} else 	if (age<50) {
+			ret=800;
+		} else 	if (age<70) {
+			ret=1200;
+		} else {
+			ret=1200;
+		}
+
+		System.out.println(ret+"++"+ret1);
+		
+		return ret;
+		
+	} // end of method getCalcium
+	
+	
+private double getIron(int age, float weight, float height, int sex) {
+		
+		// RECOMENDACIONES US NATIONAL OF HEALTH
+		double ret1=0;
+		// men
+		if (age<18) {
+			ret1=11;
+		} else 	if (age<60) {
+			ret1=8;
+		} else {
+			ret1=8;
+		}
+		
+		double ret=0;
+		// women
+		if (age<18) {
+			ret=15;
+		} else 	if (age<50) {
+			ret=18;
+		} else {
+			ret=8;
+		}
+
+		System.out.println(ret+"++"+ret1);
+		
+		return ret;
+		
+	} // end of method getIron
+	
+
+	private double getProtein(int age, float weight, float height, int sex) {
+		
+		// RECOMENDACIONES US NATIONAL ACADEMIC OF SCIENCE
+		double ret1=0;
+		// men
+		if (age<18) {
+			ret1=weight*0.9;
+		} else 	if (age<50) {
+			ret1=weight*0.8;
+		} else {
+			ret1=weight*0.8;
+		}
+		
+		double ret=0;
+		// women
+		if (age<18) {
+			ret=weight*0.8;
+		} else 	if (age<60) {
+			ret=weight*0.8;
+		} else {
+			ret=weight*0.8;
+		}
+	
+		System.out.println(ret+"++"+ret1);
+		
+		return ret;
+		
+	} // end of method getProtein
+
 	
 	
 	// GETTERS AND SETTERS
@@ -123,25 +290,119 @@ public class IdentifyBean implements Serializable {
 		this.passUser = passUser;
 	}
 
-
 	public static String getKeyUser() {
 		return keyUser;
 	}
-
 
 	public static void setKeyUser(String keyUser) {
 		IdentifyBean.keyUser = keyUser;
 	}
 
-
 	public static String[] getUserData() {
-		return userData;
+		String[]data=userData;
+		return data;
 	}
-
 
 	public static void setUserData(String[] userData) {
 		IdentifyBean.userData = userData;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public float getHeight() {
+		return height;
+	}
+
+	public void setHeight(float height) {
+		this.height = height;
+	}
+
+	public float getWeight() {
+		return weight;
+	}
+
+	public void setWeight(float weight) {
+		this.weight = weight;
+	}
+
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
+	}
+
+	public float getImc() {
+		return imc;
+	}
+
+	public void setImc(float imc) {
+		this.imc = imc;
+	}
+
+	public double getConsum() {
+		return consum;
+	}
+
+	public void setConsum(double consum) {
+		this.consum = consum;
+	}
+
+	public double getCalcneed() {
+		return calcneed;
+	}
+
+	public void setCalcneed(double calcneed) {
+		this.calcneed = calcneed;
+	}
+
+	public double getIronneed() {
+		return ironneed;
+	}
+
+	public void setIronneed(double ironneed) {
+		this.ironneed = ironneed;
+	}
+
+	public double getProtneed() {
+		return protneed;
+	}
+
+	public void setProtneed(double protneed) {
+		this.protneed = protneed;
+	}
+
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+
+	public String getPageBadLogin() {
+		return pageBadLogin;
+	}
+
+
+	public String getPageToCreate() {
+		return pageToCreate;
+	}
+
+
+	public String getPageIndex() {
+		return pageIndex;
+	}
+
+
 
 	
 
