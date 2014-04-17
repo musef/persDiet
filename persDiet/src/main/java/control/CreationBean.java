@@ -10,7 +10,7 @@ import model.DietUsers;
 
 
 /**
- * The java bean for the creation.xhtml control.
+ * The java bean for the newUser.xhtml control.
  * 
  * @author musef
  * 
@@ -18,32 +18,30 @@ import model.DietUsers;
  * 
  */
 
-@ManagedBean(name="creacion")
+@ManagedBean
 @SessionScoped
 public class CreationBean {
 
 	// navigation pages
-	private final String returnBack="index.xhtml";
+	private final String returnBack="inicio";
+	private final String stayHere="stay";
 	
 	private String login;
 	private String password;
 	private String name;
 	private int height;
-	private int weight;
+	private float weight;
 	private int age;
 	private int sex;
 	
 	private String keyUser;
 	//private FacesMessage message;
-	private String buttonState1;
-	private String buttonState2;
 	
 	
 	public CreationBean () {
 		// CONSTRUCTOR
 		//message=null;
-		buttonState1="enabled";
-		buttonState2="enabled";
+
 	}
 
 
@@ -55,8 +53,9 @@ public class CreationBean {
 	 * @return a boolean TRUE/FALSE record ok
 	 */
 	
-	public boolean recordUser() {
+	public String recordUser() {
 		
+		System.out.println("llegado aqui**");
 		//FacesContext fc=FacesContext.getCurrentInstance();
 		DietUsersBean usBean=new DietUsersBean();
 		
@@ -85,19 +84,17 @@ public class CreationBean {
 				// record OK
 				//message.setDetail("Grabación efectuada correctamente");
 				System.out.println("Grabación OK");
-				buttonState1="disabled";
-				buttonState2="enabled";
 				
 			} else {
 				//message.setDetail("Error en grabación");
 				System.out.println("Grabación ERROR");
-				return false;
+				return null;
 			}
 			
 		} else {
 			//message.setDetail("Error en el formulario");
 			System.out.println("wrong form");
-			return false;
+			return null;
 		}
 		
 		//fc.addMessage("result", message);
@@ -106,7 +103,8 @@ public class CreationBean {
 		IdentifyBean.setUserData(usBean.read(keyUser));
 		IdentifyBean.setKeyUser(keyUser);
 		
-		return true;
+		System.out.println("PREMIO**"+keyUser);
+		return stayHere;
 		
 	} // END OF METHOD RECORDUSER
 	
@@ -148,8 +146,6 @@ public class CreationBean {
 				// record OK
 				//message.setDetail("Grabación efectuada correctamente");
 				System.out.println("Modificación OK");
-				buttonState1="disabled";
-				buttonState2="enabled";
 				
 			} else {
 				//message.setDetail("Error en grabación");
@@ -252,7 +248,7 @@ public class CreationBean {
 	 * @return - String, the page navigation
 	 */
 	
-	public String returnBack() {
+	public String returnIndex() {
 		
 		return returnBack;
 		
@@ -286,10 +282,10 @@ public class CreationBean {
 	public void setHeight(int height) {
 		this.height = height;
 	}
-	public int getWeight() {
+	public float getWeight() {
 		return weight;
 	}
-	public void setWeight(int weight) {
+	public void setWeight(float weight) {
 		this.weight = weight;
 	}
 	public int getAge() {
@@ -303,18 +299,6 @@ public class CreationBean {
 	}
 	public void setKeyUser(String keyUser) {
 		this.keyUser = keyUser;
-	}
-	public String getButtonState1() {
-		return buttonState1;
-	}
-	public void setButtonState1(String buttonState1) {
-		this.buttonState1 = buttonState1;
-	}
-	public String getButtonState2() {
-		return buttonState2;
-	}
-	public void setButtonState2(String buttonState2) {
-		this.buttonState2 = buttonState2;
 	}
 	public int getSex() {
 		return sex;

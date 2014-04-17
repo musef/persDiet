@@ -32,7 +32,7 @@ public class TestIdentifyBean {
 		IdentifyBean id=new IdentifyBean();
 		id.setLoginUser(loginTest);
 		id.setPassUser(passTest);
-		assertEquals("Identification OK", "mainDiet.xhtml", id.checkIdentification());
+		assertEquals("Identification OK", "mainDiet", id.checkIdentification());
 		
 		cleaningConditions(ident);
 	}
@@ -43,7 +43,7 @@ public class TestIdentifyBean {
 		IdentifyBean id=new IdentifyBean();
 		id.setLoginUser("BLABLABLA");
 		id.setPassUser("ASDFSADF");
-		assertEquals("Identification Wrong", "badLogin.xhtml", id.checkIdentification());
+		assertEquals("Identification Wrong", "badLogin", id.checkIdentification());
 	}
 	
 	@Test
@@ -52,7 +52,7 @@ public class TestIdentifyBean {
 		IdentifyBean id=new IdentifyBean();
 		id.setLoginUser(null);
 		id.setPassUser(null);
-		assertEquals("Identification null", "badLogin.xhtml", id.checkIdentification());
+		assertEquals("Identification null", "badLogin", id.checkIdentification());
 	}
 	
 	@Test
@@ -61,7 +61,7 @@ public class TestIdentifyBean {
 		IdentifyBean id=new IdentifyBean();
 		id.setLoginUser("");
 		id.setPassUser("");
-		assertEquals("Identification empty", "badLogin.xhtml", id.checkIdentification());
+		assertEquals("Identification empty", "badLogin", id.checkIdentification());
 	}
 	
 	

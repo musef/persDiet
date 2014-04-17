@@ -1,7 +1,7 @@
 @CHARSET "UTF-8";
 
-* {
-	font-family: sans-serif;
+html {
+	font-family:Verdana, Trebuchet MS, Arial;
 	font-size: 10px;
 	font-style: normal;
 	color: #000000;
@@ -9,23 +9,188 @@
 
 .general {
 	width:1000px;
-	margin-top:1%;
 	margin-left:auto;
 	margin-right:auto;
-	background-color: #DCDCDC;
-	border:solid;
-	
+	background-image: url("../img/campo.jpg")  ;
+	background-repeat: no-repeat;
+	background-position: center;
+	border-style: none;	
+}
+
+.general h1,h2,button {
+	text-align:center;
+}
+
+ /* PANTALLA INDEX */
+ 
+.indexPanel {
+	width:600px;
+	margin-top:20%;
+	margin-left:auto;
+	margin-right:auto;
+	border-style: solid;
 }
 
 .panelId {
 	margin-left:auto;
 	margin-right:auto;
+	font-size: 1.4em;
+	font-weight:bold;
+}
+
+.general .indexPanel .panelButton {
+	width:300px;
+	margin-left:auto;
+	margin-right:auto;
+	text-align: center;
+}
+
+/* PANTALLA BADLOGIN*/
+
+.general .buttonRet  {
+	margin-top:15%;
+	margin-left:auto;
+	margin-right:auto;
+	font-size: 1.4em;
+	font-weight:bold;
+	text-align: center;
+}
+
+/* PANTALLA NEWUSER */
+
+.general .newPanel  {
+	width:600px;
+	margin-top:5%;
+	margin-left:auto;
+	margin-right:auto;
+	color:buttontext;
+	border:solid;
+	border-color: gray;
+}
+
+.newGrid {
+	margin-left:auto;
+	margin-right:auto;
+	width:500px;
+	font-size: 1.4em;
+	text-align:left;
+	
+}
+.newButton {
+	margin-left:auto;
+	margin-right:auto;
+	width:500px;
+	font-size: 1.4em;
+	text-align:center;
+
+}
+
+
+/* CORRESPONDIENTE AL COMPONENTE NORTE */
+
+.title {
+	text-align: center;
+	height:50%;
+}
+
+.titleName {
+	text-align: left;
+	margin-left:15px;
+	float:left;
+	height:50%;
+}
+
+.titleDate {
+	font-style:italic;
+	text-align: right;
+	margin-right:10px;
+	height:50%;
+	float:right;
+}
+
+/* CORRESPONDIENTE AL COMPONENTE CENTRO */
+
+.compCenter {
+	width:100%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.compCenter .center1 {
+	width:25%;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.compCenter .center2 {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
 	border:solid;
 }
 
-.panelId h1 {
-	text-align:center;
+.accordianStyle {
+	margin-left:auto;
+	margin-right:auto;
 }
+
+.compCenter .center2 .accordianStyle {
+	margin-left:auto;
+	margin-right:auto;
+}
+
+/* CORRESPONDIENTE AL COMPONENTE IZQUIERDO */
+
+
+.west1 {
+	margin-left:15px;
+	float:left;
+}
+
+.west1 .tabWest {
+	
+}
+.west2 {
+	margin-left:15px;
+	width:75%;
+	display:block;
+	float:left;
+}
+.westPanel {
+	font-size:1.5em;
+}
+
+.west2 .westPanel .colorInfo1 {
+	color: green;
+}
+.west2 .westPanel .colorInfo2 {
+	color: green;
+}
+.west2 .westPanel .colorInfo3 {
+	color: green;
+}
+.west2 .westPanel .colorInfo4 {
+	color: green;
+}
+.west2 .westPanel .colorInfo5 {
+	color: green;
+}
+.west2 .westPanel .colorInfo6 {
+	color: green;
+}
+.west2 .westPanel .colorInfo7 {
+	color: green;
+}
+.west2 .westPanel .colorInfo8 {
+	color: green;
+}
+.west2 .westPanel .colorInfo9 {
+	color: green;
+}
+
+/* GENERALIDADES */
+
+
 
 h1 {
 	font-size:3em;

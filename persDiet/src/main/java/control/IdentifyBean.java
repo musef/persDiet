@@ -15,17 +15,17 @@ import javax.faces.bean.SessionScoped;
  * 
  */
 
-@ManagedBean (name="identify") 
+@ManagedBean
 @SessionScoped
 public class IdentifyBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
 	// navigation pages
-	private final String pageToGo="mainDiet.xhtml";
-	private final String pageBadLogin="badLogin.xhtml";
-	private final String pageToCreate="creacion.xhtml";
-	private final String pageIndex="index.xhtml";
+	private final String pageToGo="mainDiet";
+	private final String pageBadLogin="badLogin";
+	private final String pageToCreate="newUser";
+	private final String pageIndex="index";
 	
 	// user info
 	private static String keyUser;
@@ -36,10 +36,10 @@ public class IdentifyBean implements Serializable {
 	private int age;
 	private String sex;
 	private float imc;
-	public static double consum;
-	private static double calcneed;
-	private static double ironneed;
-	private static double protneed;
+	protected static double consum;
+	protected static double calcneed;
+	protected static double ironneed;
+	protected static double protneed;
 	
 	// identification
 	private String loginUser;
@@ -57,12 +57,13 @@ public class IdentifyBean implements Serializable {
 	
 	
 	public String newUser() {
-		
+		System.out.println("//"+pageToCreate);
 		return pageToCreate;
 		
 	}
 	
 	public String goToIndex() {
+		System.out.println("++"+pageIndex);
 		return pageIndex;
 	}
 	
@@ -97,6 +98,7 @@ public class IdentifyBean implements Serializable {
 		
 		if (userData==null) {
 			// bad identification
+			System.out.println("**"+pageBadLogin);
 			return pageBadLogin;
 		}
 		
@@ -107,7 +109,7 @@ public class IdentifyBean implements Serializable {
 		height=(float)Float.parseFloat(userData[7]);
 		age=(int)Integer.parseInt(userData[8]);
 		imc=(float)(weight*10000/height/height);
-		if (userData[0].equals("1")) {
+		if (userData[9].equals("1")) {
 			sex="Masculino";
 		} else {
 			sex="Femenino";
@@ -199,7 +201,8 @@ public class IdentifyBean implements Serializable {
 	} // end of method getCalcium
 	
 	
-private double getIron(int age, float weight, float height, int sex) {
+	
+	private double getIron(int age, float weight, float height, int sex) {
 		
 		// RECOMENDACIONES US NATIONAL OF HEALTH
 		double ret1=0;
@@ -228,6 +231,7 @@ private double getIron(int age, float weight, float height, int sex) {
 		
 	} // end of method getIron
 	
+
 
 	private double getProtein(int age, float weight, float height, int sex) {
 		
@@ -351,33 +355,21 @@ private double getIron(int age, float weight, float height, int sex) {
 		return consum;
 	}
 
-	public void setConsum(double consum) {
-		this.consum = consum;
-	}
 
 	public double getCalcneed() {
 		return calcneed;
 	}
 
-	public void setCalcneed(double calcneed) {
-		this.calcneed = calcneed;
-	}
 
 	public double getIronneed() {
 		return ironneed;
 	}
 
-	public void setIronneed(double ironneed) {
-		this.ironneed = ironneed;
-	}
 
 	public double getProtneed() {
 		return protneed;
 	}
 
-	public void setProtneed(double protneed) {
-		this.protneed = protneed;
-	}
 
 	public String getSex() {
 		return sex;

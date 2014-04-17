@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+		xmlns:h="http://java.sun.com/jsf/html"
+		xmlns:p="http://primefaces.org/ui" > 
+	<h:head>
+	
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<link href="css/personalDiet.css" type="text/css" rel="stylesheet" />
+		
+		<title>Error de identificación</title>
+		
+	</h:head>
+	
+	<h:body class="general">
+	
+		<div class="buttonRet">
+			<h:form>
+			
+				<h1>¡ Lo siento !</h1>
+				<h1>:0</h1>
+				
+				<h2>Ha habido un error al identificarse...</h2> 
+				<h2>Pulse el botón para intentarlo de nuevo</h2>
+				
+				<h:commandButton value="Vuelva a intentarlo" action="#{identify.goToIndex}" >
+				</h:commandButton>
+				
+			</h:form>
+		</div>
+	</h:body>
+</html>

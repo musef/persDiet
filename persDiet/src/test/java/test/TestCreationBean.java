@@ -35,7 +35,7 @@ public class TestCreationBean {
 		cBean.setAge(85);
 		cBean.setSex(2);
 		
-		assertTrue("Creating OK new user", cBean.recordUser());
+		assertNotNull("Creating OK new user", cBean.recordUser());
 		
 		// deleting record
 		DietUsersBean db=new DietUsersBean();
@@ -56,7 +56,7 @@ public class TestCreationBean {
 		cBean.setHeight(0);
 		cBean.setAge(0);
 		
-		assertFalse("Creating new user null data", cBean.recordUser());
+		assertNull("Creating new user null data", cBean.recordUser());
 		
 		// deleting record
 		DietUsersBean db=new DietUsersBean();
@@ -77,7 +77,7 @@ public class TestCreationBean {
 		cBean.setHeight(0);
 		cBean.setAge(0);
 		
-		assertFalse("Creating new user empty data", cBean.recordUser());
+		assertNull("Creating new user empty data", cBean.recordUser());
 		
 		// deleting record
 		DietUsersBean db=new DietUsersBean();
@@ -99,7 +99,7 @@ public class TestCreationBean {
 		cBean.setHeight(150);
 		cBean.setAge(50);
 		
-		assertFalse("Creating new user too long login-pass", cBean.recordUser());
+		assertNull("Creating new user too long login-pass", cBean.recordUser());
 		
 		// deleting record
 		DietUsersBean db=new DietUsersBean();
@@ -121,7 +121,7 @@ public class TestCreationBean {
 		cBean.setHeight(150);
 		cBean.setAge(50);
 		
-		assertFalse("Creating new user too short login-pass", cBean.recordUser());
+		assertNull("Creating new user too short login-pass", cBean.recordUser());
 		
 		// deleting record
 		DietUsersBean db=new DietUsersBean();

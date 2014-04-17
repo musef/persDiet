@@ -19,7 +19,7 @@ import model.DietMeals;
  * 
  */
 
-@ManagedBean (name="producto")
+@ManagedBean
 @SessionScoped
 public class ProductoBean implements Serializable {
 

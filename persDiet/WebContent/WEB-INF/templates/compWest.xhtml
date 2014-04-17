@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<ui:composition >
+<div>
+	<div class="west1">
+  		<p:tabView>
+			<p:tab title="Info">
+				<p:panelGrid columns="2" styleClass="tabWest">
+					<h:outputText value="Datos personales:" />
+					<h:outputText value=" " />
+					<h:outputText value="Sexo:" />
+					<h:outputText value="#{identify.sex}" /> 
+					<h:outputText value="Edad:" />
+					<h:outputText value="#{identify.age} años" />		
+					<h:outputText value="Estatura:" />
+					<h:outputText value="#{identify.height} cms" />	
+					<h:outputText value="Peso:" />
+					<h:outputText value="#{identify.weight} kgs" />
+					<h:outputText value="IMC:" />
+					<h:outputText value="#{identify.imc}" />																										
+				</p:panelGrid>	
+			</p:tab>
+			<p:tab title="Objetivos">
+				<p:panelGrid columns="2" styleClass="tabWest">
+					<h:outputText value="Por su edad y sexo:" />
+					<h:outputText value=" " />
+					<h:outputText value="Calorías:" />
+					<h:outputText value="#{identify.consum} kcal/dia" />
+					<h:outputText value="Calcio:" />
+					<h:outputText value="#{identify.calcneed} mg/día" />		
+					<h:outputText value="Hierro:" />
+					<h:outputText value="#{identify.ironneed} mg/día" />			
+					<h:outputText value="Proteinas:" />
+					<h:outputText value="#{identify.protneed} g/día" />										
+				</p:panelGrid>		
+			</p:tab>
+		</p:tabView>
+	</div>
+	
+	<div class="west2">
+		<p:panelGrid styleClass="westPanel" columns="3" >
+			<h:outputText value="Datos del día" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="consumos" />
+			<h:outputText value="objetivo" />
+			<h:outputText value="Calorías:" />
+			<h:outputText value="#{comidas.caloriasDia} kcal/dia"  />
+			<h:outputText styleClass="colorInfo1" value="#{comidas.desvCalDia} %"  />
+			<h:outputText value="Calcio:" />
+			<h:outputText value="#{comidas.calcioDia} mg/dia" />
+			<h:outputText styleClass="colorInfo2" value="#{comidas.desvCacDia} %" />		
+			<h:outputText value="Hierro:" />
+			<h:outputText value="#{comidas.hierroDia} mg/dia" />
+			<h:outputText styleClass="colorInfo3" value="#{comidas.desvFerDia} %" />												
+		</p:panelGrid>	
+		<br></br>
+		<p:panelGrid styleClass="westPanel" columns="3">
+			<h:outputText value="Datos semana" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="consumos" />
+			<h:outputText value="objetivo" />		
+			<h:outputText value="Calorías:" />
+			<h:outputText value="#{comidas.caloriasSemana} kcal/dia" />
+			<h:outputText styleClass="colorInfo4" value="#{comidas.desvCalSem} %"  />
+			<h:outputText value="Calcio:" />
+			<h:outputText value="#{comidas.calcioSemana} mg/dia" />	
+			<h:outputText styleClass="colorInfo5" value="#{comidas.desvCacSem} %" />	
+			<h:outputText value="Hierro:" />
+			<h:outputText value="#{comidas.hierroSemana} mg/dia" />	
+			<h:outputText styleClass="colorInfo6" value="#{comidas.desvFerSem} %" />												
+		</p:panelGrid>	
+		<br></br>
+		<p:panelGrid styleClass="westPanel" columns="3">
+			<h:outputText value="Datos del mes" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="" />
+			<h:outputText value="consumos" />
+			<h:outputText value="objetivo" />		
+			<h:outputText value="Calorías:" />
+			<h:outputText value="#{comidas.caloriasMes} kcal/dia" />
+			<h:outputText styleClass="colorInfo7" value="#{comidas.desvCalMes} %"  />
+			<h:outputText value="Calcio:" />
+			<h:outputText value="#{comidas.calcioMes} mg/dia"/>	
+			<h:outputText styleClass="colorInfo8" value="#{comidas.desvCacMes} %" />	
+			<h:outputText value="Hierro:" />
+			<h:outputText value="#{comidas.hierroMes} mg/dia" />
+			<h:outputText styleClass="colorInfo9" value="#{comidas.desvFerMes} %" />													
+		</p:panelGrid>
+	</div>
+</div>
+</ui:composition>
+</html>

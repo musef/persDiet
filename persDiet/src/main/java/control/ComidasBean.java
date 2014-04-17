@@ -11,10 +11,10 @@ import model.DietMeals;
 
 
 
-@ManagedBean (name="comidas", eager=true)
+@ManagedBean
 @SessionScoped
 
-public class Comidas implements Serializable {
+public class ComidasBean implements Serializable {
 
 	
 	private static final long serialVersionUID = 1L;
@@ -116,7 +116,7 @@ public class Comidas implements Serializable {
 	
 	
 	
-	public Comidas () {
+	public ComidasBean () {
 		// CONSTRUCTOR
 		
 		listaDesayunos=new ArrayList<String[]>();

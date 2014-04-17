@@ -479,6 +479,13 @@ public class DietUsersBean implements Serializable, DbOperations {
 			@SuppressWarnings("unchecked")
 			List<DietUsers> list=(List<DietUsers>)q.getResultList();
 			listU=list.get(0);
+			
+		} catch (NoResultException nr) {
+			// identification fails
+			// do nothing
+			System.err.println("Bad identification: no existe en DDBB");
+			return null;
+			
 		} catch (Exception ex) {
 			
 			System.err.println("Error 4.6 Error en el proceso de lectura de DDBB");

@@ -1,11 +1,9 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:p="http://primefaces.org/ui"	
->
+		xmlns:p="http://primefaces.org/ui">
 	<h:head>
 	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -15,28 +13,28 @@
 		
 	</h:head>
 	
-	<h:body styleClass="general">
-		<fieldset>	
-		
-			<div class="panelId">
+	<h:body class="general">
+		<div class="indexPanel" >
 			<h:form>
-			<h1>Personal Diet</h1>
-			<h:panelGrid columns="2" styleClass="panelId">
-				<h:outputText value="Introduzca login"></h:outputText>
-				<h:inputText size="15" value="#{identify.loginUser}"></h:inputText>
-				<h:outputText value="Introduzca contraseña"></h:outputText>
-				<h:inputSecret size="15" value="#{identify.passUser}"></h:inputSecret>
-				<h:outputText value=" "></h:outputText>
-				<h:outputText value="#{identify.passUser}"></h:outputText>
+				<h1>The Personal Diet Project</h1>
+				<h:panelGrid columns="2"  styleClass="panelId" >
 				
-				<h:commandButton id="entrar" type="submit" value="Entrar" action="#{identify.navigationPage}"></h:commandButton>
-				<h:commandButton id="borrar" type="submit" value="Borrar" action="#{identify.navigationPage}"></h:commandButton>
-				<h:commandButton id="crear" type="submit" value="Alta" action="#{identify.newUser}"></h:commandButton>
-				 
-			</h:panelGrid>
+					<p:outputLabel value="Introduzca login"></p:outputLabel>
+					<p:inputText size="15" value="#{identify.loginUser}" title="Introduzca entre 6 y 15 caracteres"></p:inputText>
+					<p:outputLabel value="Introduzca contraseña"></p:outputLabel>
+					<p:password size="15" value="#{identify.passUser}" title="Introduzca entre 6 y 15 caracteres"></p:password>
+					<p:outputLabel value=" "></p:outputLabel>
+					<p:outputLabel value=" "></p:outputLabel>						 
+				</h:panelGrid>
+				
+				<br></br>
+				
+				<h:panelGrid columns="2" styleClass="panelButton">
+					<p:commandButton id="entrar" type="submit" value="Entrar" action="#{identify.checkIdentification}" title="Pulse para identificarse"></p:commandButton>
+					<p:commandButton id="crear" type="submit" value="Alta" action="#{identify.newUser}" title="Pulse para crear un nuevo usuario"></p:commandButton>
+				</h:panelGrid>
 			</h:form>
-			</div>
-			
-		</fieldset>
+		</div>
+		
 	</h:body>
 </html>
