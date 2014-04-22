@@ -12,16 +12,24 @@
 	<div class="compCenter">
 		<div class="center1">
 			<h:form>
-			<p:calendar value="#{mainDiet.dateSelected}" mode="inline" inmediate="true" ></p:calendar>
-			<p:commandButton value="OK" ajax="false" action="#{mainDiet.changeDay}"></p:commandButton>
+			<p:panelGrid columns="2">
+				<p:calendar value="#{mainDiet.dateSelected}" mode="inline" inmediate="true" title="Seleccione día" ></p:calendar>
+				<p:panelGrid columns="1" styleClass="panelCenter1">
+					<p:outputLabel value="Fecha de datos:"></p:outputLabel>
+					<h:outputText id="idDate" value="#{mainDiet.dateToSearch}"></h:outputText>
+					<p:commandButton type="submit" value="cambia día" ajax="false" action="#{mainDiet.changeDay}" title="Seleccione en el calendario y pulse para cambiar el día"></p:commandButton>
+				</p:panelGrid>
+				
+			</p:panelGrid>
 			</h:form>
 		</div>
 		
 		<br></br>
 		
 		<div class="center2">
-		<p:accordionPanel dynamic="true" activeIndex="null" styleClass="accordianStyle">
-		<p:tab title="Desayuno">
+
+		<p:tabView activeIndex="#{comidas.activeTab}">
+			<p:tab title="Desayuno">
 
 			<h:form >		
 				<p:panelGrid id="panel1">
@@ -38,13 +46,13 @@
 					</p:row>				
 					<p:row>
 						<p:column>
-							<p:selectOneMenu id="food1" value="#{comidas.calorias11}"  >
+							<p:selectOneMenu id="food1" value="#{comidas.calorias11}" rendered="true" maxlength="30"  style="width:250px;"  >
 								<f:selectItem itemLabel="Producto 1"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}" ></f:selectItems>
 							</p:selectOneMenu>				
 						</p:column>
 						<p:column>
-							<p:selectOneMenu value="#{comidas.comida1}"  >
+							<p:selectOneMenu value="#{comidas.comida1}" rendered="true" maxlength="30"  style="width:250px;">
 								<f:selectItem itemLabel="Elija desayunos"></f:selectItem>
 								<f:selectItems value="#{comidas.listaDesayunos}" var="p" itemLabel="#{p[2]}" itemValue="#{p[0]}"></f:selectItems>
 							</p:selectOneMenu>					
@@ -66,7 +74,7 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:selectOneMenu value="#{comidas.calorias21}"  >
+							<p:selectOneMenu value="#{comidas.calorias21}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 2"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}" ></f:selectItems>
 							</p:selectOneMenu>				
@@ -86,7 +94,7 @@
 					</p:row>						
 					<p:row>
 						<p:column>
-							<p:selectOneMenu value="#{comidas.calorias31}"  >
+							<p:selectOneMenu value="#{comidas.calorias31}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 3"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>				
@@ -106,12 +114,12 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA()}"></p:commandButton> 
+							<p:commandButton type="submit" title="Calcular alimentos" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA}"></p:commandButton> 
 							<h:outputText id="calTotA" value=" Calorías totales: #{comidas.caloriasDes}"></h:outputText> 
 						</p:column>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
-							<h:outputText id="calTot" value=" Calorías totales: #{comidas.calorias1}"></h:outputText>  
+							<p:commandButton type="submit" title="Calcular comidas" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
+							<h:outputText id="calTot1"  value=" Calorías totales: #{comidas.calorias1}"></h:outputText>  
 						</p:column>
 					</p:row>																														
 				</p:panelGrid>
@@ -138,13 +146,13 @@
 					</p:row>				
 					<p:row>
 						<p:column>
-							<p:selectOneMenu id="food2" value="#{comidas.calorias12}"  >
+							<p:selectOneMenu id="food2" value="#{comidas.calorias12}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 1"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>
 						</p:column>
 						<p:column>
-							<p:selectOneMenu value="#{comidas.comida2}"  >
+							<p:selectOneMenu value="#{comidas.comida2}" rendered="true" maxlength="30"  style="width:250px;">
 								<f:selectItem itemLabel="Elija tentempié"></f:selectItem>
 								<f:selectItems value="#{comidas.listaTentempies}" var="p" itemLabel="#{p[2]}" itemValue="#{p[0]}"></f:selectItems>
 							</p:selectOneMenu>					
@@ -167,7 +175,7 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:selectOneMenu value="#{comidas.calorias22}"  >
+							<p:selectOneMenu value="#{comidas.calorias22}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 2"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}" ></f:selectItems>
 							</p:selectOneMenu>
@@ -187,7 +195,7 @@
 					</p:row>						
 					<p:row>
 						<p:column>
-							<p:selectOneMenu value="#{comidas.calorias32}"  >
+							<p:selectOneMenu value="#{comidas.calorias32}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 3"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}" ></f:selectItems>
 							</p:selectOneMenu>
@@ -207,12 +215,12 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA()}"></p:commandButton> 
+							<p:commandButton type="submit" title="Calcular alimentos" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA}"></p:commandButton> 
 							<h:outputText id="calTotA" value=" Calorías totales: #{comidas.caloriasTen}"></h:outputText> 
 						</p:column>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
-							<h:outputText id="calTot" value=" Calorías totales: #{comidas.calorias2}"></h:outputText> 
+							<p:commandButton type="submit" title="Calcular comidas" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
+							<h:outputText id="calTot2" value=" Calorías totales: #{comidas.calorias2}"></h:outputText> 
 						</p:column>						
 					</p:row>																														
 				</p:panelGrid>
@@ -236,13 +244,13 @@
 					</p:row>				
 					<p:row>
 						<p:column>								
-							<p:selectOneMenu id="food3" value="#{comidas.calorias13}"  >
+							<p:selectOneMenu id="food3" value="#{comidas.calorias13}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 1"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>	
 						</p:column>
 						<p:column>
-							<p:selectOneMenu value="#{comidas.comida3}"  >
+							<p:selectOneMenu value="#{comidas.comida3}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Elija comida"></f:selectItem>
 								<f:selectItems value="#{comidas.listaComidas}" var="p" itemLabel="#{p[2]}" itemValue="#{p[0]}"></f:selectItems>
 							</p:selectOneMenu>					
@@ -264,7 +272,7 @@
 					</p:row>
 					<p:row>
 						<p:column>								
-							<p:selectOneMenu value="#{comidas.calorias23}"  >
+							<p:selectOneMenu value="#{comidas.calorias23}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 2"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>	
@@ -285,7 +293,7 @@
 					</p:row>						
 					<p:row>
 						<p:column>								
-							<p:selectOneMenu value="#{comidas.calorias33}"  >
+							<p:selectOneMenu value="#{comidas.calorias33}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 3"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>	
@@ -305,12 +313,12 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA()}"></p:commandButton> 
+							<p:commandButton type="submit" title="Calcular alimentos" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA}"></p:commandButton> 
 							<h:outputText id="calTotA" value=" Calorías totales: #{comidas.caloriasCom}"></h:outputText> 
 						</p:column>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
-							<h:outputText id="calTot" value=" Calorías totales: #{comidas.calorias3}"></h:outputText> 
+							<p:commandButton type="submit" title="Calcular comidas" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
+							<h:outputText id="calTot3"  value=" Calorías totales: #{comidas.calorias3}"></h:outputText> 
 						</p:column>						
 					</p:row>																														
 				</p:panelGrid>
@@ -334,13 +342,13 @@
 					</p:row>				
 					<p:row>	
 						<p:column>							
-							<p:selectOneMenu id="food4" value="#{comidas.calorias14}"  >
+							<p:selectOneMenu id="food4" value="#{comidas.calorias14}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 1"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>
 						</p:column>						
 						<p:column>
-							<p:selectOneMenu value="#{comidas.comida4}"  >
+							<p:selectOneMenu value="#{comidas.comida4}" rendered="true" maxlength="30"  style="width:250px;"  >
 								<f:selectItem itemLabel="Elija merienda"></f:selectItem>
 								<f:selectItems value="#{comidas.listaMeriendas}" var="p" itemLabel="#{p[2]}" itemValue="#{p[0]}"></f:selectItems>
 							</p:selectOneMenu>					
@@ -362,7 +370,7 @@
 					</p:row>
 					<p:row>
 						<p:column>							
-							<p:selectOneMenu value="#{comidas.calorias24}"  >
+							<p:selectOneMenu value="#{comidas.calorias24}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 2"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>
@@ -382,7 +390,7 @@
 					</p:row>						
 					<p:row>
 						<p:column>							
-							<p:selectOneMenu value="#{comidas.calorias34}"  >
+							<p:selectOneMenu value="#{comidas.calorias34}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 3"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}" ></f:selectItems>
 							</p:selectOneMenu>
@@ -402,12 +410,12 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA()}"></p:commandButton> 
+							<p:commandButton type="submit" title="Calcular alimentos" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA}"></p:commandButton> 
 							<h:outputText id="calTotA" value=" Calorías totales: #{comidas.caloriasMer}"></h:outputText> 
 						</p:column>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
-							<h:outputText id="calTot" value=" Calorías totales: #{comidas.calorias4}"></h:outputText> 
+							<p:commandButton type="submit" title="Calcular comidas" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
+							<h:outputText id="calTot4" value=" Calorías totales: #{comidas.calorias4}"></h:outputText> 
 						</p:column>						
 					</p:row>																														
 				</p:panelGrid>
@@ -431,13 +439,13 @@
 					</p:row>				
 					<p:row>
 						<p:column>						
-							<p:selectOneMenu id="food5" value="#{comidas.calorias15}"  >
+							<p:selectOneMenu id="food5" value="#{comidas.calorias15}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 1"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}" ></f:selectItems>
 							</p:selectOneMenu>
 						</p:column>
 						<p:column>
-							<p:selectOneMenu value="#{comidas.comida5}"  >
+							<p:selectOneMenu value="#{comidas.comida5}" rendered="true" maxlength="30"  style="width:250px;"  >
 								<f:selectItem itemLabel="Elija cena"></f:selectItem>
 								<f:selectItems value="#{comidas.listaCenas}" var="p" itemLabel="#{p[2]}" itemValue="#{p[0]}"></f:selectItems>
 							</p:selectOneMenu>					
@@ -459,7 +467,7 @@
 					</p:row>
 					<p:row>
 						<p:column>						
-							<p:selectOneMenu value="#{comidas.calorias25}"  >
+							<p:selectOneMenu value="#{comidas.calorias25}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 2"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>
@@ -479,7 +487,7 @@
 					</p:row>						
 					<p:row>
 						<p:column>						
-							<p:selectOneMenu value="#{comidas.calorias35}"  >
+							<p:selectOneMenu value="#{comidas.calorias35}" rendered="true" maxlength="30"  style="width:250px;" >
 								<f:selectItem itemLabel="Producto 3"></f:selectItem>
 								<f:selectItems value="#{comidas.listaAlimentos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[3]}"  ></f:selectItems>
 							</p:selectOneMenu>
@@ -499,20 +507,25 @@
 					</p:row>
 					<p:row>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA()}"></p:commandButton> 
+							<p:commandButton type="submit" title="Calcular alimentos" value="Calcular" ajax="false" action="#{comidas.caloriasTotalA}" ></p:commandButton> 
 							<h:outputText id="calTotA" value=" Calorías totales: #{comidas.caloriasCen}"></h:outputText> 
 						</p:column>
 						<p:column>
-							<p:commandButton type="submit" title="Calcular" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
-							<h:outputText id="calTot" value=" Calorías totales: #{comidas.calorias5}"></h:outputText> 
+							<p:commandButton type="submit" title="Calcular comidas" value="Calcular" ajax="false" action="#{comidas.calcComida}"></p:commandButton> 
+							<h:outputText id="calTot5" value=" Calorías totales: #{comidas.calorias5}"></h:outputText> 
 						</p:column>						
 					</p:row>																														
 				</p:panelGrid>
 			</h:form>
 			</p:tab>								
-		</p:accordionPanel>			
+		</p:tabView>		
 		</div>
-
+		<div class="center3">
+			<h:form>
+				<p:commandButton value="Grabar datos" title="Pulse para grabar los datos del formulario" action="#{comidas.recordDay}" styleClass="buttonCenter"></p:commandButton>
+				<p:commandButton value="Actualizar datos" title="Pulse para actualizar estadísticas y listas" action="#{comidas.updateInfo}" styleClass="buttonCenter"></p:commandButton>
+			</h:form>
+		</div>
 	</div>
 </ui:composition>
 </html>

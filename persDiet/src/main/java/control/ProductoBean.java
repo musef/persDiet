@@ -19,7 +19,7 @@ import model.DietMeals;
  * 
  */
 
-@ManagedBean
+@ManagedBean(name="producto")
 @SessionScoped
 public class ProductoBean implements Serializable {
 
@@ -108,6 +108,7 @@ public class ProductoBean implements Serializable {
 	} // END OF METHOD CHANGEVALUESFOOD
 	
 	
+	
 	/**
 	 * Este metodo selecciona de la lista de alimentos el valor elegido
 	 * en la lista del formulario, y lo muestra
@@ -138,7 +139,7 @@ public class ProductoBean implements Serializable {
 	 * grabándolos en la ddbb. Para ello instancia el metodo record de DietFoodsBean.
 	 */
 	
-	public void recordFood() {
+	public String recordFood() {
 		
 		// Primero instancia un objeto DietFoods y almacena los datos del formulario
 		if (readyToRecordFood()) {
@@ -229,8 +230,11 @@ public class ProductoBean implements Serializable {
 			messageRecord="ERROR EN GRABACIÓN";
 			System.out.println("NO HA SIDO GRABADO: "+name);
 		}
+		
+		return "recalculos";
 			
 	} // END OF METHOD RECORDFOOD
+	
 	
 	
 	/**
@@ -779,7 +783,9 @@ public class ProductoBean implements Serializable {
 	 * Este metodo realiza el borrado de los datos de una comida mostrado en el formulario
 	 */
 	
-	public void deleteMeal() {
+	public String deleteMeal() {
+		
+		System.out.println("LLEGADO AL BORRADO");
 		
 		// extracting long number
 		long ident=0;
@@ -817,6 +823,8 @@ public class ProductoBean implements Serializable {
 			System.out.println("NO HA SIDO BORRADO: "+name);
 		}
 			
+		return "recalculos";
+		
 	} // END OF METHOD DELETEMEAL
 	
 	

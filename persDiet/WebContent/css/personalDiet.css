@@ -88,24 +88,29 @@ html {
 
 /* CORRESPONDIENTE AL COMPONENTE NORTE */
 
-.title {
+.titleNorth {
 	text-align: center;
-	height:50%;
+	
+}
+
+.titleGridNorth {
+	width:100%;
+	border:hidden;
+	border-left: hidden;
+	text-align: left;
 }
 
 .titleName {
-	text-align: left;
+	font-size: 2em;
+	font-weight:bold;
 	margin-left:15px;
-	float:left;
-	height:50%;
 }
 
 .titleDate {
+	width:7%;
+	font-size: 1.4em;
 	font-style:italic;
-	text-align: right;
-	margin-right:10px;
-	height:50%;
-	float:right;
+	text-align:right;
 }
 
 /* CORRESPONDIENTE AL COMPONENTE CENTRO */
@@ -117,16 +122,32 @@ html {
 }
 
 .compCenter .center1 {
-	width:25%;
+	width:60%;
 	margin-left:auto;
 	margin-right:auto;
+}
+
+.panelCenter1 {
+	width:150px;
+	font-size: 1.1em;
+	font-weight: bold;
 }
 
 .compCenter .center2 {
 	display:block;
 	margin-left:auto;
 	margin-right:auto;
-	border:solid;
+}
+
+.compCenter .center3 {
+	display:block;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+.buttonCenter {
+	text-align:center;
+	width:150px;
 }
 
 .accordianStyle {
@@ -150,14 +171,15 @@ html {
 .west1 .tabWest {
 	
 }
+
 .west2 {
 	margin-left:15px;
-	width:75%;
 	display:block;
 	float:left;
 }
 .westPanel {
 	font-size:1.5em;
+	width:275px;
 }
 
 .west2 .westPanel .colorInfo1 {
@@ -187,6 +209,15 @@ html {
 .west2 .westPanel .colorInfo9 {
 	color: green;
 }
+
+/* CORRESPONDIENTE AL COMPONENTE DERECHO */
+
+.eastButton {
+	margin-left:auto;
+	margin-right:auto;
+	text-align:center;
+}
+
 
 /* GENERALIDADES */
 

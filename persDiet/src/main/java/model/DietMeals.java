@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Entity
 @Table(name="dietMeals")
 @NamedQueries ( {
-	@NamedQuery(name="allMeals",query="SELECT c FROM DietMeals c WHERE c.keyuser LIKE :keyUser"),
+	@NamedQuery(name="allMeals",query="SELECT c FROM DietMeals c WHERE c.keyuser LIKE :keyUser ORDER BY c.mealname"),
 	@NamedQuery(name="aMeal",query="SELECT c FROM DietMeals c WHERE c.id LIKE :ident")
 } )
 

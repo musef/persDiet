@@ -108,7 +108,8 @@ public class IdentifyBean implements Serializable {
 		weight=(float)Float.parseFloat(userData[6]);
 		height=(float)Float.parseFloat(userData[7]);
 		age=(int)Integer.parseInt(userData[8]);
-		imc=(float)(weight*10000/height/height);
+		imc=(float)((Math.round(weight*100)/100)*10000/height/height);
+		
 		if (userData[9].equals("1")) {
 			sex="Masculino";
 		} else {

@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -8,7 +9,7 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition >
-	<div>
+	
 		<p:tabView>
 			<p:tab title="Productos">
 				
@@ -17,7 +18,7 @@
 					<p:panelGrid id="panelFood" columns="2" >
 					
 						<h:outputText value="Seleccione..."></h:outputText> 
-						<p:selectOneMenu value="#{producto.id}"  > 
+						<p:selectOneMenu value="#{producto.id}" rendered="true" maxlength="30"  style="width:200px;" > 
 							<f:selectItem itemLabel="Seleccione..." itemValue="0"></f:selectItem>	
 							<f:selectItems value="#{producto.listaDatos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[0]}" ></f:selectItems>
 						</p:selectOneMenu>
@@ -48,10 +49,11 @@
 						
 				
 					</p:panelGrid>
-					
+
+					<div class="eastButton">
 						<p:commandButton id="but1" value="Visualizar" ajax="true" update="idNa, idQt, idCa, idCh, idPr, idLi, idCc, idFe" action="#{producto.changeValuesFood}" ></p:commandButton>
 						<p:commandButton id="but2" value="Grabar" ajax="true" update="panelFood" action="#{producto.recordFood}" ></p:commandButton> 
-											
+					</div>						
 				</h:form>
 				
 			</p:tab>
@@ -61,7 +63,7 @@
 					<p:panelGrid id="panelMeal" columns="2" >
 					
 						<h:outputText value="Seleccione..."></h:outputText> 
-						<p:selectOneMenu value="#{producto.idMeal}"  >
+						<p:selectOneMenu value="#{producto.idMeal}" rendered="true" maxlength="30"  style="width:200px;" >
 							<f:selectItem itemLabel="Seleccione..." itemValue="0"></f:selectItem>					
 							<f:selectItems value="#{producto.listMeals}" var="p" itemLabel="#{p[2]}" itemValue="#{p[0]}" ></f:selectItems>
 						</p:selectOneMenu>
@@ -92,27 +94,16 @@
 						
 				
 					</p:panelGrid>
-					
+					<div class="eastButton">
 						<p:commandButton id="but11" value="Visualizar" ajax="true" update="idCNa, idCQt, idCCa, idCCh, idCPr, idCLi, idCCc, idCFe" action="#{producto.changeValuesMeal}" ></p:commandButton>
 						<p:commandButton id="but12" value="Grabar" ajax="true" update="panelMeal" action="#{producto.recordMeal}" ></p:commandButton> 
-						<p:commandButton id="but13" type="button" value="Modificar" onclick="confModMeal.show()" ></p:commandButton>
-						<p:commandButton id="but14" type="button" value="Borrar" onclick="confDelMeal.show()"></p:commandButton>
-						<p:confirmDialog appendToBody="true" id="confirmation2" severity="alert" header="Borrado de comida" message="¿Desea borrar esta comida de la base de datos?" widgetVar="confDelMeal" modal="false" >
-							<p:commandButton id="but15" value="Aceptar"  ajax="true" update="panelMeal" action="#{producto.deleteMeal}" oncomplete="confDelMeal.hide()"></p:commandButton>
-							<p:commandButton id="but16" type="button" value="Cancelar" onclick="confDelMeal.hide()"></p:commandButton>
-						</p:confirmDialog>
-						<p:confirmDialog appendToBody="true" id="confirmationMod2" severity="alert" header="Modificación de comida" message="¿Desea modificar esta comida de la base de datos?" widgetVar="confModMeal" modal="false" >
-							<p:commandButton id="but17" value="Aceptar"  ajax="true" update="panelMeal" action="#{producto.modifyMeal}" oncomplete="confModMeal.hide()"></p:commandButton>
-							<p:commandButton id="but18" type="button" value="Cancelar" onclick="confModMeal.hide()"></p:commandButton>
-						</p:confirmDialog>						
-					
+						<p:commandButton id="but13" value="Modificar" ajax="true" update="panelMeal" action="#{producto.modifyMeal}" ></p:commandButton>
+						<p:commandButton id="but14" value="Borrar" ajax="true" update="panelMeal" action="#{producto.deleteMeal}"></p:commandButton>				
+					</div>
 				</h:form>
 							
 			</p:tab>
 		</p:tabView>
-	</div>
-		
-		   
-	
+
 </ui:composition>
 </html>

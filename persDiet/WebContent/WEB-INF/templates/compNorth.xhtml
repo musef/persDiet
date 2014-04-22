@@ -9,10 +9,12 @@
 	>
 
 <ui:composition >
-
-		<div class="title"><h2><h:outputText value="The Personal Diet Project" /></h2></div>
-	    <div class="titleName"><h4><h:outputText value="Usuario: #{mainDiet.nameUser}" /></h4></div>
-	    <div class="titleDate"><h4><h:outputText value="#{mainDiet.formatDate}" /></h4></div>
-		
+	<div class="titleNorth">
+		<h1><p:outputLabel value="The Personal Diet Project" /></h1>
+		<p:panelGrid columns="2" styleClass="titleGridNorth">
+			<p:outputLabel value="Usuario: #{mainDiet.nameUser}" styleClass="titleName"/>
+			<p:outputLabel value="#{mainDiet.today}" styleClass="titleDate"/> 
+		</p:panelGrid>
+	</div>	
 </ui:composition>
 </html>

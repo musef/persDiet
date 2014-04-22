@@ -16,7 +16,7 @@ import javax.persistence.*;
 @Table(name="dietFoods")
 
 @NamedQueries(value = { 
-	@NamedQuery(name="allFoods", query="SELECT c FROM DietFoods c"),
+	@NamedQuery(name="allFoods", query="SELECT c FROM DietFoods c ORDER BY c.foodname"),
 	@NamedQuery(name="aFood", query="SELECT c FROM DietFoods c WHERE c.id LIKE :ident")	
 })
 

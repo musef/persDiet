@@ -337,15 +337,20 @@ public class DietCalendarBean implements Serializable, DbOperations {
 	public List<String[]> showAll(String keyUser, String dateIni, String dateFin) {
 		
 		// checking parameters
-		if (keyUser==null || keyUser.isEmpty()) {
+		if (keyUser==null) {
+			System.err.println("Error 5.5B keyUser null");
 			return null;
 		}	
+		if (keyUser.isEmpty()) {
+			return null;
+		}
 		Date d1=null;
 		Date d2=null;
 		try {
 			d1=Date.valueOf(dateIni);
 			d2=Date.valueOf(dateFin);	
 		} catch (IllegalArgumentException ex) {
+			System.err.println("Error 5.5B Fechas no validas:"+dateIni+"//"+dateFin);
 			return null;
 		}
 		
