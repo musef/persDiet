@@ -10,10 +10,10 @@
 
 <ui:composition >
 	<div class="titleNorth">
-		<h1><p:outputLabel value="The Personal Diet Project" /></h1>
+		<h1><p:outputLabel value="The Personal Diet Project" style="text-align:center;"/></h1>
 		<p:panelGrid columns="2" styleClass="titleGridNorth">
-			<p:outputLabel value="Usuario: #{mainDiet.nameUser}" styleClass="titleName"/>
-			<p:outputLabel value="#{mainDiet.today}" styleClass="titleDate"/> 
+			<p:outputLabel value="Usuario: #{north.nameUser}" styleClass="titleName"/>
+			<p:outputLabel value="#{north.today}" styleClass="titleDate"/> 
 		</p:panelGrid>
 	</div>	
 </ui:composition>

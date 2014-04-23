@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.AbortProcessingException;
+import javax.faces.event.ValueChangeEvent;
+import javax.faces.event.ValueChangeListener;
 
 
 /**
@@ -17,7 +20,7 @@ import javax.faces.bean.SessionScoped;
 
 @ManagedBean
 @SessionScoped
-public class IdentifyBean implements Serializable {
+public class IdentifyBean implements Serializable, ValueChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -36,6 +39,9 @@ public class IdentifyBean implements Serializable {
 	private int age;
 	private String sex;
 	private float imc;
+	
+	private int lifeStyle;
+	
 	protected static double consum;
 	protected static double calcneed;
 	protected static double ironneed;
@@ -52,12 +58,12 @@ public class IdentifyBean implements Serializable {
 		
 		loginUser="";
 		passUser="";
+		lifeStyle=0;
 		
 	}
 	
 	
 	public String newUser() {
-		System.out.println("//"+pageToCreate);
 		return pageToCreate;
 		
 	}
@@ -109,18 +115,26 @@ public class IdentifyBean implements Serializable {
 		height=(float)Float.parseFloat(userData[7]);
 		age=(int)Integer.parseInt(userData[8]);
 		imc=(float)((Math.round(weight*100)/100)*10000/height/height);
+		lifeStyle=1;
 		
-		if (userData[9].equals("1")) {
+		int sx=0;
+		try {
+			sx=(int)Integer.parseInt(userData[9]);
+		} catch (NumberFormatException nf) {
+			// do nothing
+		}
+		
+		if (sx==1) {
 			sex="Masculino";
 		} else {
 			sex="Femenino";
 		}
-		
+
 		// get targets
-		consum=getCalories(age, weight, height, 0);
-		calcneed=getCalcium(age, weight, height, 0);
-		ironneed=getIron(age, weight, height, 0);
-		protneed=getProtein(age, weight, height, 0);
+		consum=getCalories(age, weight, sx );
+		calcneed=getCalcium(age, weight, sx);
+		ironneed=getIron(age, weight, sx);
+		protneed=getProtein(age, weight, sx);
 		
 		// continues to main page
 		return pageToGo;
@@ -129,7 +143,14 @@ public class IdentifyBean implements Serializable {
 	
 	
 	
-	private double getCalories(int age, float weight, float height, int sex) {
+	public void changeLifeStyle() {
+		
+		System.out.println("CHANGE LIFESTYLE TO:"+lifeStyle);
+		
+	} // end of method changeLifeStyle
+	
+	
+	private double getCalories(int age, float weight, int sex) {
 		// RECOMENDACIONES OMS
 		double ret1=0;
 		// men
@@ -142,9 +163,15 @@ public class IdentifyBean implements Serializable {
 		} else {
 			ret1=(13.5*weight)+487;
 		}
-		ret1=ret1*1.6;
-		//ret1=ret1*1.78;
-		//ret1=ret1*2.1;
+		
+		if (lifeStyle==0) {
+			ret1=ret1*1.6; // sedentario
+		} else if (lifeStyle==1) {
+			ret1=ret1*1.78; // moderado
+		} else {
+			ret1=ret1*2.1;	// activo
+		}
+		
 		
 		double ret=0;
 		// women
@@ -157,18 +184,26 @@ public class IdentifyBean implements Serializable {
 		} else {
 			ret=(10.5*weight)+596;
 		}
-		ret=ret*1.5;
-		//ret=ret*1.64;
-		//ret=ret*1.9;
-		System.out.println(ret+"++"+ret1);
 		
+		if (lifeStyle==0) {
+			ret=ret*1.5; // sedentario
+		} else if (lifeStyle==1) {
+			ret=ret*1.64; // moderado
+		} else {
+			ret=ret*1.9;	// activo
+		}
+		
+		if (sex==1) {
+			// si es hombre
+			return ret1;
+		}
 		return ret;
 		
 	} // end of method getCalories
 	
 	
 	
-	private double getCalcium(int age, float weight, float height, int sex) {
+	private double getCalcium(int age, float weight, int sex) {
 		
 		// RECOMENDACIONES USDA
 		double ret1=0;
@@ -194,16 +229,18 @@ public class IdentifyBean implements Serializable {
 		} else {
 			ret=1200;
 		}
-
-		System.out.println(ret+"++"+ret1);
 		
+		if (sex==1) {
+			// si es hombre
+			return ret1;
+		}
 		return ret;
 		
 	} // end of method getCalcium
 	
 	
 	
-	private double getIron(int age, float weight, float height, int sex) {
+	private double getIron(int age, float weight, int sex) {
 		
 		// RECOMENDACIONES US NATIONAL OF HEALTH
 		double ret1=0;
@@ -226,15 +263,17 @@ public class IdentifyBean implements Serializable {
 			ret=8;
 		}
 
-		System.out.println(ret+"++"+ret1);
-		
+		if (sex==1) {
+			// si es hombre
+			return ret1;
+		}
 		return ret;
 		
 	} // end of method getIron
 	
 
 
-	private double getProtein(int age, float weight, float height, int sex) {
+	private double getProtein(int age, float weight, int sex) {
 		
 		// RECOMENDACIONES US NATIONAL ACADEMIC OF SCIENCE
 		double ret1=0;
@@ -257,8 +296,10 @@ public class IdentifyBean implements Serializable {
 			ret=weight*0.8;
 		}
 	
-		System.out.println(ret+"++"+ret1);
-		
+		if (sex==1) {
+			// si es hombre
+			return ret1;
+		}
 		return ret;
 		
 	} // end of method getProtein
@@ -356,21 +397,17 @@ public class IdentifyBean implements Serializable {
 		return consum;
 	}
 
-
 	public double getCalcneed() {
 		return calcneed;
 	}
-
 
 	public double getIronneed() {
 		return ironneed;
 	}
 
-
 	public double getProtneed() {
 		return protneed;
 	}
-
 
 	public String getSex() {
 		return sex;
@@ -380,19 +417,32 @@ public class IdentifyBean implements Serializable {
 		this.sex = sex;
 	}
 
-
 	public String getPageBadLogin() {
 		return pageBadLogin;
 	}
-
 
 	public String getPageToCreate() {
 		return pageToCreate;
 	}
 
-
 	public String getPageIndex() {
 		return pageIndex;
+	}
+
+	public int getLifeStyle() {
+		return lifeStyle;
+	}
+
+	public void setLifeStyle(int lifeStyle) {
+		this.lifeStyle = lifeStyle;
+	}
+
+
+	@Override
+	public void processValueChange(ValueChangeEvent arg0)
+			throws AbortProcessingException {
+		// TODO Auto-generated method stub
+		System.out.println(arg0.getNewValue().toString());
 	}
 
 

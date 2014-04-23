@@ -97,20 +97,22 @@ html {
 	width:100%;
 	border:hidden;
 	border-left: hidden;
+	border-right: hidden;
 	text-align: left;
+	
 }
 
-.titleName {
+.titleGridNorth .titleName {
+	width:95%;
 	font-size: 2em;
 	font-weight:bold;
 	margin-left:15px;
 }
 
-.titleDate {
-	width:7%;
+.titleGridNorth .titleDate {
+	width:4%;
 	font-size: 1.4em;
 	font-style:italic;
-	text-align:right;
 }
 
 /* CORRESPONDIENTE AL COMPONENTE CENTRO */
@@ -129,8 +131,9 @@ html {
 
 .panelCenter1 {
 	width:150px;
-	font-size: 1.1em;
+	font-size: 1.2em;
 	font-weight: bold;
+	text-align: center;
 }
 
 .compCenter .center2 {
@@ -141,6 +144,7 @@ html {
 
 .compCenter .center3 {
 	display:block;
+	width:70%;
 	margin-left:auto;
 	margin-right:auto;
 }
@@ -150,15 +154,6 @@ html {
 	width:150px;
 }
 
-.accordianStyle {
-	margin-left:auto;
-	margin-right:auto;
-}
-
-.compCenter .center2 .accordianStyle {
-	margin-left:auto;
-	margin-right:auto;
-}
 
 /* CORRESPONDIENTE AL COMPONENTE IZQUIERDO */
 
@@ -169,7 +164,7 @@ html {
 }
 
 .west1 .tabWest {
-	
+	width:240px;
 }
 
 .west2 {

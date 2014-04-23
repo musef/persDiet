@@ -10,7 +10,7 @@
 <ui:composition >
 <div>
 	<div class="west1">
-  		<p:tabView>
+  		<p:tabView id="tabViewWest">
 			<p:tab title="Info">
 				<p:panelGrid columns="2" styleClass="tabWest">
 					<h:outputText value="Datos personales:" />
@@ -31,6 +31,13 @@
 				<p:panelGrid columns="2" styleClass="tabWest">
 					<h:outputText value="Por su edad y sexo:" />
 					<h:outputText value=" " />
+					<h:outputText value="Estilo de vida:" />
+					<p:selectOneMenu value="#{identify.lifeStyle}" style="width:100px;" >
+						<f:selectItem itemLabel="Sedentario" itemValue="0"></f:selectItem>
+						<f:selectItem itemLabel="Activo" itemValue="1"></f:selectItem>
+						<f:selectItem itemLabel="Deportista" itemValue="2"></f:selectItem>
+<!-- 						<p:ajax  listener="#{identify.changeLifeStyle()}" update="tabViewWest"></p:ajax> -->
+					</p:selectOneMenu>					
 					<h:outputText value="Calorías:" />
 					<h:outputText value="#{identify.consum} kcal/dia" />
 					<h:outputText value="Calcio:" />
@@ -53,14 +60,14 @@
 			<h:outputText value="consumos" />
 			<h:outputText value="objetivo" />
 			<h:outputText value="Calorías:" />
-			<h:outputText value="#{comidas.caloriasDia} kcal/dia"  />
-			<h:outputText styleClass="colorInfo1" value="#{comidas.desvCalDia} %"  />
+			<h:outputText value="#{mainDiet.caloriasDia} kcal/dia"  />
+			<h:outputText styleClass="colorInfo1" value="#{mainDiet.desvCalDia} %"  />
 			<h:outputText value="Calcio:" />
-			<h:outputText value="#{comidas.calcioDia} mg/dia" />
-			<h:outputText styleClass="colorInfo2" value="#{comidas.desvCacDia} %" />		
+			<h:outputText value="#{mainDiet.calcioDia} mg/dia" />
+			<h:outputText styleClass="colorInfo2" value="#{mainDiet.desvCacDia} %" />		
 			<h:outputText value="Hierro:" />
-			<h:outputText value="#{comidas.hierroDia} mg/dia" />
-			<h:outputText styleClass="colorInfo3" value="#{comidas.desvFerDia} %" />												
+			<h:outputText value="#{mainDiet.hierroDia} mg/dia" />
+			<h:outputText styleClass="colorInfo3" value="#{mainDiet.desvFerDia} %" />												
 		</p:panelGrid>	
 		<br></br>
 		<p:panelGrid styleClass="westPanel" columns="3" >
@@ -71,14 +78,14 @@
 			<h:outputText value="consumos" />
 			<h:outputText value="objetivo" />		
 			<h:outputText value="Calorías:" />
-			<h:outputText value="#{comidas.caloriasSemana} kcal/dia" />
-			<h:outputText styleClass="colorInfo4" value="#{comidas.desvCalSem} %"  />
+			<h:outputText value="#{mainDiet.caloriasSemana} kcal/dia" />
+			<h:outputText styleClass="colorInfo4" value="#{mainDiet.desvCalSem} %"  />
 			<h:outputText value="Calcio:" />
-			<h:outputText value="#{comidas.calcioSemana} mg/dia" />	
-			<h:outputText styleClass="colorInfo5" value="#{comidas.desvCacSem} %" />	
+			<h:outputText value="#{mainDiet.calcioSemana} mg/dia" />	
+			<h:outputText styleClass="colorInfo5" value="#{mainDiet.desvCacSem} %" />	
 			<h:outputText value="Hierro:" />
-			<h:outputText value="#{comidas.hierroSemana} mg/dia" />	
-			<h:outputText styleClass="colorInfo6" value="#{comidas.desvFerSem} %" />												
+			<h:outputText value="#{mainDiet.hierroSemana} mg/dia" />	
+			<h:outputText styleClass="colorInfo6" value="#{mainDiet.desvFerSem} %" />												
 		</p:panelGrid>	
 		<br></br>
 		<p:panelGrid styleClass="westPanel" columns="3" >
@@ -89,14 +96,14 @@
 			<h:outputText value="consumos" />
 			<h:outputText value="objetivo" />		
 			<h:outputText value="Calorías:" />
-			<h:outputText value="#{comidas.caloriasMes} kcal/dia" />
-			<h:outputText styleClass="colorInfo7" value="#{comidas.desvCalMes} %"  />
+			<h:outputText value="#{mainDiet.caloriasMes} kcal/dia" />
+			<h:outputText styleClass="colorInfo7" value="#{mainDiet.desvCalMes} %"  />
 			<h:outputText value="Calcio:" />
-			<h:outputText value="#{comidas.calcioMes} mg/dia"/>	
-			<h:outputText styleClass="colorInfo8" value="#{comidas.desvCacMes} %" />	
+			<h:outputText value="#{mainDiet.calcioMes} mg/dia"/>	
+			<h:outputText styleClass="colorInfo8" value="#{mainDiet.desvCacMes} %" />	
 			<h:outputText value="Hierro:" />
-			<h:outputText value="#{comidas.hierroMes} mg/dia" />
-			<h:outputText styleClass="colorInfo9" value="#{comidas.desvFerMes} %" />													
+			<h:outputText value="#{mainDiet.hierroMes} mg/dia" />
+			<h:outputText styleClass="colorInfo9" value="#{mainDiet.desvFerMes} %" />													
 		</p:panelGrid>
 	</div>
 </div>
