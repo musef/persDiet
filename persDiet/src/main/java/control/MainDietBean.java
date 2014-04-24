@@ -33,26 +33,26 @@ public class MainDietBean implements Serializable {
 	private List<String[]> listaAlimentos;
 	
 	private int activeTab;
+	private String keyUser;
 	
-	// zona comidas
+	private java.util.Date dateCalendar;
+	private String dateSelected;
+	private String dateToShow;
+	private String today;
+	
+	
+	
+	
+	// ********* meals zone
+	
+	// id's meals
 	private String comida1;
 	private String comida2;
 	private String comida3;
 	private String comida4;
 	private String comida5;
 	
-	// zona calorias
-	private double caloriasDia;
-	private double caloriasSemana;
-	private double caloriasMes;
-	
-	private double caloriasTotales;
-	private double calorias1;
-	private double calorias2;
-	private double calorias3;
-	private double calorias4;
-	private double calorias5;	
-	
+	// qtt meals
 	private final int udMedidaStandard=100;
 	private int medida1;
 	private int medida2;
@@ -60,6 +60,37 @@ public class MainDietBean implements Serializable {
 	private int medida4;
 	private int medida5;
 	
+	// calories meals
+	private double caloriasTotales;
+	private double calorias1;
+	private double calorias2;
+	private double calorias3;
+	private double calorias4;
+	private double calorias5;	
+	
+
+
+	
+	// ********* foods zone
+	
+	// qtt foods
+	private double medida11;
+	private double medida12;
+	private double medida13;
+	private double medida14;
+	private double medida15;
+	private double medida21;
+	private double medida22;
+	private double medida23;
+	private double medida24;
+	private double medida25;
+	private double medida31;
+	private double medida32;
+	private double medida33;
+	private double medida34;
+	private double medida35;
+	
+	// calories foods
 	private double caloriasTotalesA;
 	private double calorias11;
 	private double calorias12;
@@ -77,28 +108,21 @@ public class MainDietBean implements Serializable {
 	private double calorias34;
 	private double calorias35;	
 	
-	private double medida11;
-	private double medida12;
-	private double medida13;
-	private double medida14;
-	private double medida15;
-	private double medida21;
-	private double medida22;
-	private double medida23;
-	private double medida24;
-	private double medida25;
-	private double medida31;
-	private double medida32;
-	private double medida33;
-	private double medida34;
-	private double medida35;	
 	
-	// zona calorias por ingesta
+	// ********* summary of variables zone
 	private double caloriasDes;
 	private double caloriasTen;
 	private double caloriasCom;
 	private double caloriasMer;
 	private double caloriasCen;
+	
+	
+	// ********** statistics west zone
+	
+	// zona calorias
+	private double caloriasDia;
+	private double caloriasSemana;
+	private double caloriasMes;
 	
 	// zona calcio
 	private double calcioDia;
@@ -109,7 +133,7 @@ public class MainDietBean implements Serializable {
 	private double hierroSemana;
 	private double hierroMes;
 	
-	// zona desviaciones
+	// desv zone
 	private double desvCalDia;
 	private double desvCalSem;
 	private double desvCalMes;
@@ -120,12 +144,7 @@ public class MainDietBean implements Serializable {
 	private double desvFerSem;
 	private double desvFerMes;
 	
-	private String keyUser;
-		
-	private java.util.Date dateCalendar;
-	private String dateSelected;
-	private String dateToShow;
-	private String today;
+
 	
 	
 	
@@ -135,20 +154,6 @@ public class MainDietBean implements Serializable {
 	
 		// get keyUser
 		keyUser=IdentifyBean.getKeyUser();
-		
-		// get today
-		today=getDateToday();
-		
-		listaDesayunos=new ArrayList<String[]>();
-		listaTentempies=new ArrayList<String[]>();
-		listaComidas=new ArrayList<String[]>();
-		listaMeriendas=new ArrayList<String[]>();
-		listaCenas=new ArrayList<String[]>();
-		
-		// getting values to start 
-		// checking the date to read
-		dateSelected=today;
-		updateInfo();
 		
 		// tab donde se inicia
 		activeTab=0;
@@ -209,6 +214,19 @@ public class MainDietBean implements Serializable {
 		medida34=100;
 		medida35=100;		
 		
+		// get today
+		today=getDateToday();
+		
+		listaDesayunos=new ArrayList<String[]>();
+		listaTentempies=new ArrayList<String[]>();
+		listaComidas=new ArrayList<String[]>();
+		listaMeriendas=new ArrayList<String[]>();
+		listaCenas=new ArrayList<String[]>();
+		
+		// getting values to start 
+		// checking the date to read
+		dateSelected=today;
+		updateInfo();
 		
 	} // end of constructor
 	
@@ -242,6 +260,29 @@ public class MainDietBean implements Serializable {
 	
 	
 	/**
+	 * This method changes the working day and returns to Today.
+	 * Then updates the info and statistics.
+	 * 
+	 * @return String "resultados" to navigation 
+	 */
+	
+	public String changeToday() {
+	
+		// returns back today
+		dateSelected=today;
+		
+		// update list and statistics
+		takeInfoDay();
+		updateInfo();
+		
+		return "recalculos";
+		
+		
+	} // end of method changeToday
+	
+	
+	
+	/**
 	 * Este metodo implementa los siguientes calculos:
 	 * a) El consumo total de calorias diarias, tanto proviniendo de alimentos como de comidas
 	 * b) El consumo total de calorias proviniendo exclusivamente de COMIDAS
@@ -255,7 +296,7 @@ public class MainDietBean implements Serializable {
 		
 		// primero calcula las calorias totales exclusivamente por comidas
 		// IMPORTANTE: en el caso comidas no se pondera el valor, sino que se toma directamente
-		// el valor de DDBB. Las comidas grabadas son una unidad no ponderable.
+		// el valor de DDBB. Las comidas grabadas son una unidad ponderable.
 		DietMealsBean mB=new DietMealsBean();
 		
 		float cc1,cc2,cc3,cc4,cc5=0;
@@ -338,8 +379,6 @@ public class MainDietBean implements Serializable {
 		// tercero, se calculan las desviaciones de los parametros calorias, calcio y hierro.
 		calcDesv();
 		
-		System.out.println("***"+calorias1+"--"+caloriasDia);
-		
 		activeTab=4;
 		
 		return "recalculos";
@@ -391,12 +430,11 @@ public class MainDietBean implements Serializable {
 	
 	
 	/**
-	 * Este metodo implementa el calculo de las desviaciones en el consumo
-	 * de calorias, calcio y hierro respecto a las cantidades objetivos del
-	 * usuario.
+	 * This method implements the calculus of consumption deviation of calories, 
+	 * calcium and iron about user's objective values and stores it.
 	 * 
-	 * Almacena directamente el valor en las variables.
 	 */
+	
 	private void calcDesv() {
 		
 		IdentifyBean idB=new IdentifyBean();
@@ -431,7 +469,7 @@ public class MainDietBean implements Serializable {
 	 * DE MOMENTO SOLO COMIDAS
 	 */
 	
-	public void getDay(String date) {
+	private void getDay(String date) {
 		
 
 		Date thisDate=null;
@@ -484,7 +522,6 @@ public class MainDietBean implements Serializable {
 								caloriasDia+=resultCal;
 								calcioDia+=resultCac;
 								hierroDia+=resultFer;
-								System.out.println("DATO DIA ");
 							}																			
 							
 						} else {
@@ -505,7 +542,6 @@ public class MainDietBean implements Serializable {
 								caloriasDia+=resultCal;
 								calcioDia+=resultCac;
 								hierroDia+=resultFer;
-								System.out.println("DATO DIA ");
 							}
 						}
 						
@@ -536,7 +572,7 @@ public class MainDietBean implements Serializable {
 	 * y los utiliza para estadisticas
 	 */
 	
-	public void getWeek (String date) {
+	private void getWeek (String date) {
 		
 		// number of days that contains data
 		int num=0;
@@ -561,7 +597,6 @@ public class MainDietBean implements Serializable {
 			
 			DietCalendarBean calend=new DietCalendarBean();
 			// we get the list
-			System.out.println("**"+this.keyUser+"**"+date+"**"+initDate);
 			List<String[]> getRec=calend.showAll(keyUser,initDate, date);
 			
 			// reseting values 
@@ -608,8 +643,6 @@ public class MainDietBean implements Serializable {
 								caloriasSemana+=resultCal;
 								calcioSemana+=resultCac;
 								hierroSemana+=resultFer;
-								System.out.println("**"+caloriasSemana+"**"+calcioSemana);
-								System.out.println("DATO SEMANA ");
 							}
 							
 						} else {
@@ -630,7 +663,6 @@ public class MainDietBean implements Serializable {
 								caloriasSemana+=resultCal;
 								calcioSemana+=resultCac;
 								hierroSemana+=resultFer;
-								System.out.println("DATO SEMANA ");
 							}
 						}
 						
@@ -661,7 +693,7 @@ public class MainDietBean implements Serializable {
 	 * y los utiliza para estadisticas
 	 */
 	
-	public void getMonth (String date) {
+	private void getMonth (String date) {
 
 		// number of days that contains data
 		int num=0;
@@ -687,7 +719,6 @@ public class MainDietBean implements Serializable {
 			
 			DietCalendarBean calend=new DietCalendarBean();
 			// we get the list
-			System.out.println("**"+this.keyUser+"**"+date+"**"+initDate);
 			List<String[]> getRec=calend.showAll(keyUser,initDate, date);
 			
 			// reseting values 
@@ -734,7 +765,6 @@ public class MainDietBean implements Serializable {
 								caloriasMes+=resultCal;
 								calcioMes+=resultCac;
 								hierroMes+=resultFer;
-								System.out.println("DATO MES ");
 							}
 							
 						} else {
@@ -755,7 +785,6 @@ public class MainDietBean implements Serializable {
 								caloriasMes+=resultCal;
 								calcioMes+=resultCac;
 								hierroMes+=resultFer;	
-								System.out.println("DATO MES ");
 							}
 						}
 						
@@ -775,8 +804,6 @@ public class MainDietBean implements Serializable {
 		caloriasMes=((double)(Math.round(caloriasMes*100/num)))/100;
 		calcioMes=((double)(Math.round(calcioMes*100/num)))/100;
 		hierroMes=((double)(Math.round(hierroMes*100/num)))/100;
-		
-		System.out.println("DIAS LEIDOS EN EL MES:"+num);
 		
 	} // end of method getMOnth
 	
@@ -806,6 +833,9 @@ public class MainDietBean implements Serializable {
 			// we get the list
 			List<String[]> getRec=calend.showAll(keyUser, date, date);
 			
+			comida1=comida2=comida3=comida4=comida5=null;
+			medida1=medida2=medida3=medida4=medida5=0;
+			
 			if (getRec!=null) {				
 				
 				// reading the list
@@ -822,7 +852,7 @@ public class MainDietBean implements Serializable {
 							if (n[3].equals("1")){
 								// if there is a meal desayuno
 								comida1=n[5];
-								medida1=(int)Math.round((float)Float.parseFloat(n[6])); 
+								medida1=(int)Math.round((float)Float.parseFloat(n[6]));
 							}
 							if (n[3].equals("2")){
 								// if there is a meal tentempie
@@ -842,7 +872,7 @@ public class MainDietBean implements Serializable {
 							if (n[3].equals("5")){
 								// if there is a meal cena
 								comida5=n[5];
-								medida5=(int)Math.round((float)Float.parseFloat(n[6])); 
+								medida5=(int)Math.round((float)Float.parseFloat(n[6]));
 							}
 							
 						} 
@@ -853,9 +883,15 @@ public class MainDietBean implements Serializable {
 					
 				} // end of for
 				
+				// recalculates data about all consumption
+				calcComida();
+				
 			} else {
 				System.err.println("NO HAY LECTURAS");
+				// recalculates data about all consumption
+				calcComida();
 			}
+			
 		} else {
 			System.err.println("Error en la fecha");
 		}
@@ -868,9 +904,11 @@ public class MainDietBean implements Serializable {
 	/**
 	 * Este metodo graba en DDBB los datos del dIa
 	 * SOLO COMIDAS
+	 * 
+	 * @return String "recalculos" to navigation
 	 */
 	
-	public void recordDay () {
+	public String recordDay () {
 		
 		// reseteamos la variable caloriasDia
 		caloriasDia=0;
@@ -891,10 +929,13 @@ public class MainDietBean implements Serializable {
 				// date is null but...
 				thisDate=null;
 			}
-			
-			
+				
 			if (thisDate!=null) {
 				// existen valores a grabar, y la fecha es correcta
+				
+				// pero primero debemos borrar las anteriores grabaciones del dia !!
+				eraseRecords(thisDate, calend);
+				
 				// procedemos a comprobar desde desayuno a cena
 				
 				if (comida1!=null && !(comida1.trim().isEmpty())) {
@@ -989,7 +1030,83 @@ public class MainDietBean implements Serializable {
 			System.out.println ("NADA QUE GRABAR");
 		}
 		
+		return "recalculos";
+		
 	} // end of method recordDay
+	
+	
+	
+	/**
+	 * This method delete all the records that belongs to user, for 
+	 * a determinate day 
+	 * 
+	 * @return String "recalculos" to navigation
+	 */
+	
+	public String deleteDay() {
+		
+		// getting the date to record
+		String date=dateSelected;
+		Date thisDate=null;
+		try {
+			thisDate=Date.valueOf(date);
+		} catch (IllegalArgumentException il) {
+			// date is null then... nothing happens
+			thisDate=null;
+		}
+			
+		if (thisDate!=null) {
+			//  the date is correct
+			DietCalendarBean calend=new DietCalendarBean();
+			// deleting records
+			eraseRecords(thisDate, calend);
+		}
+		
+		// first delete form then update
+		clearForm();
+		
+		// updates statistics
+		updateInfo();
+		
+		return "recalculos";
+		
+	} // end of method deleteDay
+	
+	
+	
+	/**
+	 * This method erases daily records belongs to a user.
+	 * 
+	 * @param dateToErase - Date, the date to delete records
+	 * @param calendar - Object DietCalendarBean to instantiate method deleteDay
+	 */
+	
+	private void eraseRecords(Date dateToErase, DietCalendarBean calendar) {
+		
+		// deleting
+		if (calendar.deleteDay(keyUser, dateToErase)) {
+			System.out.println("BORRADOS TODOS LOS DATOS DIARIOS");
+		} else {
+			System.err.println("Error en borrado de datos diarios");
+		}
+		
+	} // end of method eraseRecords
+	
+	
+	
+	/**
+	 * This method erases the form fields.
+	 * 
+	 */
+	
+	private void clearForm() {
+		
+		comida1=comida2=comida3=comida4=comida5=null;
+		medida1=medida2=medida3=medida4=medida5=0;
+		
+		calcComida();
+		
+	} // end of method clearForm
 	
 	
 	
@@ -1000,7 +1117,7 @@ public class MainDietBean implements Serializable {
 	 * @return String "recalculos" to navigation
 	 */
 	
-	private String updateInfo() {
+	public String updateInfo() {
 			
 		// updating lists
 		DietMealsBean desayuno= new DietMealsBean();

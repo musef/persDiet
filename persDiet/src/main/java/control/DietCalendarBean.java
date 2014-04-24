@@ -128,6 +128,69 @@ public class DietCalendarBean implements Serializable, DbOperations {
 	
 	
 	/**
+	 * This method delete all the foods-meals registered in the calendar, belongs to
+	 * a user "keyUser" in a determinate day.
+	 * 
+	 * @param keyUser - String that identifies a user.
+	 * @param day - Date the day to delete records.
+	 * 
+	 * @return Return a boolean TRUE/FALSE confirming a food-calendar deleted.
+	 */
+	
+	public boolean deleteDay(String keyUser, Date day) {
+		
+		EntityTransaction tx=null;
+		// getting a new connection
+		em=connect.newConnection();
+		Query q=null;
+		
+		try {
+			
+			tx=em.getTransaction();
+			tx.begin();
+			// getting the object
+			q=em.createNamedQuery("dateCal");
+			q.setParameter("keyUs",	keyUser);
+			q.setParameter("date1",	day);
+			q.setParameter("date2",	day);
+			
+			@SuppressWarnings("unchecked")
+			List<DietCalendar> cal=(List<DietCalendar>) q.getResultList();
+			
+			if (cal==null) {
+				// nothing to delete
+				return true;
+			}
+			
+			// deleting
+			
+			for (DietCalendar dt:cal) {
+				if (!tx.isActive()) {
+					tx.begin();
+					}
+				em.remove(dt);
+				tx.commit();
+			}
+						
+			
+		} catch (Exception ex) {
+		
+			if (tx.isActive()) {tx.rollback();}
+			System.err.println("Error 5.2 Error en el proceso de borrado en DDBB");
+			ex.printStackTrace();
+			return false;			
+			
+		} finally {
+			em.close();
+		}
+		
+		return true;
+		
+	} // END OF METHOD DELETEDAY
+	
+	
+	
+	/**
 	 * This method modifies a food-calendar registered in the DDBB, identifies by
 	 * a Long ident.
 	 * 

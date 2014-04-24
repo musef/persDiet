@@ -17,7 +17,8 @@
 				<p:panelGrid columns="1" styleClass="panelCenter1">
 					<p:outputLabel value="Fecha de datos:"></p:outputLabel>
 					<h:outputText id="idDate" value="#{mainDiet.dateToShow}"></h:outputText>
-					<p:commandButton type="submit" value="cambia día" ajax="false" action="#{mainDiet.changeDay}" title="Seleccione en el calendario y pulse para cambiar el día"></p:commandButton>
+					<p:commandButton type="submit" value="cambia día" ajax="false" action="#{mainDiet.changeDay}" styleClass="buttonCenter" title="Seleccione en el calendario y pulse para cambiar al día elegido"></p:commandButton>
+					<p:commandButton type="submit" value="hoy" ajax="false" action="#{mainDiet.changeToday}" styleClass="buttonCenter" title="Pulse para volver al día de hoy"></p:commandButton>
 				</p:panelGrid>
 				
 			</p:panelGrid>
@@ -515,7 +516,7 @@
 							<h:outputText id="calTot5" value=" Calorías totales: #{mainDiet.calorias5}"></h:outputText> 
 						</p:column>						
 					</p:row>																														
-				</p:panelGrid>
+				</p:panelGrid> 
 			</h:form>
 			</p:tab>								
 		</p:tabView>		
@@ -523,11 +524,12 @@
 		<div class="center3">
 			<p:panelGrid columns="2">
 			<h:form>
-				<p:commandButton value="Grabar datos" title="Pulse para grabar los datos del formulario" action="#{mainDiet.recordDay}" styleClass="buttonCenter"></p:commandButton>
+				<p:commandButton value="Grabar datos" title="Pulse para grabar los datos del día" action="#{mainDiet.recordDay}" styleClass="buttonCenter"></p:commandButton>
+				<p:commandButton value="Borrar datos" title="Pulse para borrar los datos del día" action="#{mainDiet.deleteDay}" styleClass="buttonCenter"></p:commandButton>
 				<p:commandButton value="Actualizar datos" title="Pulse para actualizar estadísticas y listas" action="#{mainDiet.updateInfo}" styleClass="buttonCenter"></p:commandButton>
 			</h:form>
 			</p:panelGrid>
-		</div>
+		</div> 
 	</div>
 </ui:composition>
 </html>
