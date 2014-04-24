@@ -17,6 +17,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `dietCalendar`
+--
+
+CREATE TABLE IF NOT EXISTS `dietCalendar` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `keyuser` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `date` date NOT NULL,
+  `moment` int(11) NOT NULL,
+  `type` int(11) NOT NULL,
+  `idproduct` bigint(20) NOT NULL,
+  `qtt` float NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `keyuser` (`keyuser`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
+
+
+-- --------------------------------------------------------
+--
 -- Estructura de tabla para la tabla `dietFoods`
 --
 
@@ -24,7 +42,7 @@ CREATE TABLE IF NOT EXISTS `dietFoods` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
   `foodname` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `qtt` int(11) NOT NULL,
-  `caL` float NOT NULL,
+  `cal` float NOT NULL,
   `carbohydrate` float NOT NULL,
   `protein` float NOT NULL,
   `lipid` float NOT NULL,
@@ -45,7 +63,7 @@ CREATE TABLE IF NOT EXISTS `dietMeals` (
   `keyuser` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `mealname` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   `qtt` int(11) NOT NULL,
-  `caL` float NOT NULL,
+  `cal` float NOT NULL,
   `carbohydrate` float NOT NULL,
   `protein` float NOT NULL,
   `lipid` float NOT NULL,
@@ -68,6 +86,7 @@ CREATE TABLE IF NOT EXISTS `dietPersonalData` (
   `weight` double NOT NULL,
   `height` double NOT NULL,
   `age` int(11) NOT NULL,
+  `sex` int(11) NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
 
@@ -82,6 +101,7 @@ CREATE TABLE IF NOT EXISTS `dietUsers` (
   `login` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `pass` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `keyuser` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
+  `pdata` bigint(20) NOT NULL,
   PRIMARY KEY (`id`),
   KEY `login` (`login`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci AUTO_INCREMENT=1 ;
