@@ -4,13 +4,10 @@ import java.io.Serializable;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.AbortProcessingException;
-import javax.faces.event.ValueChangeEvent;
-import javax.faces.event.ValueChangeListener;
 
 
 /**
- * The java bean for the index.xhtml control.
+ * The java bean for the index.xhtml control, and westPanel.xhtml
  * 
  * @author musef
  * 
@@ -20,7 +17,7 @@ import javax.faces.event.ValueChangeListener;
 
 @ManagedBean
 @SessionScoped
-public class IdentifyBean implements Serializable, ValueChangeListener {
+public class IdentifyBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
@@ -58,9 +55,9 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 		
 		loginUser="";
 		passUser="";
-		lifeStyle=0;
 		
 	}
+	
 	
 	
 	public String newUser() {
@@ -68,10 +65,13 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 		
 	}
 	
+	
+	
 	public String goToIndex() {
 		System.out.println("++"+pageIndex);
 		return pageIndex;
 	}
+	
 	
 	
 	/**
@@ -115,6 +115,7 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 		height=(float)Float.parseFloat(userData[7]);
 		age=(int)Integer.parseInt(userData[8]);
 		imc=(float)((Math.round(weight*100)/100)*10000/height/height);
+		// starting with active life style
 		lifeStyle=1;
 		
 		int sx=0;
@@ -131,9 +132,9 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 		}
 
 		// get targets
-		consum=getCalories(age, weight, sx );
-		calcneed=getCalcium(age, weight, sx);
-		ironneed=getIron(age, weight, sx);
+		consum=getCalories(age, weight, sx, lifeStyle );
+		calcneed=getCalcium(age, sx);
+		ironneed=getIron(age, sx);
 		protneed=getProtein(age, weight, sx);
 		
 		// continues to main page
@@ -143,14 +144,45 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 	
 	
 	
-	public void changeLifeStyle() {
+	/**
+	 * This method change personal data when the user changes the life style.
+	 * 
+	 * @return
+	 */
+	
+	public String changeLifeStyle() {
+		
 		
 		System.out.println("CHANGE LIFESTYLE TO:"+lifeStyle);
+		
+		int sx=0;
+		try {
+			sx=(int)Integer.parseInt(userData[9]);
+		} catch (NumberFormatException nf) {
+			// do nothing
+		}
+		
+		if (sx==1) {
+			sex="Masculino";
+		} else {
+			sex="Femenino";
+		}
+
+		// get targets
+		consum=getCalories(age, weight, sx, lifeStyle );
+		calcneed=getCalcium(age, sx);
+		ironneed=getIron(age, sx);
+		protneed=getProtein(age, weight, sx);
+		
+		
+		return "recalculos";
 		
 	} // end of method changeLifeStyle
 	
 	
-	private double getCalories(int age, float weight, int sex) {
+	
+	
+	private double getCalories(int age, float weight, int sex, int lifeStyle) {
 		// RECOMENDACIONES OMS
 		double ret1=0;
 		// men
@@ -203,7 +235,7 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 	
 	
 	
-	private double getCalcium(int age, float weight, int sex) {
+	private double getCalcium(int age, int sex) {
 		
 		// RECOMENDACIONES USDA
 		double ret1=0;
@@ -240,7 +272,7 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 	
 	
 	
-	private double getIron(int age, float weight, int sex) {
+	private double getIron(int age, int sex) {
 		
 		// RECOMENDACIONES US NATIONAL OF HEALTH
 		double ret1=0;
@@ -295,7 +327,8 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 		} else {
 			ret=weight*0.8;
 		}
-	
+		
+		
 		if (sex==1) {
 			// si es hombre
 			return ret1;
@@ -386,6 +419,7 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 	}
 
 	public float getImc() {
+		imc=(float)(Math.round(imc*100)/100);
 		return imc;
 	}
 
@@ -394,6 +428,7 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 	}
 
 	public double getConsum() {
+		consum=(double)(Math.round(consum*100)/100);
 		return consum;
 	}
 
@@ -438,12 +473,6 @@ public class IdentifyBean implements Serializable, ValueChangeListener {
 	}
 
 
-	@Override
-	public void processValueChange(ValueChangeEvent arg0)
-			throws AbortProcessingException {
-		// TODO Auto-generated method stub
-		System.out.println(arg0.getNewValue().toString());
-	}
 
 
 

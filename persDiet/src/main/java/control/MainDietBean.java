@@ -11,6 +11,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.ActionEvent;
+
 
 import model.DietCalendar;
 
@@ -42,7 +44,6 @@ public class MainDietBean implements Serializable {
 	
 	
 	
-	
 	// ********* meals zone
 	
 	// id's meals
@@ -61,7 +62,6 @@ public class MainDietBean implements Serializable {
 	private int medida5;
 	
 	// calories meals
-	private double caloriasTotales;
 	private double calorias1;
 	private double calorias2;
 	private double calorias3;
@@ -69,45 +69,58 @@ public class MainDietBean implements Serializable {
 	private double calorias5;	
 	
 
-
-	
 	// ********* foods zone
+
+	// id's meals
+	private String foods11;
+	private String foods12;
+	private String foods13;
+	private String foods21;
+	private String foods22;
+	private String foods23;
+	private String foods31;
+	private String foods32;
+	private String foods33;
+	private String foods41;
+	private String foods42;
+	private String foods43;
+	private String foods51;
+	private String foods52;
+	private String foods53;
 	
 	// qtt foods
-	private double medida11;
-	private double medida12;
-	private double medida13;
-	private double medida14;
-	private double medida15;
-	private double medida21;
-	private double medida22;
-	private double medida23;
-	private double medida24;
-	private double medida25;
-	private double medida31;
-	private double medida32;
-	private double medida33;
-	private double medida34;
-	private double medida35;
+	private int medida11;
+	private int medida12;
+	private int medida13;
+	private int medida21;
+	private int medida22;
+	private int medida23;
+	private int medida31;
+	private int medida32;
+	private int medida33;
+	private int medida41;
+	private int medida42;
+	private int medida43;
+	private int medida51;
+	private int medida52;
+	private int medida53;
 	
 	// calories foods
-	private double caloriasTotalesA;
 	private double calorias11;
 	private double calorias12;
 	private double calorias13;
-	private double calorias14;
-	private double calorias15;
 	private double calorias21;
 	private double calorias22;
 	private double calorias23;
-	private double calorias24;
-	private double calorias25;
 	private double calorias31;
 	private double calorias32;
 	private double calorias33;
-	private double calorias34;
-	private double calorias35;	
-	
+	private double calorias41;
+	private double calorias42;
+	private double calorias43;
+	private double calorias51;
+	private double calorias52;
+	private double calorias53;
 	
 	// ********* summary of variables zone
 	private double caloriasDes;
@@ -121,15 +134,21 @@ public class MainDietBean implements Serializable {
 	
 	// zona calorias
 	private double caloriasDia;
+	private double caloriasDiaDish;
+	private double caloriasDiaFood;
 	private double caloriasSemana;
 	private double caloriasMes;
 	
 	// zona calcio
 	private double calcioDia;
+	private double calcioDiaDish;
+	private double calcioDiaFood;
 	private double calcioSemana;
 	private double calcioMes;
 	// zona hierro
 	private double hierroDia;
+	private double hierroDiaDish;
+	private double hierroDiaFood;
 	private double hierroSemana;
 	private double hierroMes;
 	
@@ -161,6 +180,8 @@ public class MainDietBean implements Serializable {
 		// inicializando resumen
 		
 		caloriasDia=0;
+		caloriasDiaDish=0;
+		caloriasDiaFood=0;
 		caloriasSemana=0;
 		caloriasMes=0;
 		calcioDia=0;		
@@ -186,33 +207,28 @@ public class MainDietBean implements Serializable {
 		calorias11=0;
 		calorias12=0;
 		calorias13=0;
-		calorias14=0;
-		calorias15=0;
 		calorias21=0;
 		calorias22=0;
 		calorias23=0;
-		calorias24=0;
-		calorias25=0;
 		calorias31=0;
 		calorias32=0;
 		calorias33=0;
-		calorias34=0;
-		calorias35=0;		
+		
 		medida11=100;
 		medida12=100;
 		medida13=100;
-		medida14=100;
-		medida15=100;
 		medida21=100;
 		medida22=100;
 		medida23=100;
-		medida24=100;
-		medida25=100;
 		medida31=100;
 		medida32=100;
 		medida33=100;
-		medida34=100;
-		medida35=100;		
+		medida41=100;
+		medida42=100;
+		medida43=100;
+		medida51=100;
+		medida52=100;
+		medida53=100;		
 		
 		// get today
 		today=getDateToday();
@@ -292,11 +308,11 @@ public class MainDietBean implements Serializable {
 	 * @return String con valor "recalculos" para navegacion faces-config
 	 */
 	
-	public String calcComida () {
+	public String calcDish () {
 		
-		// primero calcula las calorias totales exclusivamente por comidas
-		// IMPORTANTE: en el caso comidas no se pondera el valor, sino que se toma directamente
-		// el valor de DDBB. Las comidas grabadas son una unidad ponderable.
+		// primero calcula las calorias, calcio y hierro totales exclusivamente por comidas
+		// correspondientes a ese dia
+		// IMPORTANTE: se toma el valor ponderado
 		DietMealsBean mB=new DietMealsBean();
 		
 		float cc1,cc2,cc3,cc4,cc5=0;
@@ -362,21 +378,22 @@ public class MainDietBean implements Serializable {
 			cc5=0;
 		}
 		
-		caloriasTotales=(calorias1)+(calorias2)+
-				(calorias3)+(calorias4)+(calorias5);
+			// valores diarios por comidas
+		caloriasDiaDish=(calorias1)+(calorias2)+(calorias3)+(calorias4)+(calorias5);
+		calcioDiaDish=cc1+cc2+cc3+cc4+cc5;
+		hierroDiaDish=h1+h2+h3+h4+h5;
 		
-		// segundo, se calcula el total de calorias diarias, teniendo en cuenta tambien las
-		// que, si las hubiere, procedan exclusivamente de alimentos.
-		caloriasDia=caloriasTotales+caloriasTotalesA;
+		// segundo, se calcula el total de calorias diarias, sumando platos mas alimentos
+		caloriasDia=caloriasDiaDish+caloriasDiaFood;
 		caloriasDia=((double)(Math.round(caloriasDia*100)))/100;
 		
-		// tercero, se calculan los consumos de calcio y hierro
-		calcioDia=cc1+cc2+cc3+cc4+cc5;
+		// tercero, se calculan los consumos de calcio y hierro diario
+		calcioDia=calcioDiaDish+calcioDiaFood;
 		calcioDia=((double)(Math.round(calcioDia*100)))/100;
-		hierroDia=h1+h2+h3+h4+h5;
+		hierroDia=hierroDiaDish+hierroDiaFood;
 		hierroDia=((double)(Math.round(hierroDia*100)))/100;
 		
-		// tercero, se calculan las desviaciones de los parametros calorias, calcio y hierro.
+		// cuarto se calculan las desviaciones de los parametros calorias, calcio y hierro.
 		calcDesv();
 		
 		activeTab=4;
@@ -386,87 +403,363 @@ public class MainDietBean implements Serializable {
 	} // end of caloriasTotales
 	
 	
-	
+
 	/**
 	 * Este metodo implementa los siguientes calculos:
 	 * a) El consumo total de calorias diarias, tanto proviniendo de alimentos como de comidas
-	 * b) El consumo total de calorias proviniendo exclusivamente de ALIMENTOS
+	 * b) El consumo total de calorias proviniendo exclusivamente de COMIDAS
 	 * c) Las desviaciones de los parametros calorias, calcio y hierro respeto a los consumos
 	 * 		calculados.
 	 * 
-	 * @return El total de calorias diarias ingeridas exclusivamente por alimentos
+	 * @return String con valor "recalculos" para navegacion faces-config
 	 */
 	
-	public void caloriasTotalA() {
-		
+	public String calcFood() {
+
 		// primero calcula las calorias totales exclusivamente por comidas
 		// IMPORTANTE: en el caso alimentos SI se pondera el valor, tomando el valor
 		// grabado como ud, y se pondera en funcion de la cantidad introducida en el formulario
 		
 		// se calculan los 3 alimentos principales de cada ingesta introducidos en formulario
-		caloriasDes=(calorias11*medida11/udMedidaStandard)+(calorias21*medida21/udMedidaStandard)+(calorias31*medida31/udMedidaStandard);
-		caloriasTen=(calorias12*medida12/udMedidaStandard)+(calorias22*medida22/udMedidaStandard)+(calorias32*medida32/udMedidaStandard);
-		caloriasCom=(calorias13*medida13/udMedidaStandard)+(calorias23*medida23/udMedidaStandard)+(calorias33*medida33/udMedidaStandard);
-		caloriasMer=(calorias14*medida14/udMedidaStandard)+(calorias24*medida24/udMedidaStandard)+(calorias34*medida34/udMedidaStandard);
-		caloriasCen=(calorias15*medida15/udMedidaStandard)+(calorias25*medida25/udMedidaStandard)+(calorias35*medida35/udMedidaStandard);
 		
-		caloriasTotalesA=caloriasDes+caloriasTen+caloriasCom+caloriasMer+caloriasCen;
-		caloriasTotalesA=((double)(Math.round(caloriasTotalesA*100)))/100;
+		DietFoodsBean fB=new DietFoodsBean();
 		
-		// segundo, se calcula el total de calorias diarias, teniendo en cuenta tambien las
-		// que, si las hubiere, procedan exclusivamente de alimentos.	
-		caloriasDia=caloriasTotales+caloriasTotalesA;
+		float cc11,cc12,cc13,cc21,cc22,cc23,cc31,cc32,cc33,cc41,cc42,cc43,cc51,cc52,cc53=0;
+		float h11,h12,h13,h21,h22,h23,h31,h32,h33,h41,h42,h43,h51,h52,h53=0;
+		
+		String[] c=null;
+		
+		// ********** DESAYUNO
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods11));
+			calorias11=(float)Float.parseFloat(c[3])*medida11/(float)Float.parseFloat(c[2]);
+			calorias11=((double)(Math.round(calorias11*100)))/100;
+			cc11=(float)Float.parseFloat(c[7])*medida11/(float)Float.parseFloat(c[2]);
+			h11=(float)Float.parseFloat(c[8])*medida11/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias11=0;
+			h11=0;
+			cc11=0;
+		}
+
+		try {
+			c=fB.read((long)Long.parseLong(foods12));
+			calorias12=(float)Float.parseFloat(c[3])*medida12/(float)Float.parseFloat(c[2]);
+			calorias12=((double)(Math.round(calorias12*100)))/100;
+			cc12=(float)Float.parseFloat(c[7])*medida12/(float)Float.parseFloat(c[2]);
+			h12=(float)Float.parseFloat(c[8])*medida12/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias12=0;
+			h12=0;
+			cc12=0;
+		}
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods13));
+			calorias13=(float)Float.parseFloat(c[3])*medida13/(float)Float.parseFloat(c[2]);
+			calorias13=((double)(Math.round(calorias13*100)))/100;
+			cc13=(float)Float.parseFloat(c[7])*medida13/(float)Float.parseFloat(c[2]);
+			h13=(float)Float.parseFloat(c[8])*medida13/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias13=0;
+			h13=0;
+			cc13=0;
+		}
+
+		// ********** TENTEMPIE
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods21));
+			calorias21=(float)Float.parseFloat(c[3])*medida21/(float)Float.parseFloat(c[2]);
+			calorias21=((double)(Math.round(calorias21*100)))/100;
+			cc21=(float)Float.parseFloat(c[7])*medida21/(float)Float.parseFloat(c[2]);
+			h21=(float)Float.parseFloat(c[8])*medida21/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias21=0;
+			h21=0;
+			cc21=0;
+		}
+
+		try {
+			c=fB.read((long)Long.parseLong(foods22));
+			calorias22=(float)Float.parseFloat(c[3])*medida22/(float)Float.parseFloat(c[2]);
+			calorias22=((double)(Math.round(calorias22*100)))/100;
+			cc22=(float)Float.parseFloat(c[7])*medida22/(float)Float.parseFloat(c[2]);
+			h22=(float)Float.parseFloat(c[8])*medida22/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias22=0;
+			h22=0;
+			cc22=0;
+		}
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods23));
+			calorias23=(float)Float.parseFloat(c[3])*medida23/(float)Float.parseFloat(c[2]);
+			calorias23=((double)(Math.round(calorias23*100)))/100;
+			cc23=(float)Float.parseFloat(c[7])*medida23/(float)Float.parseFloat(c[2]);
+			h23=(float)Float.parseFloat(c[8])*medida23/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias23=0;
+			h23=0;
+			cc23=0;
+		}
+		
+		// ********** COMIDA
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods31));
+			calorias31=(float)Float.parseFloat(c[3])*medida31/(float)Float.parseFloat(c[2]);
+			calorias31=((double)(Math.round(calorias31*100)))/100;
+			cc31=(float)Float.parseFloat(c[7])*medida31/(float)Float.parseFloat(c[2]);
+			h31=(float)Float.parseFloat(c[8])*medida31/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias31=0;
+			h31=0;
+			cc31=0;
+		}
+
+		try {
+			c=fB.read((long)Long.parseLong(foods32));
+			calorias32=(float)Float.parseFloat(c[3])*medida32/(float)Float.parseFloat(c[2]);
+			calorias32=((double)(Math.round(calorias32*100)))/100;
+			cc32=(float)Float.parseFloat(c[7])*medida32/(float)Float.parseFloat(c[2]);
+			h32=(float)Float.parseFloat(c[8])*medida32/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias32=0;
+			h32=0;
+			cc32=0;
+		}
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods33));
+			calorias33=(float)Float.parseFloat(c[3])*medida33/(float)Float.parseFloat(c[2]);
+			calorias33=((double)(Math.round(calorias33*100)))/100;
+			cc33=(float)Float.parseFloat(c[7])*medida33/(float)Float.parseFloat(c[2]);
+			h33=(float)Float.parseFloat(c[8])*medida33/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias33=0;
+			h33=0;
+			cc33=0;
+		}
+		
+		// ********** MERIENDA
+
+		try {
+			c=fB.read((long)Long.parseLong(foods41));
+			calorias41=(float)Float.parseFloat(c[3])*medida41/(float)Float.parseFloat(c[2]);
+			calorias41=((double)(Math.round(calorias41*100)))/100;
+			cc41=(float)Float.parseFloat(c[7])*medida41/(float)Float.parseFloat(c[2]);
+			h41=(float)Float.parseFloat(c[8])*medida41/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias41=0;
+			h41=0;
+			cc41=0;
+		}
+
+		try {
+			c=fB.read((long)Long.parseLong(foods42));
+			calorias42=(float)Float.parseFloat(c[3])*medida42/(float)Float.parseFloat(c[2]);
+			calorias42=((double)(Math.round(calorias42*100)))/100;
+			cc42=(float)Float.parseFloat(c[7])*medida42/(float)Float.parseFloat(c[2]);
+			h42=(float)Float.parseFloat(c[8])*medida42/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias42=0;
+			h42=0;
+			cc42=0;
+		}
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods43));
+			calorias43=(float)Float.parseFloat(c[3])*medida43/(float)Float.parseFloat(c[2]);
+			calorias43=((double)(Math.round(calorias43*100)))/100;
+			cc43=(float)Float.parseFloat(c[7])*medida43/(float)Float.parseFloat(c[2]);
+			h43=(float)Float.parseFloat(c[8])*medida43/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias43=0;
+			h43=0;
+			cc43=0;
+		}
+		
+		// ********** CENA
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods51));
+			calorias51=(float)Float.parseFloat(c[3])*medida51/(float)Float.parseFloat(c[2]);
+			calorias51=((double)(Math.round(calorias51*100)))/100;
+			cc51=(float)Float.parseFloat(c[7])*medida51/(float)Float.parseFloat(c[2]);
+			h51=(float)Float.parseFloat(c[8])*medida51/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias51=0;
+			h51=0;
+			cc51=0;
+		}
+
+		try {
+			c=fB.read((long)Long.parseLong(foods52));
+			calorias52=(float)Float.parseFloat(c[3])*medida52/(float)Float.parseFloat(c[2]);
+			calorias52=((double)(Math.round(calorias52*100)))/100;
+			cc52=(float)Float.parseFloat(c[7])*medida52/(float)Float.parseFloat(c[2]);
+			h52=(float)Float.parseFloat(c[8])*medida52/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias52=0;
+			h52=0;
+			cc52=0;
+		}
+		
+		try {
+			c=fB.read((long)Long.parseLong(foods53));
+			calorias53=(float)Float.parseFloat(c[3])*medida53/(float)Float.parseFloat(c[2]);
+			calorias53=((double)(Math.round(calorias53*100)))/100;
+			cc53=(float)Float.parseFloat(c[7])*medida53/(float)Float.parseFloat(c[2]);
+			h53=(float)Float.parseFloat(c[8])*medida53/(float)Float.parseFloat(c[2]);
+		} catch (NumberFormatException nf) {
+			calorias53=0;
+			h53=0;
+			cc53=0;
+		}
+		
+			// valores
+		caloriasDes=(calorias11)+(calorias12)+(calorias13);
+		caloriasTen=(calorias21)+(calorias22)+(calorias23);
+		caloriasCom=(calorias31)+(calorias32)+(calorias33);
+		caloriasMer=(calorias41)+(calorias42)+(calorias43);
+		caloriasCen=(calorias51)+(calorias52)+(calorias53);
+		
+		caloriasDiaFood=caloriasDes+caloriasTen+caloriasCom+caloriasMer+caloriasCen;
+		caloriasDiaFood=((double)(Math.round(caloriasDiaFood*100)))/100;
+		
+		calcioDiaFood=cc11+cc12+cc13+cc21+cc22+cc23+cc31+cc32+cc33+cc41+cc42+cc43+cc51+cc52+cc53;
+		hierroDiaFood=h11+h12+h13+h21+h22+h23+h31+h32+h33+h41+h42+h43+h51+h52+h53;
+		
+		// segundo, se calcula el total de calorias diarias, sumando platos mas alimentos
+		caloriasDia=caloriasDiaDish+caloriasDiaFood;
 		caloriasDia=((double)(Math.round(caloriasDia*100)))/100;
 		
-		// tercero, se calculan las desviaciones de los parametros calorias, calcio y hierro.
+		// tercero, se calculan los consumos de calcio y hierro diario
+		calcioDia=calcioDiaDish+calcioDiaFood;
+		calcioDia=((double)(Math.round(calcioDia*100)))/100;
+		hierroDia=hierroDiaDish+hierroDiaFood;
+		hierroDia=((double)(Math.round(hierroDia*100)))/100;
+		
+		// cuarto se calculan las desviaciones de los parametros calorias, calcio y hierro.
 		calcDesv();
 		
-		System.out.println("***"+caloriasDes+"--"+caloriasTotalesA);
+		activeTab=4;
 		
-		//return caloriasTotalesA;
+		return "recalculos";
 		
-	} // end of caloriastotalesA
+	} // end of calcFood
+	
+	
+	
+	public void updatingInfo(ActionEvent event) {
+	
+		updateInfo();
+		
+		System.out.println("SUPUESTAMENTE UPDATADO");
+		
+		
+	} // end of method updatingInfo
 	
 	
 	
 	/**
-	 * This method implements the calculus of consumption deviation of calories, 
-	 * calcium and iron about user's objective values and stores it.
+	 * This method updates the list of meals and products, and
+	 * gets statistics values.
 	 * 
+	 * @return String "recalculos" to navigation
 	 */
 	
-	private void calcDesv() {
-		
-		IdentifyBean idB=new IdentifyBean();
-		
-		desvCalDia=(caloriasDia-IdentifyBean.consum)*100/IdentifyBean.consum;
-		desvCalDia=((double)(Math.round(desvCalDia*100)))/100;
-		desvCalSem=(caloriasSemana-IdentifyBean.consum)*100/IdentifyBean.consum;
-		desvCalSem=((double)(Math.round(desvCalSem*100)))/100;
-		desvCalMes=(caloriasMes-IdentifyBean.consum)*100/IdentifyBean.consum;
-		desvCalMes=((double)(Math.round(desvCalMes*100)))/100;
-		
-		desvCacDia=(calcioDia-idB.getCalcneed())*100/idB.getCalcneed();
-		desvCacDia=((double)(Math.round(desvCacDia*100)))/100;
-		desvCacSem=(calcioSemana-idB.getCalcneed())*100/idB.getCalcneed();
-		desvCacSem=((double)(Math.round(desvCacSem*100)))/100;
-		desvCacMes=(calcioMes-idB.getCalcneed())*100/idB.getCalcneed();
-		desvCacMes=((double)(Math.round(desvCacMes*100)))/100;
-		
-		desvFerDia=(hierroDia-idB.getIronneed())*100/idB.getIronneed();
-		desvFerDia=((double)(Math.round(desvFerDia*100)))/100;
-		desvFerSem=(hierroSemana-idB.getIronneed())*100/idB.getIronneed();
-		desvFerSem=((double)(Math.round(desvFerSem*100)))/100;
-		desvFerMes=(hierroMes-idB.getIronneed())*100/idB.getIronneed();
-		desvFerMes=((double)(Math.round(desvFerMes*100)))/100;
+	public String updateInfo() {
 			
-	} // END OF METHOD CALCDESV
+		// updating lists
+		DietMealsBean desayuno= new DietMealsBean();
+		listaDesayunos=desayuno.showAll(keyUser);
+		listaTentempies=listaDesayunos;
+		listaComidas=listaDesayunos;
+		listaMeriendas=listaDesayunos;
+		listaCenas=listaDesayunos;
+		
+		DietFoodsBean foods=new DietFoodsBean();
+		listaAlimentos=foods.showAll(keyUser);
+		
+		// updating statistics
+		// checking the date to read
+		
+		getDay(dateSelected);
+		getWeek(dateSelected);
+		getMonth(dateSelected);
+		calcDesv();
+		
+		return "recalculos";
+		
+	} // end of method updateInfo
+	
+	
+	
+	/**
+	 * Este metodo graba en DDBB los datos del dIa
+	 * SOLO COMIDAS
+	 * 
+	 * @return String "recalculos" to navigation
+	 */
+	
+	public String recordDay () {
+		
+		// reseting variable caloriasDia
+		caloriasDia=0;
+		// recalculating variables and statistics
+		calcDish();
+		calcFood();
+		
+		if (caloriasDia!=0) { 
+			// if caloriasDia has not zero then there are many values to record
+			DietCalendarBean calend=new DietCalendarBean();
+			DietCalendar data=new DietCalendar();
+			
+			// getting the date to record
+			String date=dateSelected;
+			Date thisDate=null;
+			try {
+				thisDate=Date.valueOf(date);
+			} catch (IllegalArgumentException il) {
+				// date is null but...
+				thisDate=null;
+			}
+				
+			if (thisDate!=null) {
+				// date is correct
+				
+				// first, it is needed to erase old daily records
+				eraseRecords(thisDate, calend);
+				
+				// then, we have to record the dishes (if exists)
+				recordDish(data, calend, thisDate);
+				// finally, we have to record the foods (if exists)	
+				recordFoods(data, calend, thisDate);
+				
+			} else {
+				// any message
+				System.out.println ("FECHA ERRONEA");
+			}
+
+		} else {
+			// any message
+			System.out.println ("NADA QUE GRABAR");
+		}
+		
+		// finally, updates the statistics
+		updateInfo();
+		
+		return "recalculos";
+		
+	} // end of method recordDay
 	
 	
 	
 	/**
 	 * Este metodo obtiene la informacion referente al día.
-	 * DE MOMENTO SOLO COMIDAS
 	 */
 	
 	private void getDay(String date) {
@@ -552,7 +845,7 @@ public class MainDietBean implements Serializable {
 				} // end of for
 				
 			} else {
-				System.err.println("NO HAY LECTURAS1");
+				// there are not data
 			}
 		} else {
 			System.err.println("Error en la fecha");
@@ -672,7 +965,7 @@ public class MainDietBean implements Serializable {
 									
 				}
 			} else {
-				System.err.println("NO HAY LECTURAS2");
+				// there are not data
 			}
 		} else {
 			System.err.println("Error en la fecha");
@@ -681,8 +974,6 @@ public class MainDietBean implements Serializable {
 		caloriasSemana=((double)(Math.round(caloriasSemana*100/num)))/100;
 		calcioSemana=((double)(Math.round(calcioSemana*100/num)))/100;
 		hierroSemana=((double)(Math.round(hierroSemana*100/num)))/100;
-		
-		System.out.println("DIAS LEIDOS EN LA SEMANA:"+num);
 		
 	} // end of method getWeek
 	
@@ -795,7 +1086,7 @@ public class MainDietBean implements Serializable {
 				} // end of for
 				
 			} else {
-				System.err.println("NO HAY LECTURAS3");
+				// there are not data
 			}
 		} else {
 			System.err.println("Error en la fecha");
@@ -810,9 +1101,43 @@ public class MainDietBean implements Serializable {
 	
 	
 	/**
+	 * This method implements the calculus of consumption deviation of calories, 
+	 * calcium and iron about user's objective values and stores it.
+	 * 
+	 */
+	
+	private void calcDesv() {
+		
+		IdentifyBean idB=new IdentifyBean();
+		
+		desvCalDia=(caloriasDia-IdentifyBean.consum)*100/IdentifyBean.consum;
+		desvCalDia=((double)(Math.round(desvCalDia*100)))/100;
+		desvCalSem=(caloriasSemana-IdentifyBean.consum)*100/IdentifyBean.consum;
+		desvCalSem=((double)(Math.round(desvCalSem*100)))/100;
+		desvCalMes=(caloriasMes-IdentifyBean.consum)*100/IdentifyBean.consum;
+		desvCalMes=((double)(Math.round(desvCalMes*100)))/100;
+		
+		desvCacDia=(calcioDia-idB.getCalcneed())*100/idB.getCalcneed();
+		desvCacDia=((double)(Math.round(desvCacDia*100)))/100;
+		desvCacSem=(calcioSemana-idB.getCalcneed())*100/idB.getCalcneed();
+		desvCacSem=((double)(Math.round(desvCacSem*100)))/100;
+		desvCacMes=(calcioMes-idB.getCalcneed())*100/idB.getCalcneed();
+		desvCacMes=((double)(Math.round(desvCacMes*100)))/100;
+		
+		desvFerDia=(hierroDia-idB.getIronneed())*100/idB.getIronneed();
+		desvFerDia=((double)(Math.round(desvFerDia*100)))/100;
+		desvFerSem=(hierroSemana-idB.getIronneed())*100/idB.getIronneed();
+		desvFerSem=((double)(Math.round(desvFerSem*100)))/100;
+		desvFerMes=(hierroMes-idB.getIronneed())*100/idB.getIronneed();
+		desvFerMes=((double)(Math.round(desvFerMes*100)))/100;
+			
+	} // END OF METHOD CALCDESV	
+	
+	
+	
+	/**
 	 * este metodo toma los valores del dia grabados en DDBB y los
 	 * coloca en las variables que se muestran por pantalla 
-	 * SOLO COMIDAS
 	 */
 	
 	private void takeInfoDay() {
@@ -833,8 +1158,23 @@ public class MainDietBean implements Serializable {
 			// we get the list
 			List<String[]> getRec=calend.showAll(keyUser, date, date);
 			
+			// reseting dishes values
 			comida1=comida2=comida3=comida4=comida5=null;
 			medida1=medida2=medida3=medida4=medida5=0;
+			
+			// reseting foods values
+			foods11=foods12=foods13=null;
+			foods21=foods22=foods23=null;
+			foods31=foods32=foods33=null;
+			foods41=foods42=foods43=null;
+			foods51=foods52=foods53=null;
+			
+			medida11=medida12=medida13=0;
+			medida21=medida22=medida23=0;
+			medida31=medida32=medida33=0;
+			medida41=medida42=medida43=0;
+			medida51=medida52=medida53=0;
+			
 			
 			if (getRec!=null) {				
 				
@@ -848,7 +1188,7 @@ public class MainDietBean implements Serializable {
 							
 							// SECOND - get the data and show it in panel
 							
-							// if there is a meal recorded
+							// if there is a dish recorded
 							if (n[3].equals("1")){
 								// if there is a meal desayuno
 								comida1=n[5];
@@ -875,7 +1215,85 @@ public class MainDietBean implements Serializable {
 								medida5=(int)Math.round((float)Float.parseFloat(n[6]));
 							}
 							
-						} 
+						} else {
+							
+							// if there is a food recorded
+							if (n[3].equals("1")){
+								// if there is a food desayuno
+								if (foods11==null || foods11.isEmpty()) {
+									// if the first position is fill
+									foods11=n[5];
+									medida11=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else 	if (foods12==null || foods12.isEmpty()) {
+									// if the second position is fill
+									foods12=n[5];
+									medida12=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else {
+									foods13=n[5];
+									medida13=(int)Math.round((float)Float.parseFloat(n[6]));
+								}
+							}
+							if (n[3].equals("2")){
+								// if there is a food tentempie
+								if (foods21==null || foods21.isEmpty()) {
+									// if the first position is fill
+									foods21=n[5];
+									medida21=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else 	if (foods22==null || foods22.isEmpty()) {
+									// if the second position is fill
+									foods22=n[5];
+									medida22=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else {
+									foods23=n[5];
+									medida23=(int)Math.round((float)Float.parseFloat(n[6]));
+								} 
+							}
+							if (n[3].equals("3")){
+								// if there is a food comida
+								if (foods31==null || foods31.isEmpty()) {
+									// if the first position is fill
+									foods31=n[5];
+									medida31=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else 	if (foods32==null || foods32.isEmpty()) {
+									// if the second position is fill
+									foods32=n[5];
+									medida32=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else {
+									foods33=n[5];
+									medida33=(int)Math.round((float)Float.parseFloat(n[6]));
+								} 
+							}
+							if (n[3].equals("4")){
+								// if there is a food merienda
+								if (foods41==null || foods41.isEmpty()) {
+									// if the first position is fill
+									foods41=n[5];
+									medida41=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else 	if (foods42==null || foods42.isEmpty()) {
+									// if the second position is fill
+									foods42=n[5];
+									medida42=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else {
+									foods43=n[5];
+									medida43=(int)Math.round((float)Float.parseFloat(n[6]));
+								}
+							}
+							if (n[3].equals("5")){
+								// if there is a food cena
+								if (foods51==null || foods51.isEmpty()) {
+									// if the first position is fill
+									foods51=n[5];
+									medida51=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else 	if (foods52==null || foods52.isEmpty()) {
+									// if the second position is fill
+									foods52=n[5];
+									medida52=(int)Math.round((float)Float.parseFloat(n[6]));
+								} else {
+									foods53=n[5];
+									medida53=(int)Math.round((float)Float.parseFloat(n[6]));
+								}
+							}
+						}
 						
 					} catch (NumberFormatException nf) {
 						// do nothing
@@ -884,12 +1302,14 @@ public class MainDietBean implements Serializable {
 				} // end of for
 				
 				// recalculates data about all consumption
-				calcComida();
+				calcDish();
+				calcFood();
 				
 			} else {
-				System.err.println("NO HAY LECTURAS");
+				// there are not data
 				// recalculates data about all consumption
-				calcComida();
+				calcDish();
+				calcFood();
 			}
 			
 		} else {
@@ -900,139 +1320,338 @@ public class MainDietBean implements Serializable {
 	
 	
 	
-	
 	/**
-	 * Este metodo graba en DDBB los datos del dIa
-	 * SOLO COMIDAS
 	 * 
-	 * @return String "recalculos" to navigation
 	 */
 	
-	public String recordDay () {
+	private void recordDish(DietCalendar data, DietCalendarBean calend, Date thisDate) {
 		
-		// reseteamos la variable caloriasDia
-		caloriasDia=0;
-		// recalculamos los valores del dia
-		calcComida();
-		
-		// si existen valores para grabar, procedemos
-		if (caloriasDia!=0) {
-			DietCalendarBean calend=new DietCalendarBean();
-			DietCalendar data=new DietCalendar();
-			
-			// getting the date to record
-			String date=dateSelected;
-			Date thisDate=null;
-			try {
-				thisDate=Date.valueOf(date);
-			} catch (IllegalArgumentException il) {
-				// date is null but...
-				thisDate=null;
-			}
-				
-			if (thisDate!=null) {
-				// existen valores a grabar, y la fecha es correcta
-				
-				// pero primero debemos borrar las anteriores grabaciones del dia !!
-				eraseRecords(thisDate, calend);
-				
-				// procedemos a comprobar desde desayuno a cena
-				
-				if (comida1!=null && !(comida1.trim().isEmpty())) {
-					data.setDate(thisDate);
-					data.setIdproduct((long)Long.parseLong(comida1));
-					data.setKeyuser(IdentifyBean.getKeyUser());
-					data.setMoment(1); // desayuno
-					data.setQtt(medida1);
-					data.setType(2);	// comida
-					if (calend.record(data)) {
-						// grabacion OK
-						System.out.println ("COMIDA 1 GRABADA");
-					} else {
-						// ERROR GRABANDO
-						System.out.println ("error en grabacion");
-					}
-				}
-
-				if (comida2!=null && !(comida2.trim().isEmpty())) {
-					data.setDate(thisDate);
-					data.setIdproduct((long)Long.parseLong(comida2));
-					data.setKeyuser(IdentifyBean.getKeyUser());
-					data.setMoment(2); // tentempie
-					data.setQtt(medida2);
-					data.setType(2);	// comida
-					if (calend.record(data)) {
-						// grabacion OK
-						System.out.println ("COMIDA 2 GRABADA");
-					} else {
-						// ERROR GRABANDO
-						System.out.println ("error en grabacion");
-					}
-				}
-
-				
-				if (comida3!=null && !(comida3.trim().isEmpty())) {
-					data.setDate(thisDate);
-					data.setIdproduct((long)Long.parseLong(comida3));
-					data.setKeyuser(IdentifyBean.getKeyUser());
-					data.setMoment(3); // comida
-					data.setQtt(medida3);
-					data.setType(2);	// comida
-					if (calend.record(data)) {
-						// grabacion OK
-						System.out.println ("COMIDA 3 GRABADA");
-					} else {
-						// ERROR GRABANDO
-						System.out.println ("error en grabacion");
-					}
-				}
-				
-				if (comida4!=null && !(comida4.trim().isEmpty())) {
-					data.setDate(thisDate);
-					data.setIdproduct((long)Long.parseLong(comida4));
-					data.setKeyuser(IdentifyBean.getKeyUser());
-					data.setMoment(4); // merienda
-					data.setQtt(medida4);
-					data.setType(2);	// comida
-					if (calend.record(data)) {
-						// grabacion OK
-						System.out.println ("COMIDA 4 GRABADA");
-					} else {
-						// ERROR GRABANDO
-						System.out.println ("error en grabacion");
-					}
-				}
-				
-				if (comida5!=null && !(comida5.trim().isEmpty())) {
-					data.setDate(thisDate);
-					data.setIdproduct((long)Long.parseLong(comida5));
-					data.setKeyuser(IdentifyBean.getKeyUser());
-					data.setMoment(5); // cena
-					data.setQtt(medida5);
-					data.setType(2);	// comida
-					if (calend.record(data)) {
-						// grabacion OK
-						System.out.println ("COMIDA 5 GRABADA");
-					} else {
-						// ERROR GRABANDO
-						System.out.println ("error en grabacion");
-					}
-				}
-				
+		// procedemos a comprobar desde desayuno a cena
+		if (comida1!=null && !(comida1.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(comida1));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(1); // desayuno
+			data.setQtt(medida1);
+			data.setType(2);	// comida
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("COMIDA 1 GRABADA");
 			} else {
-				// PONER AQUI ALGUN MENSAJE
-				System.out.println ("FECHA ERRONEA");
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
 			}
+		}
 
-			
-		} else {
-			// PONER AQUI ALGUN MENSAJE
-			System.out.println ("NADA QUE GRABAR");
+		if (comida2!=null && !(comida2.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(comida2));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(2); // tentempie
+			data.setQtt(medida2);
+			data.setType(2);	// comida
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("COMIDA 2 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+
+		
+		if (comida3!=null && !(comida3.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(comida3));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(3); // comida
+			data.setQtt(medida3);
+			data.setType(2);	// comida
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("COMIDA 3 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
 		}
 		
-		return "recalculos";
+		if (comida4!=null && !(comida4.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(comida4));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(4); // merienda
+			data.setQtt(medida4);
+			data.setType(2);	// comida
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("COMIDA 4 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
 		
-	} // end of method recordDay
+		if (comida5!=null && !(comida5.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(comida5));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(5); // cena
+			data.setQtt(medida5);
+			data.setType(2);	// comida
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("COMIDA 5 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		
+	} // end of method recordDish
+	
+	
+	
+	private void recordFoods(DietCalendar data, DietCalendarBean calend, Date thisDate) {
+		
+		// procedemos a comprobar desde desayuno a cena
+		
+		// *** desayunos
+		if (foods11!=null && !(foods11.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods11));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(1); // desayuno
+			data.setQtt(medida11);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 11 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods12!=null && !(foods12.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods12));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(1); // desayuno
+			data.setQtt(medida12);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 12 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods13!=null && !(foods13.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods13));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(1); // desayuno
+			data.setQtt(medida13);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 13 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		
+		// *** tentempie
+		if (foods21!=null && !(foods21.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods21));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(2); // tentempie
+			data.setQtt(medida21);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 21 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods22!=null && !(foods22.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods22));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(2); // tentempie
+			data.setQtt(medida22);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 22 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods23!=null && !(foods23.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods23));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(2); // tentempie
+			data.setQtt(medida23);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 23 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		
+		// *** comida
+		if (foods31!=null && !(foods31.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods31));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(3); // comida
+			data.setQtt(medida31);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 31 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods32!=null && !(foods32.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods32));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(3); // comida
+			data.setQtt(medida32);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 32 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods33!=null && !(foods33.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods33));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(3); // comida
+			data.setQtt(medida33);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 33 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		
+		// *** merienda
+		if (foods41!=null && !(foods41.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods41));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(4); // merienda
+			data.setQtt(medida41);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 41 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods42!=null && !(foods42.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods42));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(4); // merienda
+			data.setQtt(medida42);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 42 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods43!=null && !(foods43.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods43));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(4); // merienda
+			data.setQtt(medida43);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 43 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		
+		// *** cena
+		if (foods51!=null && !(foods51.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods51));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(5); // cena
+			data.setQtt(medida51);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 51 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods52!=null && !(foods52.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods52));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(5); // cena
+			data.setQtt(medida52);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 52 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+		if (foods53!=null && !(foods53.trim().isEmpty())) {
+			data.setDate(thisDate);
+			data.setIdproduct((long)Long.parseLong(foods53));
+			data.setKeyuser(IdentifyBean.getKeyUser());
+			data.setMoment(5); // cena
+			data.setQtt(medida53);
+			data.setType(1);	// food
+			if (calend.record(data)) {
+				// grabacion OK
+				System.out.println ("FOOD 53 GRABADA");
+			} else {
+				// ERROR GRABANDO
+				System.out.println ("error en grabacion");
+			}
+		}
+
+	} // end of method recordFoods
 	
 	
 	
@@ -1075,7 +1694,7 @@ public class MainDietBean implements Serializable {
 	
 	
 	/**
-	 * This method erases daily records belongs to a user.
+	 * This method erases all daily records belongs to a user.
 	 * 
 	 * @param dateToErase - Date, the date to delete records
 	 * @param calendar - Object DietCalendarBean to instantiate method deleteDay
@@ -1095,52 +1714,55 @@ public class MainDietBean implements Serializable {
 	
 	
 	/**
-	 * This method erases the form fields.
+	 * This method erases the form fields and their variables that
+	 * belongs to a determinate deleted day.
 	 * 
 	 */
 	
 	private void clearForm() {
 		
+		// reseting dishes values
 		comida1=comida2=comida3=comida4=comida5=null;
 		medida1=medida2=medida3=medida4=medida5=0;
+		calorias1=calorias2=calorias3=calorias4=calorias5=0;
 		
-		calcComida();
+		caloriasDiaDish=0;
+		calcioDiaDish=0;
+		hierroDiaDish=0;
+		
+		// reseting foods values
+		foods11=foods12=foods13=null;
+		foods21=foods22=foods23=null;
+		foods31=foods32=foods33=null;
+		foods41=foods42=foods43=null;
+		foods51=foods52=foods53=null;
+		
+		medida11=medida12=medida13=0;
+		medida21=medida22=medida23=0;
+		medida31=medida32=medida33=0;
+		medida41=medida42=medida43=0;
+		medida51=medida52=medida53=0;
+		
+		calorias11=calorias12=calorias13=0;
+		calorias21=calorias22=calorias23=0;
+		calorias31=calorias32=calorias33=0;
+		calorias41=calorias42=calorias43=0;
+		calorias51=calorias52=calorias53=0;
+		
+		caloriasDiaFood=0;
+		calcioDiaFood=0;
+		hierroDiaFood=0;
+		
+		// reseting statistics values
+		caloriasDia=0;
+		calcioDia=0;
+		hierroDia=0;
+		
+		// recalculating
+		//calcDish();
+		//calcFood();
 		
 	} // end of method clearForm
-	
-	
-	
-	/**
-	 * This method updates the list of meals and products, and
-	 * gets statistics values.
-	 * 
-	 * @return String "recalculos" to navigation
-	 */
-	
-	public String updateInfo() {
-			
-		// updating lists
-		DietMealsBean desayuno= new DietMealsBean();
-		listaDesayunos=desayuno.showAll(keyUser);
-		listaTentempies=listaDesayunos;
-		listaComidas=listaDesayunos;
-		listaMeriendas=listaDesayunos;
-		listaCenas=listaDesayunos;
-		
-		DietFoodsBean foods=new DietFoodsBean();
-		listaAlimentos=foods.showAll(keyUser);
-		
-		// updating statistics
-		// checking the date to read
-		
-		getDay(dateSelected);
-		getWeek(dateSelected);
-		getMonth(dateSelected);
-		calcDesv();
-		
-		return "recalculos";
-		
-	} // end of method updateInfo
 	
 	
 	
@@ -1245,14 +1867,6 @@ public class MainDietBean implements Serializable {
 		this.listaAlimentos = listaAlimentos;
 	}
 
-	public double getCaloriasTotales() {
-		return caloriasTotales;
-	}
-
-	public void setCaloriasTotales(double caloriasTotales) {
-		this.caloriasTotales = caloriasTotales;
-	}
-
 	public double getCalorias1() {
 		return calorias1;
 	}
@@ -1333,14 +1947,6 @@ public class MainDietBean implements Serializable {
 		this.medida5 = medida5;
 	}
 
-	public double getCaloriasTotalesA() {
-		return caloriasTotalesA;
-	}
-
-	public void setCaloriasTotalesA(double caloriasTotalesA) {
-		this.caloriasTotalesA = caloriasTotalesA;
-	}
-
 	public double getCalorias11() {
 		return calorias11;
 	}
@@ -1363,22 +1969,6 @@ public class MainDietBean implements Serializable {
 
 	public void setCalorias13(double calorias13) {
 		this.calorias13 = calorias13;
-	}
-
-	public double getCalorias14() {
-		return calorias14;
-	}
-
-	public void setCalorias14(double calorias14) {
-		this.calorias14 = calorias14;
-	}
-
-	public double getCalorias15() {
-		return calorias15;
-	}
-
-	public void setCalorias15(double calorias15) {
-		this.calorias15 = calorias15;
 	}
 
 	public double getCalorias21() {
@@ -1405,21 +1995,7 @@ public class MainDietBean implements Serializable {
 		this.calorias23 = calorias23;
 	}
 
-	public double getCalorias24() {
-		return calorias24;
-	}
 
-	public void setCalorias24(double calorias24) {
-		this.calorias24 = calorias24;
-	}
-
-	public double getCalorias25() {
-		return calorias25;
-	}
-
-	public void setCalorias25(double calorias25) {
-		this.calorias25 = calorias25;
-	}
 
 	public double getCalorias31() {
 		return calorias31;
@@ -1445,140 +2021,76 @@ public class MainDietBean implements Serializable {
 		this.calorias33 = calorias33;
 	}
 
-	public double getCalorias34() {
-		return calorias34;
-	}
-
-	public void setCalorias34(double calorias34) {
-		this.calorias34 = calorias34;
-	}
-
-	public double getCalorias35() {
-		return calorias35;
-	}
-
-	public void setCalorias35(double calorias35) {
-		this.calorias35 = calorias35;
-	}
-
-	public double getMedida11() {
+	public int getMedida11() {
 		return medida11;
 	}
 
-	public void setMedida11(double medida11) {
+	public void setMedida11(int medida11) {
 		this.medida11 = medida11;
 	}
 
-	public double getMedida12() {
+	public int getMedida12() {
 		return medida12;
 	}
 
-	public void setMedida12(double medida12) {
+	public void setMedida12(int medida12) {
 		this.medida12 = medida12;
 	}
 
-	public double getMedida13() {
+	public int getMedida13() {
 		return medida13;
 	}
 
-	public void setMedida13(double medida13) {
+	public void setMedida13(int medida13) {
 		this.medida13 = medida13;
 	}
 
-	public double getMedida14() {
-		return medida14;
-	}
-
-	public void setMedida14(double medida14) {
-		this.medida14 = medida14;
-	}
-
-	public double getMedida15() {
-		return medida15;
-	}
-
-	public void setMedida15(double medida15) {
-		this.medida15 = medida15;
-	}
-
-	public double getMedida21() {
+	public int getMedida21() {
 		return medida21;
 	}
 
-	public void setMedida21(double medida21) {
+	public void setMedida21(int medida21) {
 		this.medida21 = medida21;
 	}
 
-	public double getMedida22() {
+	public int getMedida22() {
 		return medida22;
 	}
 
-	public void setMedida22(double medida22) {
+	public void setMedida22(int medida22) {
 		this.medida22 = medida22;
 	}
 
-	public double getMedida23() {
+	public int getMedida23() {
 		return medida23;
 	}
 
-	public void setMedida23(double medida23) {
+	public void setMedida23(int medida23) {
 		this.medida23 = medida23;
 	}
 
-	public double getMedida24() {
-		return medida24;
-	}
-
-	public void setMedida24(double medida24) {
-		this.medida24 = medida24;
-	}
-
-	public double getMedida25() {
-		return medida25;
-	}
-
-	public void setMedida25(double medida25) {
-		this.medida25 = medida25;
-	}
-
-	public double getMedida31() {
+	public int getMedida31() {
 		return medida31;
 	}
 
-	public void setMedida31(double medida31) {
+	public void setMedida31(int medida31) {
 		this.medida31 = medida31;
 	}
 
-	public double getMedida32() {
+	public int getMedida32() {
 		return medida32;
 	}
 	
-	public void setMedida32(double medida32) {
+	public void setMedida32(int medida32) {
 		this.medida32 = medida32;
 	}
 
-	public double getMedida33() {
+	public int getMedida33() {
 		return medida33;
 	}
 
-	public void setMedida33(double medida33) {
+	public void setMedida33(int medida33) {
 		this.medida33 = medida33;
-	}
-
-	public double getMedida34() {
-		return medida34;
-	}
-
-	public void setMedida34(double medida34) {
-		this.medida34 = medida34;
-	}
-
-	public double getMedida35() {
-		return medida35;
-	}
-
-	public void setMedida35(double medida35) {
-		this.medida35 = medida35;
 	}
 
 	public double getCaloriasDia() {
@@ -1860,7 +2372,221 @@ public class MainDietBean implements Serializable {
 		this.dateToShow = dateToShow;
 	}
 
+	public String getFoods11() {
+		return foods11;
+	}
 
+	public void setFoods11(String foods11) {
+		this.foods11 = foods11;
+	}
+	
+	public String getFoods12() {
+		return foods12;
+	}
+
+	public void setFoods12(String foods12) {
+		this.foods12 = foods12;
+	}
+
+	public String getFoods13() {
+		return foods13;
+	}
+
+	public void setFoods13(String foods13) {
+		this.foods13 = foods13;
+	}
+
+	public String getFoods21() {
+		return foods21;
+	}
+
+	public void setFoods21(String foods21) {
+		this.foods21 = foods21;
+	}
+
+	public String getFoods22() {
+		return foods22;
+	}
+
+	public void setFoods22(String foods22) {
+		this.foods22 = foods22;
+	}
+
+	public String getFoods23() {
+		return foods23;
+	}
+
+	public void setFoods23(String foods23) {
+		this.foods23 = foods23;
+	}
+
+	public String getFoods31() {
+		return foods31;
+	}
+
+	public void setFoods31(String foods31) {
+		this.foods31 = foods31;
+	}
+
+	public String getFoods32() {
+		return foods32;
+	}
+
+	public void setFoods32(String foods32) {
+		this.foods32 = foods32;
+	}
+
+	public String getFoods33() {
+		return foods33;
+	}
+
+	public void setFoods33(String foods33) {
+		this.foods33 = foods33;
+	}
+
+	public String getFoods41() {
+		return foods41;
+	}
+
+	public void setFoods41(String foods41) {
+		this.foods41 = foods41;
+	}
+
+	public String getFoods42() {
+		return foods42;
+	}
+
+	public void setFoods42(String foods42) {
+		this.foods42 = foods42;
+	}
+
+	public String getFoods43() {
+		return foods43;
+	}
+
+	public void setFoods43(String foods43) {
+		this.foods43 = foods43;
+	}
+
+	public String getFoods51() {
+		return foods51;
+	}
+
+	public void setFoods51(String foods51) {
+		this.foods51 = foods51;
+	}
+
+	public String getFoods52() {
+		return foods52;
+	}
+
+	public void setFoods52(String foods52) {
+		this.foods52 = foods52;
+	}
+
+	public String getFoods53() {
+		return foods53;
+	}
+
+	public void setFoods53(String foods53) {
+		this.foods53 = foods53;
+	}
+
+	public int getMedida41() {
+		return medida41;
+	}
+
+	public void setMedida41(int medida41) {
+		this.medida41 = medida41;
+	}
+
+	public int getMedida42() {
+		return medida42;
+	}
+
+	public void setMedida42(int medida42) {
+		this.medida42 = medida42;
+	}
+
+	public int getMedida43() {
+		return medida43;
+	}
+
+	public void setMedida43(int medida43) {
+		this.medida43 = medida43;
+	}
+
+	public int getMedida51() {
+		return medida51;
+	}
+
+	public void setMedida51(int medida51) {
+		this.medida51 = medida51;
+	}
+
+	public int getMedida52() {
+		return medida52;
+	}
+
+	public void setMedida52(int medida52) {
+		this.medida52 = medida52;
+	}
+
+	public int getMedida53() {
+		return medida53;
+	}
+
+	public void setMedida53(int medida53) {
+		this.medida53 = medida53;
+	}
+
+	public double getCalorias41() {
+		return calorias41;
+	}
+
+	public void setCalorias41(double calorias41) {
+		this.calorias41 = calorias41;
+	}
+
+	public double getCalorias42() {
+		return calorias42;
+	}
+
+	public void setCalorias42(double calorias42) {
+		this.calorias42 = calorias42;
+	}
+
+	public double getCalorias43() {
+		return calorias43;
+	}
+
+	public void setCalorias43(double calorias43) {
+		this.calorias43 = calorias43;
+	}
+
+	public double getCalorias51() {
+		return calorias51;
+	}
+
+	public void setCalorias51(double calorias51) {
+		this.calorias51 = calorias51;
+	}
+
+	public double getCalorias52() {
+		return calorias52;
+	}
+
+	public void setCalorias52(double calorias52) {
+		this.calorias52 = calorias52;
+	}
+
+	public double getCalorias53() {
+		return calorias53;
+	}
+
+	public void setCalorias53(double calorias53) {
+		this.calorias53 = calorias53;
+	}
 
 	
 	

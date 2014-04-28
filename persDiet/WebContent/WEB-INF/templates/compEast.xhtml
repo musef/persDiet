@@ -21,6 +21,7 @@
 						<p:selectOneMenu value="#{producto.id}" rendered="true" maxlength="30"  style="width:200px;" > 
 							<f:selectItem itemLabel="Seleccione..." itemValue="0"></f:selectItem>	
 							<f:selectItems value="#{producto.listaDatos}" var="p" itemLabel="#{p[1]}" itemValue="#{p[0]}" ></f:selectItems>
+							<p:ajax update="panelFood" listener="#{producto.changeValuesFood()}"></p:ajax>
 						</p:selectOneMenu>
 					
 						<h:outputText value="Nombre del producto"></h:outputText>
@@ -51,8 +52,7 @@
 					</p:panelGrid>
 
 					<div class="eastButton">
-						<p:commandButton id="but1" value="Visualizar" ajax="true" update="idNa, idQt, idCa, idCh, idPr, idLi, idCc, idFe" action="#{producto.changeValuesFood}" ></p:commandButton>
-						<p:commandButton id="but2" value="Grabar" ajax="true" update="panelFood" action="#{producto.recordFood}" ></p:commandButton> 
+						<p:commandButton id="but2" value="Grabar producto" ajax="true" update="panelFood" action="#{producto.recordFood}" ></p:commandButton> 
 					</div>						
 				</h:form>
 				
@@ -66,6 +66,7 @@
 						<p:selectOneMenu value="#{producto.idMeal}" rendered="true" maxlength="30"  style="width:200px;" >
 							<f:selectItem itemLabel="Seleccione..." itemValue="0"></f:selectItem>					
 							<f:selectItems value="#{producto.listMeals}" var="p" itemLabel="#{p[2]}" itemValue="#{p[0]}" ></f:selectItems>
+							<p:ajax update="panelMeal" listener="#{producto.changeValuesMeal()}"></p:ajax>
 						</p:selectOneMenu>
 					 
 						<h:outputText value="Nombre de comida"></h:outputText>
@@ -94,16 +95,18 @@
 						
 				
 					</p:panelGrid>
+					
 					<div class="eastButton">
-						<p:commandButton id="but11" value="Visualizar" ajax="true" update="idCNa, idCQt, idCCa, idCCh, idCPr, idCLi, idCCc, idCFe" action="#{producto.changeValuesMeal}" ></p:commandButton>
-						<p:commandButton id="but12" value="Grabar" ajax="true" update="panelMeal" action="#{producto.recordMeal}" ></p:commandButton> 
-						<p:commandButton id="but13" value="Modificar" ajax="true" update="panelMeal" action="#{producto.modifyMeal}" ></p:commandButton>
-						<p:commandButton id="but14" value="Borrar" ajax="true" update="panelMeal" action="#{producto.deleteMeal}"></p:commandButton>				
+						
+						<p:commandButton type="submit" id="but12" value="Grabar" action="#{producto.recordMeal}" ></p:commandButton> 
+						<p:commandButton type="submit" id="but13" value="Modificar" action="#{producto.modifyMeal}" ></p:commandButton>
+						<p:commandButton type="submit" id="but14" value="Borrar" action="#{producto.deleteMeal}" ></p:commandButton>
+						
 					</div>
-				</h:form>
-							
+				
+				</h:form>			
 			</p:tab>
 		</p:tabView>
-
+		
 </ui:composition>
 </html>

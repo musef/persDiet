@@ -89,7 +89,7 @@ public class ProductoBean implements Serializable {
 	 * en la lista del formulario, y lo muestra
 	 */
 	
-	public void changeValuesFood() {
+	public String changeValuesFood() {
 		
 		for (String[] n: listaDatos) {
 			if (n[0].equals(id)) {
@@ -105,8 +105,13 @@ public class ProductoBean implements Serializable {
 			}
 		}
 		
+		System.out.println(idMeal+"*/*/*/"+listMeals.size());
+		
+		return "recalculos";
+		
 	} // END OF METHOD CHANGEVALUESFOOD
 	
+
 	
 	
 	/**
@@ -114,7 +119,7 @@ public class ProductoBean implements Serializable {
 	 * en la lista del formulario, y lo muestra
 	 */
 	
-	public void changeValuesMeal() {
+	public String changeValuesMeal() {
 		
 		for (String[] n: listMeals) {
 			if (n[0].equals(idMeal)) {
@@ -129,6 +134,10 @@ public class ProductoBean implements Serializable {
 				System.out.println(idMeal+"--"+nameMeal+"--"+calMeal);
 			}
 		}
+		
+		System.out.println(idMeal+"*/*/*/"+listMeals.size());
+		
+		return "recalculos";
 		
 	} // END OF METHOD CHANGEVALUESMEAL
 	
@@ -457,48 +466,14 @@ public class ProductoBean implements Serializable {
 	
 	
 
-	/**
-	 * 
-	 * @param e
-	 */
-	/*	
-	public void muestraDatos(ValueChangeEvent e) {
-		
-		System.out.println("LLEGAMOS..."+e.getNewValue().toString());	
 
-		try {
-			id=e.getNewValue().toString();
-			
-		} catch (NumberFormatException nf ) {
-			// DO NOTHING
-			id="0";
-		}
-		
-		for (String[] n: listaDatos) {
-			if (n[0].equals(id)) {
-				name=n[1];
-				qtt=n[2];
-				cal=n[3];
-				carbohydrate=n[4];
-				protein=n[5];
-				lipid=n[6];
-				calcium=n[7];
-				iron=n[8];
-				System.out.println(id+"-/"+name+"-/"+cal);
-			}
-		}
-
-	} // END OF METHOD MUESTRADATOS
-	*/
-	
-	
 	
 	/**
 	 * Este método realizar la grabación de los datos de una nueva comida contenidos en el formulario,
 	 * grabándolos en la ddbb. Para ello instancia el metodo record de DietMealsBean.
 	 */
 	
-	public void recordMeal() {
+	public String recordMeal() {
 		
 		// Primero instancia un objeto DietFoods y almacena los datos del formulario
 		if (readyToRecordMeal()) {
@@ -592,6 +567,8 @@ public class ProductoBean implements Serializable {
 			messageRecord="ERROR EN GRABACIÓN";
 			System.out.println("NO HA SIDO GRABADO: "+name);
 		}
+		
+		return "recalculos";
 			
 	} // END OF METHOD RECORDMEAL
 	
@@ -662,7 +639,7 @@ public class ProductoBean implements Serializable {
 	 * grabándolos en la ddbb. Para ello instancia el metodo modify de DietFoodsBean.
 	 */
 	
-	public void modifyMeal() {
+	public String modifyMeal() {
 		
 		// Primero instancia un objeto DietFoods y almacena los datos del formulario
 		if (readyToRecordMeal()) {
@@ -774,10 +751,11 @@ public class ProductoBean implements Serializable {
 			System.out.println("NO HA SIDO MODIFICADO: "+nameMeal);
 		}
 			
+		return "recalculos";
+		
 	} // END OF METHOD MODIFYMEAL
 	
-	
-	
+
 	
 	/**
 	 * Este metodo realiza el borrado de los datos de una comida mostrado en el formulario
@@ -785,7 +763,6 @@ public class ProductoBean implements Serializable {
 	
 	public String deleteMeal() {
 		
-		System.out.println("LLEGADO AL BORRADO");
 		
 		// extracting long number
 		long ident=0;
