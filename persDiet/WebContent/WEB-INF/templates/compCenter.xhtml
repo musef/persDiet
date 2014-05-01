@@ -12,7 +12,9 @@
 	<div class="compCenter">
 		<div class="center1">
 			<h:form>
+			<h:outputScript library="js" name="calendar_es.js" />
 			<p:panelGrid columns="2">
+				
 				<p:calendar value="#{mainDiet.dateCalendar}" mode="inline" inmediate="true" locale="es" ></p:calendar>
 				<p:panelGrid columns="1" styleClass="panelCenter1">
 					<p:outputLabel value="Fecha de datos:"></p:outputLabel>
@@ -524,22 +526,10 @@
 		<div class="center3">
 			<p:panelGrid columns="2">
 			<h:form>
-				<p:commandButton value="Grabar datos" title="Pulse para grabar los datos del día" action="#{mainDiet.recordDay}" styleClass="buttonCenter" onclick="advG.show()"></p:commandButton>
-				<p:dialog widgetVar="advG" appendToBody="true" modal="true" header="Pulse para cerrar">
-						<h:outputText value="Operación realizada"></h:outputText>
-				</p:dialog>
-				<p:commandButton value="Borrar datos" title="Pulse para borrar los datos del día" action="#{mainDiet.deleteDay}" styleClass="buttonCenter" onclick="advB.show()"></p:commandButton>
-				<p:dialog widgetVar="advB" appendToBody="true" modal="true" header="Pulse para cerrar">
-						<h:outputText value="Borrados datos diarios"></h:outputText>
-				</p:dialog>
-			</h:form>
-				<p:commandButton value="Actualizar datos" onclick="advA.show()" title="Pulse para actualizar estadísticas y listas" styleClass="buttonCenter"  ></p:commandButton>
-				<p:dialog widgetVar="advA" appendToBody="true" modal="false" header="Pulse para actualizar">
-						<h:form>
-						<p:commandButton value="Aceptar" type="submit" action="#{mainDiet.updateInfo}" onclick="advA.hide()"></p:commandButton>
-						</h:form>
-				</p:dialog> 
-						
+				<p:commandButton value="Grabar datos" title="Pulse para grabar los datos del día" action="#{mainDiet.recordDay}" styleClass="buttonCenter" onclick="javascript:return confirm('¿Desea grabar nuevos datos diarios?');"></p:commandButton>
+				<p:commandButton value="Borrar datos" title="Pulse para borrar los datos del día" action="#{mainDiet.deleteDay}" styleClass="buttonCenter" onclick="javascript:return confirm('¿Desea eliminar los grabados datos del día?');"></p:commandButton>		
+				<p:commandButton value="Actualizar datos" title="Pulse para actualizar estadísticas y listas" action="#{mainDiet.updateInfo}" styleClass="buttonCenter"  ></p:commandButton>
+			</h:form>		
 			</p:panelGrid>
 		</div> 
 	</div>

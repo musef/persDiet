@@ -67,7 +67,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 			
 		} catch (Exception ex) {
 			if (transac.isActive()) {transac.rollback();};
-			System.err.println("Error 5.1 Error en el proceso de grabación en DDBB");
+			System.err.println("Error D.1.1 Error en el proceso de grabación en DDBB");
 			ex.printStackTrace();
 			return false;
 			
@@ -113,7 +113,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 		} catch (Exception ex) {
 		
 			if (tx.isActive()) {tx.rollback();};
-			System.err.println("Error 5.2 Error en el proceso de borrado en DDBB");
+			System.err.println("Error D.1.2 Error en el proceso de borrado en DDBB");
 			ex.printStackTrace();
 			return false;			
 			
@@ -176,7 +176,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 		} catch (Exception ex) {
 		
 			if (tx.isActive()) {tx.rollback();}
-			System.err.println("Error 5.2 Error en el proceso de borrado en DDBB");
+			System.err.println("Error D.1.3 Error en el proceso de borrado en DDBB");
 			ex.printStackTrace();
 			return false;			
 			
@@ -240,7 +240,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 		} catch (Exception ex) {
 		
 			tx.rollback();
-			System.err.println("Error 5.3 Error en el proceso de modificación de DDBB");
+			System.err.println("Error D.1.4 Error en el proceso de modificación de DDBB");
 			ex.printStackTrace();
 			return false;			
 			
@@ -286,7 +286,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 			
 		} catch (Exception ex) {
 			
-			System.err.println("Error 5.4 Error en el proceso de lectura de DDBB");
+			System.err.println("Error D.1.5 Error en el proceso de lectura de DDBB");
 			ex.printStackTrace();
 			return null;
 			
@@ -354,7 +354,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 			listCal=(List<DietCalendar>)q.getResultList();
 			
 		} catch (Exception e) {
-			System.err.println("Error 5.5A Error en el proceso de búsqueda en DDBB");
+			System.err.println("Error D.1.6 Error en el proceso de búsqueda en DDBB");
 			e.printStackTrace();
 			return null;
 		} finally {
@@ -401,7 +401,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 		
 		// checking parameters
 		if (keyUser==null) {
-			System.err.println("Error 5.5B keyUser null");
+			System.err.println("Error D.1.7 keyUser null");
 			return null;
 		}	
 		if (keyUser.isEmpty()) {
@@ -413,7 +413,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 			d1=Date.valueOf(dateIni);
 			d2=Date.valueOf(dateFin);	
 		} catch (IllegalArgumentException ex) {
-			System.err.println("Error 5.5B Fechas no validas:"+dateIni+"//"+dateFin);
+			System.err.println("Error D.1.8 Fechas no validas:"+dateIni+"//"+dateFin);
 			return null;
 		}
 		
@@ -437,7 +437,7 @@ public class DietCalendarBean implements Serializable, DbOperations {
 			listCal=(List<DietCalendar>)q.getResultList();
 			
 		} catch (Exception e) {
-			System.err.println("Error 5.5B Error en el proceso de búsqueda en DDBB");
+			System.err.println("Error D.1.9 Error en el proceso de búsqueda en DDBB");
 			e.printStackTrace();
 			return null;
 		} finally {

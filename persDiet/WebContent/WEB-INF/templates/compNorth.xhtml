@@ -9,12 +9,18 @@
 	>
 
 <ui:composition >
+	<h:form>
 	<div class="titleNorth">
 		<h1><p:outputLabel value="The Personal Diet Project" style="text-align:center;"/></h1>
-		<p:panelGrid columns="2" styleClass="titleGridNorth">
+		<p:panelGrid columns="3" styleClass="titleGridNorth">
 			<p:outputLabel value="Usuario: #{north.nameUser}" styleClass="titleName"/>
-			<p:outputLabel value="#{north.today}" styleClass="titleDate"/> 
+			<p:outputLabel value="Hoy es #{north.today}" styleClass="titleDate"/>
+			<p:panelGrid columns="2">
+				<p:commandButton value="Salir" action="#{north.exit}" onclick="javascript:return confirm('¿Desea salir de la aplicación?');" title="Salir de la aplicación"></p:commandButton>
+				<p:commandButton value="Usuario" action="#{north.modifyUser}" title="Ir a los datos del usuario"></p:commandButton>
+			</p:panelGrid>
 		</p:panelGrid>
 	</div>	
+	</h:form>
 </ui:composition>
 </html>

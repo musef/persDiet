@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:p="http://primefaces.org/ui" > 
+		xmlns:h="http://java.sun.com/jsf/html" > 
 	<h:head>
 	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -22,7 +21,7 @@
 				<h2>Ha habido un error al identificarse...</h2> 
 				<h2>Pulse el botón para intentarlo de nuevo</h2>
 				
-				<h:commandButton value="Vuelva a intentarlo" action="#{identify.goToIndex}" >
+				<h:commandButton value="Vuelva a intentarlo" action="#{identify.goToIndex}" title="retorne a la página de inicio" >
 				</h:commandButton>
 				
 			</h:form>

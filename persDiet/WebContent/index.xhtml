@@ -3,11 +3,14 @@
 		xmlns:ui="http://java.sun.com/jsf/facelets"
 		xmlns:f="http://java.sun.com/jsf/core"
 		xmlns:h="http://java.sun.com/jsf/html"
-		xmlns:p="http://primefaces.org/ui">
+		>
 	<h:head>
 	
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link href="css/personalDiet.css" type="text/css" rel="stylesheet" />
+
+		<script src="resources/js/jsdiet.js" type="text/javascript" ></script>
+		<h:outputScript library="primefaces" name="jquery/jquery.js" />
 		
 		<title>Personal Diet 1.0</title>
 		
@@ -15,23 +18,23 @@
 	
 	<h:body class="general">
 		<div class="indexPanel" >
-			<h:form>
+			<h:form id="formIndex">
 				<h1>The Personal Diet Project</h1>
-				<h:panelGrid columns="2"  styleClass="panelId" >
-				
-					<p:outputLabel value="Introduzca login"></p:outputLabel>
-					<p:inputText size="15" value="#{identify.loginUser}" title="Introduzca entre 6 y 15 caracteres"></p:inputText>
-					<p:outputLabel value="Introduzca contraseña"></p:outputLabel>
-					<p:password size="15" value="#{identify.passUser}" title="Introduzca entre 6 y 15 caracteres"></p:password>
-					<p:outputLabel value=" "></p:outputLabel>
-					<p:outputLabel value=" "></p:outputLabel>						 
+				<h:panelGrid columns="2"  styleClass="panelId" >				
+					
+					<h:outputLabel value="Introduzca login"></h:outputLabel>
+					<h:inputText id="logIndex" value="#{identify.loginUser}" size="15" title="Introduzca entre 6 y 15 caracteres"></h:inputText>
+					<h:outputLabel value="Introduzca contraseña"></h:outputLabel>
+					<h:inputSecret  id="passIndex" value="#{identify.passUser}" size="15" title="Introduzca entre 6 y 15 caracteres"></h:inputSecret>
+					<h:outputLabel value=" "></h:outputLabel>
+					<h:outputLabel value=" "></h:outputLabel>						 
 				</h:panelGrid>
 				
 				<br></br>
 				
 				<h:panelGrid columns="2" styleClass="panelButton">
-					<p:commandButton id="entrar" type="submit" value="Entrar" action="#{identify.checkIdentification}" title="Pulse para identificarse"></p:commandButton>
-					<p:commandButton id="crear" type="submit" value="Alta" action="#{identify.newUser}" title="Pulse para crear un nuevo usuario"></p:commandButton>
+					<h:commandButton id="entrar" type="submit" value="Entrar" onclick="javascript:return revisaIndex();" action="#{identify.checkIdentification}" title="Pulse para identificarse"></h:commandButton>
+					<h:commandButton id="crear" type="submit" value="Alta" action="#{identify.newUser}" title="Pulse para crear un nuevo usuario"></h:commandButton>
 				</h:panelGrid>
 			</h:form>
 		</div>

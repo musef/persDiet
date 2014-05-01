@@ -26,14 +26,18 @@ public class IdentifyBean implements Serializable {
 	private final String pageBadLogin="badLogin";
 	private final String pageToCreate="newUser";
 	private final String pageIndex="index";
+	private final String returnMainPage="main";
 	
 	// user info
 	private static String keyUser;
 	private static String[] userData;
+	private String logUser;
+	private String pasUser;
 	private String name;
 	private float height;
 	private float weight;
 	private int age;
+	private int sexRec;
 	private String sex;
 	private float imc;
 	
@@ -68,7 +72,6 @@ public class IdentifyBean implements Serializable {
 	
 	
 	public String goToIndex() {
-		System.out.println("++"+pageIndex);
 		return pageIndex;
 	}
 	
@@ -104,44 +107,71 @@ public class IdentifyBean implements Serializable {
 		
 		if (userData==null) {
 			// bad identification
-			System.out.println("**"+pageBadLogin);
 			return pageBadLogin;
 		}
 		
 		// check user correct. Now we get the keyUser
 		keyUser=userData[1];
+		logUser=userData[2];
+		pasUser=userData[3];
 		name=userData[5];
 		weight=(float)Float.parseFloat(userData[6]);
 		height=(float)Float.parseFloat(userData[7]);
 		age=(int)Integer.parseInt(userData[8]);
-		imc=(float)((Math.round(weight*100)/100)*10000/height/height);
+		imc=(float)((Math.round(weight*1000000/height/height))/100);
 		// starting with active life style
 		lifeStyle=1;
 		
-		int sx=0;
+		sexRec=0;
 		try {
-			sx=(int)Integer.parseInt(userData[9]);
+			sexRec=(int)Integer.parseInt(userData[9]);
 		} catch (NumberFormatException nf) {
 			// do nothing
 		}
 		
-		if (sx==1) {
+		if (sexRec==1) {
 			sex="Masculino";
 		} else {
 			sex="Femenino";
 		}
 
 		// get targets
-		consum=getCalories(age, weight, sx, lifeStyle );
-		calcneed=getCalcium(age, sx);
-		ironneed=getIron(age, sx);
-		protneed=getProtein(age, weight, sx);
+		consum=getCalories(age, weight, sexRec, lifeStyle );
+		calcneed=getCalcium(age, sexRec);
+		ironneed=getIron(age, sexRec);
+		protneed=getProtein(age, weight, sexRec);
 		
 		// continues to main page
 		return pageToGo;
 				
 	} // end of method identification
 	
+	
+	
+	public String modifyUser() {
+		
+		CreationBean cB=new CreationBean();
+		cB.setName(name);
+		cB.setLogin(logUser);
+		cB.setPassword(pasUser);
+		cB.setWeight(weight);
+		cB.setHeight(height);
+		cB.setAge(age);
+		cB.setSex(sexRec);
+		
+		if (!cB.changeUser()) {
+			System.err.println("Error 4.1 Error al modificar el usuario");
+			return "userData.xhtml";
+		}
+		
+		// updating changes
+		loginUser=logUser;
+		passUser=pasUser;
+		checkIdentification();
+		
+		return returnMainPage;
+		
+	} // end of method modifyUser
 	
 	
 	/**
@@ -152,9 +182,6 @@ public class IdentifyBean implements Serializable {
 	
 	public String changeLifeStyle() {
 		
-		
-		System.out.println("CHANGE LIFESTYLE TO:"+lifeStyle);
-		
 		int sx=0;
 		try {
 			sx=(int)Integer.parseInt(userData[9]);
@@ -173,8 +200,7 @@ public class IdentifyBean implements Serializable {
 		calcneed=getCalcium(age, sx);
 		ironneed=getIron(age, sx);
 		protneed=getProtein(age, weight, sx);
-		
-		
+			
 		return "recalculos";
 		
 	} // end of method changeLifeStyle
@@ -338,6 +364,18 @@ public class IdentifyBean implements Serializable {
 	} // end of method getProtein
 
 	
+	/**
+	 * This method return back the navigation to main page.
+	 * 
+	 * @return - String, the page navigation
+	 */
+	
+	public String returnMain() {
+		
+		return returnMainPage;
+		
+	} // END OF METHOD RETURNBACK
+	
 	
 	// GETTERS AND SETTERS
 	public String goToPage() {
@@ -474,8 +512,41 @@ public class IdentifyBean implements Serializable {
 
 
 
+	public String getLogUser() {
+		return logUser;
+	}
 
 
-	
+
+	public void setLogUser(String logUser) {
+		this.logUser = logUser;
+	}
+
+
+
+	public String getPasUser() {
+		return pasUser;
+	}
+
+
+
+	public void setPasUser(String pasUser) {
+		this.pasUser = pasUser;
+	}
+
+
+
+	public int getSexRec() {
+		return sexRec;
+	}
+
+
+
+	public void setSexRec(int sexRec) {
+		this.sexRec = sexRec;
+	}
+
+
+
 
 } // *************** END OF CLASS

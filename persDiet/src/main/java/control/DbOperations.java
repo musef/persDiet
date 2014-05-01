@@ -2,6 +2,15 @@ package control;
 
 import java.util.List;
 
+/**
+ * interface to beans JPA.
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
+
 public interface DbOperations {
 	
 	public boolean record(Object obj);

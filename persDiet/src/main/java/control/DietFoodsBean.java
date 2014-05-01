@@ -70,7 +70,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 			
 		} catch (Exception ex) {
 			if (transac.isActive()) {transac.rollback();};
-			System.err.println("Error 1.1 Error en el proceso de grabación en DDBB");
+			System.err.println("Error D.2.1 Error en el proceso de grabación en DDBB");
 			ex.printStackTrace();
 			return false;
 			
@@ -116,7 +116,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 		} catch (Exception ex) {
 		
 			if (tx.isActive()) {tx.rollback();};
-			System.err.println("Error 1.2 Error en el proceso de borrado en DDBB");
+			System.err.println("Error D.2.2 Error en el proceso de borrado en DDBB");
 			ex.printStackTrace();
 			return false;			
 			
@@ -176,7 +176,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 		} catch (Exception ex) {
 		
 			tx.rollback();
-			System.err.println("Error 1.3 Error en el proceso de modificación de DDBB");
+			System.err.println("Error D.2.3 Error en el proceso de modificación de DDBB");
 			ex.printStackTrace();
 			return false;			
 			
@@ -223,7 +223,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 			
 		} catch (Exception ex) {
 			
-			System.err.println("Error 1.4 Error en el proceso de lectura de DDBB");
+			System.err.println("Error D.2.4 Error en el proceso de lectura de DDBB");
 			ex.printStackTrace();
 			return null;
 			
@@ -291,7 +291,7 @@ public class DietFoodsBean implements DbOperations, Serializable {
 			listFoods=(List<DietFoods>)q.getResultList();
 			
 		} catch (Exception e) {
-			System.err.println("Error 1.5 Error en el proceso de búsqueda en DDBB");
+			System.err.println("Error D.2.5 Error en el proceso de búsqueda en DDBB");
 			e.printStackTrace();
 			return null;
 		} finally {

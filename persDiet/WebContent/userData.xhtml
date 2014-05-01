@@ -20,33 +20,33 @@
 	
 	<h:body class="general">
 		
-			<h:form id="formNew">
+			<h:form id="formMod">
 				<h1>The Personal Diet Project</h1>
 				<div class="newPanel">
-				<h2>Creación de usuario</h2>
+				<h2>Datos del usuario #{identify.name}</h2>
 				<p:panelGrid id="panel" columns="2" styleClass="newGrid">
 					<p:outputLabel value="Login"></p:outputLabel>
-					<p:inputText id="idlog" type="text" value="#{creation.login}" title="entre 6-15 caracteres" size="35"></p:inputText>
+					<p:inputText id="idlog" type="text" value="#{identify.logUser}" title="entre 6-15 caracteres" size="35"></p:inputText>
 					<p:outputLabel value="Password" ></p:outputLabel>
-					<p:inputText id="idpas" type="text" value="#{creation.password}" title="entre 6-15 caracteres" size="35"></p:inputText>
+					<p:inputText id="idpas" type="text" value="#{identify.pasUser}" title="entre 6-15 caracteres" size="35"></p:inputText>
 					<p:outputLabel value="Nombre"></p:outputLabel>
-					<p:inputText id="idnam" type="text" value="#{creation.name}" title="entre 3-50 caracteres" size="35"></p:inputText>
+					<p:inputText id="idnam" type="text" value="#{identify.name}" title="entre 3-50 caracteres" size="35"></p:inputText>
 					<p:outputLabel value="Peso (kgs)"></p:outputLabel>
-					<p:inputText id="idwei" type="text" value="#{creation.weight}" title="entre 25-250 kgs" size="35"></p:inputText>
+					<p:inputText id="idwei" type="text" value="#{identify.weight}" title="entre 25-250 kgs" size="35"></p:inputText>
 					<p:outputLabel value="Altura (cms)"></p:outputLabel>
-					<p:inputText id="idhei" type="text" value="#{creation.height}" title="entre 50-250 cms" size="35"></p:inputText>
+					<p:inputText id="idhei" type="text" value="#{identify.height}" title="entre 50-250 cms" size="35"></p:inputText>
 					<p:outputLabel value="Edad (años)"></p:outputLabel>
-					<p:inputText id="idage" type="text" value="#{creation.age}" title="entre 16-100 años" size="35"></p:inputText>
+					<p:inputText id="idage" type="text" value="#{identify.age}" title="entre 16-100 años" size="35"></p:inputText>
 					<p:outputLabel value="Sexo"></p:outputLabel>
-					<p:selectOneMenu id="idsex" value="#{creation.sex}">
+					<p:selectOneMenu value="#{identify.sexRec}">
 						<f:selectItem itemLabel="Femenino" itemValue="2"></f:selectItem>
 						<f:selectItem itemLabel="Masculino" itemValue="1"></f:selectItem>
 					</p:selectOneMenu>																																		
 				</p:panelGrid>
 				<br />
 				<p:panelGrid id="panelBut" columns="2" styleClass="newButton">
-					<p:commandButton value="Creación" type="submit" action="#{creation.recordUser}" onclick="javascript:return revisaAlta();" title="Grabar nuevo usuario"></p:commandButton>
-					<p:commandButton  value="Volver" type="submit" action="#{creation.returnIndex}" title="Volver a pantalla de inicio"></p:commandButton> 
+					<p:commandButton value="Grabación" type="submit" action="#{identify.modifyUser}" onclick="javascript:return revisaModificacion();" title="Grabar las modificaciones" ></p:commandButton>
+					<p:commandButton  value="Volver" type="submit" action="#{identify.returnMain}" title="Volver a pantalla principal"></p:commandButton> 
 				</p:panelGrid>
 				<br />
 				</div>

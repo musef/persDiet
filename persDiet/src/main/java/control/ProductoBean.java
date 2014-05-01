@@ -101,11 +101,9 @@ public class ProductoBean implements Serializable {
 				lipid=n[6];
 				calcium=n[7];
 				iron=n[8];
-				System.out.println(id+"--"+name+"--"+cal);
 			}
 		}
 		
-		System.out.println(idMeal+"*/*/*/"+listMeals.size());
 		
 		return "recalculos";
 		
@@ -131,11 +129,10 @@ public class ProductoBean implements Serializable {
 				lipidMeal=n[7];
 				calciumMeal=n[8];
 				ironMeal=n[9];
-				System.out.println(idMeal+"--"+nameMeal+"--"+calMeal);
+				
 			}
 		}
 		
-		System.out.println(idMeal+"*/*/*/"+listMeals.size());
 		
 		return "recalculos";
 		
@@ -222,7 +219,6 @@ public class ProductoBean implements Serializable {
 			
 			// message
 			messageRecord="GRABACIÓN REALIZADA";
-			System.out.println("GRABACION REALIZADA: "+name);
 			
 			// cleaning the fields form
 			name=" ";
@@ -237,7 +233,7 @@ public class ProductoBean implements Serializable {
 		} else {
 			// message
 			messageRecord="ERROR EN GRABACIÓN";
-			System.out.println("NO HA SIDO GRABADO: "+name);
+			System.err.println("Error 3.1 NO HA SIDO GRABADO: "+name);
 		}
 		
 		return "recalculos";
@@ -393,7 +389,6 @@ public class ProductoBean implements Serializable {
 				
 				// message
 				messageRecord="MODIFICACIÓN REALIZADA";
-				System.out.println("MODIFICACIÓN REALIZADA: "+name);
 				
 				// cleaning the fields form
 				name=" ";
@@ -408,13 +403,13 @@ public class ProductoBean implements Serializable {
 			} else {
 				// message
 				messageRecord="ERROR: ID NO LOCALIZADA";
-				System.out.println("ERROR: ID NO LOCALIZADA, NO HA SIDO GRABADO: "+name);
+				System.err.println("Error 3.2: ID NO LOCALIZADA, NO HA SIDO GRABADO: "+name);
 			}
 	
 		} else {
 			// message
 			messageRecord="ERROR EN MODIFICACIÓN";
-			System.out.println("NO HA SIDO MODIFICADO: "+name);
+			System.err.println("Error 3.3 NO HA SIDO MODIFICADO: "+name);
 		}
 			
 	} // END OF METHOD MODIFYFOOD
@@ -444,7 +439,6 @@ public class ProductoBean implements Serializable {
 			
 			// message
 			messageRecord="BORRADO REALIZADO";
-			System.out.println("BORRADO REALIZADO: "+name);
 			
 			// cleaning the fields form
 			name=" ";
@@ -459,7 +453,7 @@ public class ProductoBean implements Serializable {
 		} else {
 			// message
 			setMessageDelete("ERROR EN BORRADO");
-			System.out.println("NO HA SIDO BORRADO: "+name);
+			System.err.println("Error 3.4 NO HA SIDO BORRADO: "+name);
 		}
 			
 	} // END OF METHOD DELETEFOOD
@@ -550,7 +544,6 @@ public class ProductoBean implements Serializable {
 			
 			// message
 			messageRecord="GRABACIÓN REALIZADA";
-			System.out.println("GRABACION REALIZADA: "+name);
 			
 			// cleaning the fields form
 			nameMeal=" ";
@@ -565,7 +558,7 @@ public class ProductoBean implements Serializable {
 		} else {
 			// message
 			messageRecord="ERROR EN GRABACIÓN";
-			System.out.println("NO HA SIDO GRABADO: "+name);
+			System.err.println("Error 3.5 NO HA SIDO GRABADO: "+name);
 		}
 		
 		return "recalculos";
@@ -582,9 +575,7 @@ public class ProductoBean implements Serializable {
 	
 	private boolean readyToRecordMeal() {
 		
-		System.out.println("AQUI LLEGAMOS");
 		if (keyUser==null || keyUser.isEmpty() || keyUser.length()>15) {
-			System.out.println("NO KEYUSER FOUND");
 			return false;
 		}
 		
@@ -649,7 +640,6 @@ public class ProductoBean implements Serializable {
 				ident=(long)Long.parseLong(idMeal);
 			} catch (NumberFormatException nf) {
 				// do nothing
-				System.out.println("**"+ident+"\\"+idMeal);
 				ident=0;
 			}
 			
@@ -727,7 +717,6 @@ public class ProductoBean implements Serializable {
 				
 				// message
 				messageRecord="MODIFICACIÓN REALIZADA";
-				System.out.println("MODIFICACIÓN REALIZADA: "+name);
 				
 				// cleaning the fields form
 				nameMeal=" ";
@@ -742,13 +731,13 @@ public class ProductoBean implements Serializable {
 			} else {
 				// message
 				messageRecord="ERROR: ID NO LOCALIZADA";
-				System.out.println("ERROR: ID NO LOCALIZADA, NO HA SIDO GRABADO: "+nameMeal);
+				System.err.println("Error 3.6: ID NO LOCALIZADA, NO HA SIDO GRABADO: "+nameMeal);
 			}
 	
 		} else {
 			// message
 			messageRecord="ERROR EN MODIFICACIÓN";
-			System.out.println("NO HA SIDO MODIFICADO: "+nameMeal);
+			System.err.println("Error 3.7 NO HA SIDO MODIFICADO: "+nameMeal);
 		}
 			
 		return "recalculos";
@@ -770,7 +759,6 @@ public class ProductoBean implements Serializable {
 			ident=(long)Long.parseLong(idMeal);
 		} catch (NumberFormatException nf) {
 			// do nothing
-			System.out.println("**"+ident+"//"+idMeal);
 		}
 		
 		// instantiating delete method in fBean
@@ -782,7 +770,6 @@ public class ProductoBean implements Serializable {
 			
 			// message
 			messageRecord="BORRADO REALIZADO";
-			System.out.println("BORRADO REALIZADO: "+name);
 			
 			// cleaning the fields form
 			nameMeal=" ";
@@ -797,7 +784,7 @@ public class ProductoBean implements Serializable {
 		} else {
 			// message
 			setMessageDelete("ERROR EN BORRADO");
-			System.out.println("NO HA SIDO BORRADO: "+name);
+			System.err.println("Error 3.8 NO HA SIDO BORRADO: "+name);
 		}
 			
 		return "recalculos";

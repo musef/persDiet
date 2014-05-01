@@ -12,9 +12,9 @@
 	
 	<div class="west1">
   		<p:tabView id="tabViewWest">
-			<p:tab title="Info">
+			<p:tab title="Info" titletip="Información personal">
 				<p:panelGrid columns="2" styleClass="tabWest">
-					<h:outputText value="Datos personales:" />
+					<h:outputText value="Datos personales:" style="font-weight:bold;"/>
 					<h:outputText value=" " />
 					<h:outputText value="Sexo:" />
 					<h:outputText value="#{identify.sex}" /> 
@@ -29,13 +29,13 @@
 				</p:panelGrid>	
 			</p:tab>
 			
-			<p:tab id="tabObj" title="Objetivos">	
+			<p:tab id="tabObj" title="Objetivos" titletip="Valores estimados por sus datos físicos">	
 				<h:form>
 				<p:panelGrid id="panelObj" columns="2" styleClass="tabWest">
-					<h:outputText value="Por su edad y sexo:" />
+					<h:outputText value="Por su edad y sexo:" style="font-weight:bold;"/>
 					<h:outputText value=" " />
 					<h:outputText value="Estilo de vida:" />
-					<p:selectOneMenu value="#{identify.lifeStyle}" style="width:100px;" >		
+					<p:selectOneMenu value="#{identify.lifeStyle}" style="width:90px;" >		
 						<f:selectItem itemLabel="Sedentario" itemValue="0"></f:selectItem>
 						<f:selectItem itemLabel="Activo" itemValue="1"></f:selectItem>
 						<f:selectItem itemLabel="Deportista" itemValue="2"></f:selectItem>
@@ -57,10 +57,7 @@
 	
 	<div class="west2">
 		<p:panelGrid id="panelDay" styleClass="westPanel" columns="3" >
-			<h:outputText value="Datos del día" />
-			<h:outputText value="" />
-			<h:outputText value="" />
-			<h:outputText value="" />
+			<h:outputText value="Datos del día" style="font-weight:bold;"/>
 			<h:outputText value="consumos" />
 			<h:outputText value="objetivo" />
 			<h:outputText value="Calorías:" />
@@ -75,10 +72,7 @@
 		</p:panelGrid>	
 		<br></br>
 		<p:panelGrid id="panelWeek" styleClass="westPanel" columns="3" >
-			<h:outputText value="Datos semana" />
-			<h:outputText value="" />
-			<h:outputText value="" />
-			<h:outputText value="" />
+			<h:outputText value="Datos semana" style="font-weight:bold;"/>
 			<h:outputText value="consumos" />
 			<h:outputText value="objetivo" />		
 			<h:outputText value="Calorías:" />
@@ -93,10 +87,7 @@
 		</p:panelGrid>	
 		<br></br>
 		<p:panelGrid id="panelMonth" styleClass="westPanel" columns="3" >
-			<h:outputText value="Datos del mes" />
-			<h:outputText value="" />
-			<h:outputText value="" />
-			<h:outputText value="" />
+			<h:outputText value="Datos del mes" style="font-weight:bold;"/>
 			<h:outputText value="consumos" />
 			<h:outputText value="objetivo" />		
 			<h:outputText value="Calorías:" />

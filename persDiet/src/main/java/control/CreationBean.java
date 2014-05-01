@@ -22,14 +22,14 @@ import model.DietUsers;
 @SessionScoped
 public class CreationBean {
 
-	// navigation pages
+	// navigation pages defined in faces-config.xml
 	private final String returnBack="inicio";
 	private final String stayHere="stay";
 	
 	private String login;
 	private String password;
 	private String name;
-	private int height;
+	private float height;
 	private float weight;
 	private int age;
 	private int sex;
@@ -55,8 +55,6 @@ public class CreationBean {
 	
 	public String recordUser() {
 		
-		System.out.println("llegado aqui**");
-		//FacesContext fc=FacesContext.getCurrentInstance();
 		DietUsersBean usBean=new DietUsersBean();
 		
 		if (checkForm()) {
@@ -80,30 +78,20 @@ public class CreationBean {
 			newUser.setPdata(persData);
 			
 			
-			if (usBean.record(newUser)) {
-				// record OK
-				//message.setDetail("Grabación efectuada correctamente");
-				System.out.println("Grabación OK");
-				
-			} else {
-				//message.setDetail("Error en grabación");
-				System.out.println("Grabación ERROR");
+			if (!usBean.record(newUser)) {
+				System.err.println("Error 1.1 en grabación al crear usuario");
 				return null;
 			}
 			
 		} else {
-			//message.setDetail("Error en el formulario");
-			System.out.println("wrong form");
+				// wrong form
 			return null;
 		}
-		
-		//fc.addMessage("result", message);
 		
 		// getting the user Data to static variables
 		IdentifyBean.setUserData(usBean.read(keyUser));
 		IdentifyBean.setKeyUser(keyUser);
 		
-		System.out.println("PREMIO**"+keyUser);
 		return stayHere;
 		
 	} // END OF METHOD RECORDUSER
@@ -120,8 +108,6 @@ public class CreationBean {
 	public boolean changeUser() {
 		
 		// all personal data will be changed except id and keyUser
-		
-		//FacesContext fc=FacesContext.getCurrentInstance();
 		
 		DietUsersBean usBean=new DietUsersBean();
 		
@@ -142,24 +128,16 @@ public class CreationBean {
 			newUser.setKeyuser(IdentifyBean.getKeyUser());
 			newUser.setPdata(persData);
 			
-			if (usBean.modify(IdentifyBean.getKeyUser(),newUser)) {
-				// record OK
-				//message.setDetail("Grabación efectuada correctamente");
-				System.out.println("Modificación OK");
-				
-			} else {
-				//message.setDetail("Error en grabación");
-				System.out.println("Modificación ERROR");
+			if (!usBean.modify(IdentifyBean.getKeyUser(),newUser)) {
+
+				System.err.println("Error 1.2 modificando el usuario");
 				return false;
 			}
 			
 		} else {
-			//message.setDetail("Error en el formulario");
-			System.out.println("wrong data form");
+			// wrong form
 			return false;
 		}
-		
-		//fc.addMessage("result", message);
 		
 		// getting the user Data to static variables
 		IdentifyBean.setUserData(usBean.read(keyUser));
@@ -255,6 +233,8 @@ public class CreationBean {
 	} // END OF METHOD RETURNBACK
 	
 	
+
+	
 	
 	// GETTERS AND SETTERS
 	
@@ -276,10 +256,10 @@ public class CreationBean {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getHeight() {
+	public float getHeight() {
 		return height;
 	}
-	public void setHeight(int height) {
+	public void setHeight(float height) {
 		this.height = height;
 	}
 	public float getWeight() {

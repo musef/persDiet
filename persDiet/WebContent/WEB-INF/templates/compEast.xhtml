@@ -9,9 +9,13 @@
 	xmlns:p="http://primefaces.org/ui">
 
 <ui:composition >
-	
+	<script type="text-javascript" >
+		function aviso () {
+			alert("QUE PASA AMIGOS");
+		}
+	</script>
 		<p:tabView>
-			<p:tab title="Productos">
+			<p:tab title="Productos" titletip="Alimentos de un solo componente">
 				
 				<h:form >
 					
@@ -52,13 +56,13 @@
 					</p:panelGrid>
 
 					<div class="eastButton">
-						<p:commandButton id="but2" value="Grabar producto" ajax="true" update="panelFood" action="#{producto.recordFood}" ></p:commandButton> 
+						<p:commandButton id="but2" value="Grabar producto" ajax="true" update="panelFood" action="#{producto.recordFood}" onclick="javascript:return confirm('¿Desea grabar este nuevo producto?');" ></p:commandButton> 
 					</div>						
 				</h:form>
 				
 			</p:tab>
 			
-			<p:tab title="Comidas">
+			<p:tab title="Platos" titletip="Confeccione sus propios platos elaborados">
 				<h:form >			
 					<p:panelGrid id="panelMeal" columns="2" >
 					
@@ -98,9 +102,9 @@
 					
 					<div class="eastButton">
 						
-						<p:commandButton type="submit" id="but12" value="Grabar" action="#{producto.recordMeal}" ></p:commandButton> 
-						<p:commandButton type="submit" id="but13" value="Modificar" action="#{producto.modifyMeal}" ></p:commandButton>
-						<p:commandButton type="submit" id="but14" value="Borrar" action="#{producto.deleteMeal}" ></p:commandButton>
+						<p:commandButton type="submit" id="but12" value="Grabar" action="#{producto.recordMeal}" onclick="javascript:return confirm('¿Desea grabar este nuevo plato?');"></p:commandButton> 
+						<p:commandButton type="submit" id="but13" value="Modificar" action="#{producto.modifyMeal}" onclick="javascript:return confirm('¿Confirma la modificación de este plato?');" ></p:commandButton>
+						<p:commandButton type="submit" id="but14" value="Borrar" action="#{producto.deleteMeal}" onclick="javascript:return confirm('¿Desea eliminar este plato?');"></p:commandButton>
 						
 					</div>
 				

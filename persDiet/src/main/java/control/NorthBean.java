@@ -40,6 +40,37 @@ public class NorthBean implements Serializable {
 		
 	}
 	
+	/**
+	 * This method stop the application, erasing surely data and connection,
+	 * and then going out to index page.
+	 * 
+	 * @return String to navigation
+	 */
+	
+	public String exit() {
+		
+		// erasing data user
+		IdentifyBean.setKeyUser(null);
+		IdentifyBean.setUserData(null);
+		// erasing connection
+		GetConnection.setEmf(null);
+		
+		return "index.xhtml";
+	}
+	
+	
+	
+	/**
+	 * This method is used to go to user modify page.
+	 * 
+	 * @return String to navigation
+	 */
+	
+	public String modifyUser() {
+		
+		return "moduser";
+	}
+	
 	
 	
 	// GETTERS AND SETTERS

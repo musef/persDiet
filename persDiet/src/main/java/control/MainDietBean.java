@@ -11,12 +11,18 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.event.ActionEvent;
 
 
 import model.DietCalendar;
 
-
+/**
+ * The java bean MAIN for the mainDiet.xhtml control.
+ * 
+ * @author musef
+ * 
+ * @version 1.0
+ * 
+ */
 
 
 @ManagedBean
@@ -653,17 +659,6 @@ public class MainDietBean implements Serializable {
 	
 	
 	
-	public void updatingInfo(ActionEvent event) {
-	
-		updateInfo();
-		
-		System.out.println("SUPUESTAMENTE UPDATADO");
-		
-		
-	} // end of method updatingInfo
-	
-	
-	
 	/**
 	 * This method updates the list of meals and products, and
 	 * gets statistics values.
@@ -741,12 +736,11 @@ public class MainDietBean implements Serializable {
 				
 			} else {
 				// any message
-				System.out.println ("FECHA ERRONEA");
+				System.err.println ("Error 2.1 FECHA ERRONEA");
 			}
 
 		} else {
 			// any message
-			System.out.println ("NADA QUE GRABAR");
 		}
 		
 		// finally, updates the statistics
@@ -848,7 +842,7 @@ public class MainDietBean implements Serializable {
 				// there are not data
 			}
 		} else {
-			System.err.println("Error en la fecha");
+			System.err.println("Error 2.2 Error en la fecha");
 		}
 
 		// rounding data to show
@@ -968,7 +962,7 @@ public class MainDietBean implements Serializable {
 				// there are not data
 			}
 		} else {
-			System.err.println("Error en la fecha");
+			System.err.println("Error 2.3 Error en la fecha");
 		}
 		
 		caloriasSemana=((double)(Math.round(caloriasSemana*100/num)))/100;
@@ -1089,7 +1083,7 @@ public class MainDietBean implements Serializable {
 				// there are not data
 			}
 		} else {
-			System.err.println("Error en la fecha");
+			System.err.println("Error 2.4 Error en la fecha");
 		}
 		
 		caloriasMes=((double)(Math.round(caloriasMes*100/num)))/100;
@@ -1313,7 +1307,7 @@ public class MainDietBean implements Serializable {
 			}
 			
 		} else {
-			System.err.println("Error en la fecha");
+			System.err.println("Error 2.5 Error en la fecha");
 		}
 			
 	} // end of method takeInfoDay
@@ -1334,12 +1328,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(1); // desayuno
 			data.setQtt(medida1);
 			data.setType(2);	// comida
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("COMIDA 1 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.6.1 error en grabacion");
 			}
 		}
 
@@ -1350,12 +1341,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(2); // tentempie
 			data.setQtt(medida2);
 			data.setType(2);	// comida
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("COMIDA 2 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.6.2 error en grabacion");
 			}
 		}
 
@@ -1367,12 +1355,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(3); // comida
 			data.setQtt(medida3);
 			data.setType(2);	// comida
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("COMIDA 3 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.6.3 error en grabacion");
 			}
 		}
 		
@@ -1383,12 +1368,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(4); // merienda
 			data.setQtt(medida4);
 			data.setType(2);	// comida
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("COMIDA 4 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.6.4 error en grabacion");
 			}
 		}
 		
@@ -1399,12 +1381,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(5); // cena
 			data.setQtt(medida5);
 			data.setType(2);	// comida
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("COMIDA 5 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.6.5 error en grabacion");
 			}
 		}
 		
@@ -1424,12 +1403,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(1); // desayuno
 			data.setQtt(medida11);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 11 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.1 error en grabacion");
 			}
 		}
 		if (foods12!=null && !(foods12.trim().isEmpty())) {
@@ -1439,12 +1415,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(1); // desayuno
 			data.setQtt(medida12);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 12 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.2 error en grabacion");
 			}
 		}
 		if (foods13!=null && !(foods13.trim().isEmpty())) {
@@ -1454,12 +1427,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(1); // desayuno
 			data.setQtt(medida13);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 13 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.3 error en grabacion");
 			}
 		}
 		
@@ -1471,12 +1441,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(2); // tentempie
 			data.setQtt(medida21);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 21 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.4 error en grabacion");
 			}
 		}
 		if (foods22!=null && !(foods22.trim().isEmpty())) {
@@ -1486,12 +1453,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(2); // tentempie
 			data.setQtt(medida22);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 22 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.5 error en grabacion");
 			}
 		}
 		if (foods23!=null && !(foods23.trim().isEmpty())) {
@@ -1501,12 +1465,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(2); // tentempie
 			data.setQtt(medida23);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 23 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.6 error en grabacion");
 			}
 		}
 		
@@ -1518,12 +1479,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(3); // comida
 			data.setQtt(medida31);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 31 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.7 error en grabacion");
 			}
 		}
 		if (foods32!=null && !(foods32.trim().isEmpty())) {
@@ -1533,12 +1491,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(3); // comida
 			data.setQtt(medida32);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 32 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.8 error en grabacion");
 			}
 		}
 		if (foods33!=null && !(foods33.trim().isEmpty())) {
@@ -1548,12 +1503,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(3); // comida
 			data.setQtt(medida33);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 33 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.9 error en grabacion");
 			}
 		}
 		
@@ -1565,12 +1517,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(4); // merienda
 			data.setQtt(medida41);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 41 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.10 error en grabacion");
 			}
 		}
 		if (foods42!=null && !(foods42.trim().isEmpty())) {
@@ -1580,12 +1529,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(4); // merienda
 			data.setQtt(medida42);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 42 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.11 error en grabacion");
 			}
 		}
 		if (foods43!=null && !(foods43.trim().isEmpty())) {
@@ -1595,12 +1541,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(4); // merienda
 			data.setQtt(medida43);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 43 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.12 error en grabacion");
 			}
 		}
 		
@@ -1612,12 +1555,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(5); // cena
 			data.setQtt(medida51);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 51 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.13 error en grabacion");
 			}
 		}
 		if (foods52!=null && !(foods52.trim().isEmpty())) {
@@ -1627,12 +1567,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(5); // cena
 			data.setQtt(medida52);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 52 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.14 error en grabacion");
 			}
 		}
 		if (foods53!=null && !(foods53.trim().isEmpty())) {
@@ -1642,12 +1579,9 @@ public class MainDietBean implements Serializable {
 			data.setMoment(5); // cena
 			data.setQtt(medida53);
 			data.setType(1);	// food
-			if (calend.record(data)) {
-				// grabacion OK
-				System.out.println ("FOOD 53 GRABADA");
-			} else {
-				// ERROR GRABANDO
-				System.out.println ("error en grabacion");
+			if (!calend.record(data)) {
+				// wrong record
+				System.err.println ("Error 2.7.15 error en grabacion");
 			}
 		}
 
@@ -1703,10 +1637,8 @@ public class MainDietBean implements Serializable {
 	private void eraseRecords(Date dateToErase, DietCalendarBean calendar) {
 		
 		// deleting
-		if (calendar.deleteDay(keyUser, dateToErase)) {
-			System.out.println("BORRADOS TODOS LOS DATOS DIARIOS");
-		} else {
-			System.err.println("Error en borrado de datos diarios");
+		if (!calendar.deleteDay(keyUser, dateToErase)) {
+			System.err.println("Error 2.8 Error en borrado de datos diarios");
 		}
 		
 	} // end of method eraseRecords
@@ -1758,9 +1690,6 @@ public class MainDietBean implements Serializable {
 		calcioDia=0;
 		hierroDia=0;
 		
-		// recalculating
-		//calcDish();
-		//calcFood();
 		
 	} // end of method clearForm
 	
@@ -1802,11 +1731,10 @@ public class MainDietBean implements Serializable {
 		try {
 			dateIni=dateToRet.parse(date);
 		} catch (ParseException ps) {
-			System.err.println("ERROR PARSEANDO FECHA");
+			System.err.println("Error 2.9 ERROR PARSEANDO FECHA");
 			return null;
 		}
 		
-
 		calendar.setTime(dateIni);
 		calendar.add(Calendar.DAY_OF_YEAR, -dif);
 

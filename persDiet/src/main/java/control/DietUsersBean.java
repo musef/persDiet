@@ -69,7 +69,7 @@ public class DietUsersBean implements Serializable, DbOperations {
 			tx.commit();
 		} catch (Exception ex) {
 			if (tx.isActive()) {tx.rollback();}
-			System.err.println("Error 4.1 Error en el proceso de grabación en DDBB");
+			System.err.println("Error D.4.1 Error en el proceso de grabación en DDBB");
 			ex.printStackTrace();
 			return false;
 		} finally {
@@ -113,7 +113,7 @@ public class DietUsersBean implements Serializable, DbOperations {
 		} catch (Exception ex) {
 		
 			if (tx.isActive()) {tx.rollback();};
-			System.err.println("Error 4.2 Error en el proceso de borrado en DDBB");
+			System.err.println("Error D.4.2 Error en el proceso de borrado en DDBB");
 			ex.printStackTrace();
 			return false;			
 			
@@ -196,11 +196,16 @@ public class DietUsersBean implements Serializable, DbOperations {
 		} catch (Exception ex) {
 		
 			if (tx.isActive()) {tx.rollback();};
-			System.err.println("Error 4.3 Error en el proceso de modificación de DDBB");
+			System.err.println("Error D.4.3 Error en el proceso de modificación de DDBB");
 			ex.printStackTrace();
 			return false;			
 			
 		} finally {
+			try {
+				em.flush();
+			} catch (Exception ex) {
+				// do nothing
+			}
 			em.close();
 		}
 		
@@ -294,7 +299,7 @@ public class DietUsersBean implements Serializable, DbOperations {
 		} catch (Exception ex) {
 		
 			if (tx.isActive()) {tx.rollback();};
-			System.err.println("Error 4.3B Error en el proceso de modificación de DDBB");
+			System.err.println("Error D.4.4 Error en el proceso de modificación de DDBB");
 			ex.printStackTrace();
 			return false;			
 			
@@ -340,7 +345,7 @@ public class DietUsersBean implements Serializable, DbOperations {
 			
 		} catch (Exception ex) {
 			
-			System.err.println("Error 4.4 Error en el proceso de lectura de DDBB");
+			System.err.println("Error D.4.5 Error en el proceso de lectura de DDBB");
 			ex.printStackTrace();
 			return null;
 			
@@ -407,7 +412,7 @@ public class DietUsersBean implements Serializable, DbOperations {
 			
 		} catch (Exception ex) {
 			
-			System.err.println("Error 4.5 Error en el proceso de lectura de DDBB");
+			System.err.println("Error D.4.6 Error en el proceso de lectura de DDBB");
 			ex.printStackTrace();
 			return null;
 			
@@ -483,12 +488,12 @@ public class DietUsersBean implements Serializable, DbOperations {
 		} catch (NoResultException nr) {
 			// identification fails
 			// do nothing
-			System.err.println("Bad identification: no existe en DDBB");
+			System.err.println("Error D.4.7 Bad identification: no existe en DDBB");
 			return null;
 			
 		} catch (Exception ex) {
 			
-			System.err.println("Error 4.6 Error en el proceso de lectura de DDBB");
+			System.err.println("Error D.4.8 Error en el proceso de lectura de DDBB");
 			ex.printStackTrace();
 			return null;
 			
@@ -569,7 +574,7 @@ public class DietUsersBean implements Serializable, DbOperations {
 			
 		} catch (Exception ex) {
 			
-			System.err.println("Error 4.7 Error en el proceso de check login en DDBB");
+			System.err.println("Error D.4.9 Error en el proceso de check login en DDBB");
 			ex.printStackTrace();
 			
 			return true;
@@ -599,4 +604,4 @@ public class DietUsersBean implements Serializable, DbOperations {
 		return null;
 	}
 
-}
+}  // ******** END OF CLASS
